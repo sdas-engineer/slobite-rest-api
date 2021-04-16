@@ -1,0 +1,162 @@
+{% load tawkto_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Report Bugs - Urbanshef</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
+    <meta name="keywords" content="Vegan Food in Glasgow" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <!-- Slider -->
+    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+    <!-- Main Css -->
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet"  id="color-opt" href="{% static 'css/colors/default.css' %}">
+    {% block script %}{% endblock %}
+  </head>
+
+  <body>
+      <!-- Navbar STart -->
+      <header id="topnav" class="defaultscroll sticky d-print-none">
+          <div class="container">
+              <!-- Logo container-->
+              <div>
+                  <a class="logo" href="/">
+                      <img src="{% static 'img/logo-dark.png' %}" height="24" alt="">
+                  </a>
+              </div>
+              <div class="buy-button">
+                {% if request.user.is_authenticated %}
+
+                <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+
+                {% else %}
+
+                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+
+                {% endif %}
+              </div><!--end login button-->
+              <!-- End Logo container-->
+              <div class="menu-extras">
+                  <div class="menu-item">
+                      <!-- Mobile menu toggle-->
+                      <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                          <div class="lines">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                          </div>
+                      </a>
+                      <!-- End mobile menu toggle-->
+                  </div>
+              </div>
+
+              <div id="navigation">
+                  <div class="buy-menu-btn d-none">
+                    {% if request.user.is_authenticated %}
+
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+
+                    {% else %}
+
+                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+
+                    {% endif %}
+                  </div><!--end login button-->
+              </div><!--end navigation-->
+          </div><!--end container-->
+      </header><!--end header-->
+      <!-- Navbar End -->
+
+      <div class="typeform-widget" data-url="https://form.typeform.com/to/HZ18LAno?typeform-medium=embed-snippet" style="width: 100%; height: 700px;"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
+
+      <!-- Footer Start -->
+      <footer class="footer">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+                      <a href="/" class="logo-footer">
+                          <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
+                      </a>
+                      <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                      <ul class="list-unstyled social-icon social mb-0 mt-4">
+                          <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                      </ul><!--end icon-->
+                  </div><!--end col-->
+
+                  <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Company</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
+                          <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
+                          <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+
+                      </ul>
+                  </div><!--end col-->
+
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Legal</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'terms' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Terms of Services</a></li>
+                          <li><a href="{% url 'privacy' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Privacy Policy</a></li>
+                          <li><a href="{% url 'report-bugs' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Report Bugs </a></li>
+                      </ul>
+                  </div><!--end col-->
+
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Download Apps</h5>
+                      <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                      <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon!</a>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </footer><!--end footer-->
+      <footer class="footer footer-bar">
+          <div class="container text-center">
+              <div class="row align-items-center">
+                  <div class="col-sm-6">
+                      <div class="text-sm-start">
+                          <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <ul class="list-unstyled text-sm-end mb-0">
+                          <li class="list-inline-item"><img src="{% static 'img/visa.png' %}"  class="avatar avatar-ex-sm" title="American Express" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/mastercard.png' %}"  class="avatar avatar-ex-sm" title="Master Card" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/amex.png' %}"  class="avatar avatar-ex-sm" title="Visa" alt=""></li>
+                      </ul>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </footer><!--end footer-->
+      <!-- Footer End -->
+
+      <!-- javascript -->
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <!-- Icons -->
+      <script src="{% static 'js/feather.min.js' %}"></script>
+      <!-- Main JS -->
+      <script src="{% static 'js/app.js' %}"></script>
+      <!-- JQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Sendgrid Subscribe -->
+      <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
+
+      {% tawkto_script %}
+
+  </body>
+</html>

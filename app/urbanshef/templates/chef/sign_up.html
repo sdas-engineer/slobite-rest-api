@@ -1,0 +1,86 @@
+{% extends 'base_signup.html' %}
+{% load bootstrap5 %}
+
+{% block title %} Become a chef - Urbanshef {% endblock %}
+{% block heading %}Become a chef{% endblock %}
+
+{% block content %}
+    <form method="POST" class="login-form mt-4">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">First name <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="user" class="fea icon-sm icons"></i>
+                        <input type="text" name="first_name" maxlength="150" class="form-control ps-5"
+                               placeholder="Elon" title="" required="" id="id_first_name">
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Last name <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="user-check" class="fea icon-sm icons"></i>
+                        <input type="text" name="last_name" maxlength="150" class="form-control ps-5"
+                               placeholder="Musk" title="" required="" id="id_last_name">
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Your Email <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="mail" class="fea icon-sm icons"></i>
+                        <input type="email" name="email" maxlength="100" class="form-control ps-5"
+                               placeholder="chefelon@email.com" title="" required="" id="id_email">
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Username <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="at-sign" class="fea icon-sm icons"></i>
+                        <input type="text" name="username" maxlength="150" class="form-control ps-5"
+                               placeholder="chefelon" required="" id="id_username">
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Password <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="key" class="fea icon-sm icons"></i>
+                        <input type="password" name="password" class="form-control ps-5" placeholder="Password" title=""
+                               required="" id="id_password">
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label" for="kithen_name">Kitchen Name <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <i data-feather="home" class="fea icon-sm icons"></i>
+                        <input type="text" name="kitchen_name" class="form-control ps-5" placeholder="Elon's Burritos" title=""
+                               required="" id="kithen_name">
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-md-12">
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </div><!--end col-->
+        </div>
+    </form>
+
+    <div class="col-12 text-center">
+        <p class="mb-0 mt-3"><small class="text-dark me-2">Already have an account?</small> <a
+                href="{% url 'chef-login' %}" class="text-dark fw-bold">Sign in</a></p>
+    </div>
+
+{% endblock %}

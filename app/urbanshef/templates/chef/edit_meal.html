@@ -1,0 +1,38 @@
+{% extends 'chef/base.html' %}
+{% block title %} Edit Meal - Urbanshef {% endblock %}
+{% load bootstrap5 %}
+
+{% block page %}
+<div class="col-lg-offset-3 col-lg-12">
+<div class="card">
+<div class="card-body">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Edit Meal</h1>
+
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_field form.name %}
+        {% bootstrap_field form.short_description %}
+        <div class="mb-3 is-valid">
+            <label class="form-label" for="id_image">Image</label>
+            <div class="custom-file">
+                <input type="file" name="image" class="is-valid custom-file-input" title="" id="id_image">
+                <label class="custom-file-label" for="id_image" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                {% if meal.image.url != '' %}
+                        <div>Current: <a href="{{ meal.image.url }}" target="_blank">{{ meal.image.url }}</a></div>
+                    {% endif %}
+            </div>
+        </div>
+        {% bootstrap_field form.price %}
+        {% bootstrap_field form.portion_size %}
+        {% bootstrap_field form.food_type %}
+        {% bootstrap_field form.allergen %}
+        {% bootstrap_field form.cuisine %}
+        {% bootstrap_field form.availability %}
+                    <button type="submit" class="btn btn-primary">Update Meal</button>
+                </form>
+</div>
+</div>
+</div>
+{% endblock %}

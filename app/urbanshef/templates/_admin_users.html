@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block page %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <div class="text-right">
+      <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'browse-user' %}?type=chef">Chef</a>
+            <a class="dropdown-item" href="{% url 'browse-user' %}?type=customer">Customer</a>
+            <a class="dropdown-item" href="{% url 'browse-user' %}?type=driver">Driver</a>
+          </div>
+        </div>
+  </div>
+  <br>
+  <br>
+  <div class="card shadow mb-4">
+        <div class="card-header">
+            <h3>{{ request.GET.type.title }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                          <td scope="row">{{ user.user.id }}</td>
+                          <td>{{user.user.get_full_name}}</td>
+                          <td>{{ user.phone }}</td>
+                          <td>{{ user.user.email }}</td>
+                          <td>{{ user.user.get_username }}</td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

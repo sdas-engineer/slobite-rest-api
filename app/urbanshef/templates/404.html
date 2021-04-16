@@ -1,0 +1,62 @@
+{% load tawkto_tags %}
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Oops! Page not found - Urbanshef</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
+        <meta name="keywords" content="Vegan Food in Glasgow" />
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- Icons -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+        <!-- Main Css -->
+        <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+        <link rel="stylesheet"  id="color-opt" href="{% static 'css/colors/default.css' %}">
+        {% block script %}{% endblock %}
+      </head>
+
+
+    <body>
+
+      <!-- ERROR PAGE -->
+
+      <section class="bg-home d-flex align-items-center">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-8 col-md-12 text-center">
+                      <img src="{% static 'img/404.png' %}" class="img-fluid" alt="">
+                      <div class="text-uppercase mt-4 display-3">Oh snap!</div>
+                      <div class="text-capitalize text-dark mb-4 error-page">The internet got confused</div>
+                  </div> <!--end col-->
+              </div> <!--end row-->
+
+              <div class="row">
+                  <div class="col-md-12 text-center">
+                      <a href="/" class="btn btn-primary mt-4 ms-2">Go To Home</a>
+                  </div> <!--end col-->
+              </div> <!--end row-->
+          </div> <!--end container-->
+      </section> <!--end section-->
+
+      <!-- ERROR PAGE -->
+
+        <!-- javascript -->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Icons -->
+        <script src="{% static 'js/feather.min.js' %}"></script>
+        <!-- Main JS -->
+        <script src="{% static 'js/app.js' %}"></script>
+
+        {% tawkto_script %}
+
+    </body>
+
+</html>

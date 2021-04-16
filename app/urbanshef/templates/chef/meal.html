@@ -1,0 +1,49 @@
+{% extends 'chef/base.html' %}
+{% block title %}My Meals - Urbanshef {% endblock %}
+{% block page %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <div class="text-right">
+      <a href="{% url 'chef-add-meal' %}" class="btn btn-primary">Add Meal</a>
+  </div>
+  <br>
+  <br>
+  <div class="card shadow mb-4">
+        <div class="panel-body">
+            <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Short Description</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                    <th class="text-left">Image</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for meal in meals %}
+                        <tr>
+                          <td scope="row">{{ meal.id }}</td>
+                          <td><a href="{% url 'chef-edit-meal' meal.id %}">{{ meal.name }}</a></td>
+                          <td>{{ meal.short_description }}</td>
+                          <td>£{{ meal.price }}.00</td>
+                          <td>{{ meal.availability }}</td>
+                          <td class="text-center"><img class="img-rounded"
+                              src="{{ MEDIA_URL }}{{ meal.image }}" width="50" height="50"></td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

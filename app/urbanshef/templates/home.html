@@ -1,0 +1,435 @@
+{% load tawkto_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Urbanshef - Homemade vegan food in Glasgow | Delivered</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
+    <meta name="keywords" content="Vegan Food in Glasgow" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <!-- Slider -->
+    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+    <!-- Main Css -->
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet"  id="color-opt" href="{% static 'css/colors/default.css' %}">
+    {% block script %}{% endblock %}
+  </head>
+
+  <body>
+      <!-- Navbar STart -->
+      <header id="topnav" class="defaultscroll sticky">
+          <div class="container">
+              <!-- Logo container-->
+              <div>
+                  <a class="logo" href="/">
+                      <img src="{% static 'img/logo-dark.png' %}" class="l-dark" height="24" alt="">
+                      <img src="{% static 'img/logo-light.png' %}"  class="l-light" height="24" alt="">
+                  </a>
+              </div>
+
+              <div class="buy-button">
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'chef-home' %}">
+
+                    <div class="btn btn-primary login-btn-primary">Chef Dashboard</div>
+                    <div class="btn btn-light login-btn-light">Chef Dashboard</div>
+
+                  </a>
+
+                {% else %}
+
+                <a href="{% url 'chef-login' %}">
+
+                      <div class="btn btn-primary login-btn-primary">Become a chef</div>
+                      <div class="btn btn-light login-btn-light">Become a chef </div>
+                  </a>
+                {% endif %}
+
+              </div><!--end login button-->
+              <!-- End Logo container-->
+              <div class="menu-extras">
+                  <div class="menu-item">
+                      <!-- Mobile menu toggle-->
+                      <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                          <div class="lines">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                          </div>
+                      </a>
+                      <!-- End mobile menu toggle-->
+                  </div>
+              </div>
+
+              <div id="navigation">
+                  <div class="buy-menu-btn d-none">
+                    {% if request.user.is_authenticated %}
+
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+
+                    {% else %}
+
+                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+
+                    {% endif %}
+
+                  </div><!--end login button-->
+              </div><!--end navigation-->
+          </div><!--end container-->
+      </header><!--end header-->
+      <!-- Navbar End -->
+
+      <!-- Hero Start -->
+      <section class="bg-half-260 pb-lg-0 pb-md-4 bg-primary d-table w-100">
+          <div class="bg-overlay bg-black" style="opacity: 0.8;"></div>
+          <div class="container">
+              <div class="row position-relative" style="z-index: 1;">
+                  <div class="col-md-7 col-12 mt-lg-5">
+                      <div class="title-heading">
+                          <h1 class="heading text-white title-dark mb-4">Homemade vegan food in Glasgow. Delivered.</h1>
+                          <p class="para-desc text-white-50">Download Urbanshef app to order delicious homemade vegan food prepared by certified local chefs from different cultures.</p>
+                          <div class="watch-video mt-4 pt-2">
+                            <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon!</a>
+                            <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-md-5 col-12 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                      <div class="shape-before">
+                          <div class="carousel-cell"><img src="{% static 'img/3.png' %}" class="img-fluid rounded-md" alt=""></div>
+                          <img src="{% static 'img/shape1.png' %}" class="img-fluid shape-img" alt="">
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </section><!--end section-->
+      <div class="position-relative">
+          <div class="shape overflow-hidden text-white">
+              <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M720 125L2160 0H2880V250H0V125H720Z" fill="currentColor"></path>
+              </svg>
+          </div>
+      </div>
+      <!-- Hero End -->
+      <!-- Section Start -->
+      <section class="section overflow-hidden">
+          <div class="container pb-5 mb-md-5">
+              <div class="row">
+                  <div class="col-md-4 col-12">
+                      <div class="features text-center">
+                          <div class="image position-relative d-inline-block">
+                              <i class="uil uil-restaurant h1 text-primary"></i>
+                          </div>
+
+                          <div class="content mt-4">
+                              <h5>Choose your chef</h5>
+                              <p class="text-muted mb-0">We bring authentic homemade cuisines from different cultures prepared by certified chefs</p>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-md-4 col-12 mt-5 mt-sm-0">
+                      <div class="features text-center">
+                          <div class="image position-relative d-inline-block">
+                              <i class="uil uil-pizza-slice h1 text-primary"></i>
+                          </div>
+
+                          <div class="content mt-4">
+                              <h5>Select your meals</h5>
+                              <p class="text-muted mb-0">Your favourite meals are prepared with love from fresh ingredients, secret spice mix and herbs</p>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-md-4 col-12 mt-5 mt-sm-0">
+                      <div class="features text-center">
+                          <div class="image position-relative d-inline-block">
+                              <i class="uil uil-parcel h1 text-primary"></i>
+                          </div>
+
+                          <div class="content mt-4">
+                              <h5>Get your delivery</h5>
+                              <p class="text-muted mb-0">We provide contact-free delivery at your doorsteps. Unpack, heat and enjoy!</p>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+
+          <div class="container mt-20 mt-60">
+              <div class="row">
+                  <div class="col-lg-6">
+                      <div class="section-title text-center text-lg-start">
+                          <h4 class="title mb-4">Loved by <span class="text-primary">1000+ </span>happy<br>vegans from Glasgow</h4>
+                          <p class="text-muted mb-0 mx-auto para-desc">We are a community of passion driven local chefs on a mission to bring wholesome homemade vegan food to your table at affordable price.</p>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-lg-6">
+                      <div class="row" id="counter">
+                          <div class="col-md-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
+                              <div class="content text-center">
+                                  <h1 class="mb-0"><span class="counter-value" data-target="1100">1</span>+</h1>
+                                  <ul class="list-unstyled mb-0 h5">
+                                      <li class="list-inline-item"><i class="uil uil-heart text-danger"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-heart text-danger"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-heart text-danger"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-heart text-danger"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-heart text-danger"></i></li>
+                                  </ul>
+                                  <h6>Happy Foodies</h6>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
+                              <div class="content text-center">
+                                  <h1 class="mb-0"><span class="counter-value" data-target="1402">1</span>+</h1>
+                                  <ul class="list-unstyled mb-0 h5">
+                                      <li class="list-inline-item"><i class="uil uil-pizza-slice text-warning"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-pizza-slice text-warning"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-pizza-slice text-warning"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-pizza-slice text-warning"></i></li>
+                                      <li class="list-inline-item"><i class="uil uil-pizza-slice text-warning"></i></li>
+                                  </ul>
+                                  <h6>Meals Served</h6>
+                              </div>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </section><!--end section-->
+      <!-- End -->
+      <!-- Start -->
+      <section>
+          <div class="container">
+              <div class="row align-items-center">
+                  <div class="col-lg-5 col-md-6">
+                        <img src="{% static 'img/2.png' %}" class="img-fluid rounded-md shadow-lg" alt="">
+                  </div><!--end col-->
+
+                  <div class="col-lg-7 col-md-6 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                      <div class="section-title text-md-start text-center">
+                          <h4 class="title mb-4">Share your passion for cooking with locals.</h4>
+                          <p class="text-muted mb-0 para-desc">Urbanshef provides chefs with a free platform and resources to start a vegan food business from the comfort of home kitchen.</p>
+                          <br>
+
+                          <div class="d-flex align-items-center text-start mt-4 pt-2">
+                              <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                  <i class="uil uil-fire"></i>
+                              </div>
+                              <div class="flex-1">
+                                  <p class="text-dark h6">Utilise your kitchen</p>
+                              </div>
+                          </div>
+
+                          <div class="d-flex align-items-center text-start mt-4">
+                              <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                  <i class="uil uil-pound"></i>
+                              </div>
+                              <div class="flex-1">
+                                  <p class="text-dark h6">Earn money on your terms</p>
+                              </div>
+                          </div>
+
+                          <div class="d-flex align-items-center text-start mt-4">
+                              <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                  <i class="uil uil-smile"></i>
+                              </div>
+                              <div class="flex-1">
+                                  <p class="text-dark h6">Follow your passion</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container--></section>
+
+          <section>
+          <div class="container mt-100 mt-60">
+              <div class="row align-items-center">
+                  <div class="col-lg-5 col-md-6 order-1 order-md-2">
+                      <div class="text-end">
+                          <img src="{% static 'img/1.png' %}"class="img-fluid rounded-md shadow-lg" alt="">
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-lg-7 col-md-6 order-2 order-md-1 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                      <div class="section-title text-md-start text-center">
+                          <h4 class="title mb-4">Our customers share their experience</h4>
+
+                          <div class="row justify-content-center">
+                              <div class="col-lg-12 mt-4">
+                                  <div class="tiny-single-item">
+                                      <div class="tiny-slide">
+                                          <div class="d-flex client-testi m-2">
+                                              <img src="{% static 'img/yasmin.jpg' %}" class="avatar avatar-small client-image rounded shadow" alt="">
+                                              <div class="flex-1 content p-3 shadow rounded bg-white position-relative">
+                                                  <ul class="list-unstyled mb-0">
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                  </ul>
+                                                  <p class="text-muted mt-2">"Just when I started to miss the street food of my home town, Urbanshef came to the rescue. Highly recommended."</p>
+                                                  <h6 class="text-primary">- Yasmin P.</h6>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="tiny-slide">
+                                          <div class="d-flex client-testi m-2">
+                                              <img src="{% static 'img/barb.jpeg' %}" class="avatar avatar-small client-image rounded shadow" alt="">
+                                              <div class="flex-1 content p-3 shadow rounded bg-white position-relative">
+                                                  <ul class="list-unstyled mb-0">
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                  </ul>
+                                                  <p class="text-muted mt-2">"Eating out in the city has become more exciting and adventorous. Thanks to Urbanshef and the amazing chefs from around the world."</p>
+                                                  <h6 class="text-primary">- Louise M.</h6>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="tiny-slide">
+                                          <div class="d-flex client-testi m-2">
+                                              <img src="{% static 'img/abhi.png' %}" class="avatar avatar-small client-image rounded shadow" alt="">
+                                              <div class="flex-1 content p-3 shadow rounded bg-white position-relative">
+                                                  <ul class="list-unstyled mb-0">
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                      <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                  </ul>
+                                                  <p class="text-muted mt-2">"The delicious home cooked vegan khichdi reminded me of my grand ma's recipe. I'm happy that we have Urbanshef in our city."</p>
+                                                  <h6 class="text-primary">- Abhishek D.</h6>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div><!--end col-->
+                          </div><!--end row-->
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container--></section>
+
+          <section class ="section">
+          <div class="container mt-100 mt-60">
+              <div class="row justify-content-center">
+                  <div class="col-12 text-center">
+                      <div class="section-title">
+                          <h4 class="title mb-4">Explore new cultures and support local chefs</h4>
+                          <p class="text-muted para-desc mx-auto mb-0">Our community is passionate about wholesome homemade vegan food and cultural inclusivity. Try Urbanshef today and support the local economy.</p>
+
+                          <div class="mt-4">
+                              <a href="{% url 'chef-sign-up' %}" class="btn btn-primary mt-2 me-2">Become a chef</a>
+                              <a href="{% url 'food-safety' %}" class="btn btn-outline-primary mt-2">Food Safety</a>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </section><!--end section-->
+      <!-- End -->
+
+      <!-- Footer Start -->
+      <footer class="footer">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+                      <a href="/" class="logo-footer">
+                          <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
+                      </a>
+                      <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                      <ul class="list-unstyled social-icon social mb-0 mt-4">
+                          <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                      </ul><!--end icon-->
+                  </div><!--end col-->
+
+                  <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Company</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
+                          <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
+                          <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+
+                      </ul>
+                  </div><!--end col-->
+
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Legal</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'terms' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Terms of Services</a></li>
+                          <li><a href="{% url 'privacy' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Privacy Policy</a></li>
+                          <li><a href="{% url 'report-bugs' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Report Bugs </a></li>
+                      </ul>
+                  </div><!--end col-->
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Download Apps</h5>
+                        <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                        <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon!</a>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </footer><!--end top footer-->
+      <footer class="footer footer-bar">
+          <div class="container text-center">
+              <div class="row align-items-center">
+                  <div class="col-sm-6">
+                      <div class="text-sm-start">
+                          <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                      </div>
+                  </div><!--end col-->
+
+                  <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <ul class="list-unstyled text-sm-end mb-0">
+                          <li class="list-inline-item"><img src="{% static 'img/visa.png' %}"  class="avatar avatar-ex-sm" title="American Express" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/mastercard.png' %}"  class="avatar avatar-ex-sm" title="Master Card" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/amex.png' %}"  class="avatar avatar-ex-sm" title="Visa" alt=""></li>
+                      </ul>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </footer><!--end footer-->
+      <!-- Footer End -->
+
+      <!-- javascript -->
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <!-- Icons -->
+      <script src="{% static 'js/feather.min.js' %}"></script>
+      <!-- Main JS -->
+      <script src="{% static 'js/app.js' %}"></script>
+      <!-- SLIDER -->
+      <script src="{% static 'js/tiny-slider.js' %}"></script>
+      <script src="{% static 'js/tiny-slider-init.js ' %}"></script>
+      <!-- counter -->
+      <script src="{% static 'js/counter.init.js' %}"></script>
+      <!-- JQuery -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Sendgrid Subscribe -->
+      <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
+
+      {% tawkto_script %}
+
+  </body>
+</html>

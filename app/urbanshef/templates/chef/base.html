@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %} Chef Dashboard - Urbanshef {% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            var now = new Date();
+            setInterval(function() {
+                $.ajax({
+                    url: '/api/chef/order/notification/' + now.toISOString() + '/',
+                    method: 'GET',
+                    success: function(data) {
+                        if (data['notification'] === 0) {
+                            $('.badge').text('');
+                        } else {
+                            $('.badge').text(data['notification']);
+                        }
+                    }
+                })
+            }, 3000)
+        })
+
+    </script>
+{% endblock %}
+
+{% block sidebar %}
+
+    {% url 'chef-order' as chef_order_url %}
+    {% url 'chef-meal' as chef_meal_url %}
+    {% url 'chef-report' as chef_report_url %}
+    {% url 'chef-account' as chef_account_url %}
+    {% url 'chef-review' as chef_review_url %}
+
+    <!-- <div class="text-center">
+      <img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.chef.picture }}"
+          width="70" height="70" />
+      <br/>
+      <br/>
+      <h4>Hi, {{ request.user.get_full_name }}</h4>
+      <h5>{{ request.user.chef.name }}</h5>
+    </div> -->
+
+    <!-- Page Wrapper -->
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'chef-home' %}">
+          <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-leaf"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">DASHBOARD</div>
+      </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+          <li class="nav-item">
+          <a href="{% url 'home' %}"
+          class="nav-link ">
+          <i class="fas fa-fw fa-home"></i>
+          <span>Home</span>
+          </a>
+          </li>
+
+          <li class="nav-item">
+          <a href="{% url 'chef-order' %}"
+          class="nav-link ">
+          <i class="fas fa-fw fa-shopping-bag"></i>
+          <span>Orders</span>
+          </a>
+          </li>
+
+          <li class="nav-item">
+          <a href="{% url 'chef-meal' %}"
+          class="nav-link">
+          <i class="fas fa-fw fa-bookmark"></i>
+          <span>Meals</span>
+          </a>
+          </li>
+
+          <li class="nav-item">
+          <a href="{% url 'chef-report' %}"
+          class="nav-link">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Reports</span>
+          </a>
+          </li>
+
+          <li class="nav-item">
+          <a href="{% url 'chef-account' %}"
+          class="nav-link">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Account</span>
+          </a>
+          </li>
+          <li class="nav-item">
+          <a href="{% url 'chef-review' %}"
+          class="nav-link">
+          <i class="fas fa-fw fa-star"></i>
+          <span>Review</span>
+          </a>
+          </li>
+          <li class="nav-item">
+          <a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank"
+          class="nav-link">
+          <i class="fas fa-fw fa-book"></i>
+          <span>Resources</span>
+          </a>
+          </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+              <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+
+          <!-- Sidebar Message -->
+          <div class="sidebar-card">
+              <p class="text-center mb-2"><strong>Looking for support?</strong></p>
+              <a class="btn btn-success btn-sm" href="mailto:chef@urbanshef.com">Contact</a>
+          </div>
+
+      </ul>
+      <!-- End of Sidebar -->
+
+
+{% endblock %}

@@ -1,0 +1,500 @@
+{% load tawkto_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Privacy Policy - Urbanshef</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
+    <meta name="keywords" content="Vegan Food in Glasgow" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Icons -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <!-- Slider -->
+    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+    <!-- Main Css -->
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet"  id="color-opt" href="{% static 'css/colors/default.css' %}">
+    {% block script %}{% endblock %}
+  </head>
+
+  <body>
+      <!-- Navbar STart -->
+      <header id="topnav" class="defaultscroll sticky d-print-none">
+          <div class="container">
+              <!-- Logo container-->
+              <div>
+                  <a class="logo" href="/">
+                      <img src="{% static 'img/logo-dark.png' %}" height="24" alt="">
+                  </a>
+              </div>
+              <div class="buy-button">
+                {% if request.user.is_authenticated %}
+
+                <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+
+                {% else %}
+
+                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+
+                {% endif %}
+              </div><!--end login button-->
+              <!-- End Logo container-->
+              <div class="menu-extras">
+                  <div class="menu-item">
+                      <!-- Mobile menu toggle-->
+                      <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                          <div class="lines">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                          </div>
+                      </a>
+                      <!-- End mobile menu toggle-->
+                  </div>
+              </div>
+
+              <div id="navigation">
+                  <div class="buy-menu-btn d-none">
+                    {% if request.user.is_authenticated %}
+
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+
+                    {% else %}
+
+                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+
+                    {% endif %}
+                  </div><!--end login button-->
+              </div><!--end navigation-->
+          </div><!--end container-->
+      </header><!--end header-->
+      <!-- Navbar End -->
+      <!-- Hero Start -->
+
+      <section class="bg-half bg-light d-table w-100 d-print-none">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-12 text-center">
+                      <div class="page-next-level">
+                          <h4 class="title"> Privacy Policy </h4>
+                          <ul class="list-unstyled mt-4">
+                              <li class="list-inline-item h6 date text-muted"> <span class="text-dark">Last Revised :</span> 23th March, 2021</li>
+                          </ul>
+                          <div class="page-next">
+                              <nav aria-label="breadcrumb" class="d-inline-block">
+                                  <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                      <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                      <li class="breadcrumb-item active" aria-current="page">Privacy</li>
+                                  </ul>
+                              </nav>
+                          </div>
+                      </div>
+                  </div>  <!--end col-->
+              </div><!--end row-->
+          </div> <!--end container-->
+      </section><!--end section-->
+      <!-- Hero End -->
+
+      <!-- Shape Start -->
+      <div class="position-relative">
+          <div class="shape overflow-hidden text-white">
+              <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+              </svg>
+          </div>
+      </div>
+      <!--Shape End-->
+
+      <!-- Start Privacy -->
+      <section class="section">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-lg-9">
+                      <div class="card shadow rounded border-0">
+                          <div class="card-body">
+
+                            <ol>
+                              <li><strong><u>Introduction</u></strong></li>
+                            </ol>
+                            <p><u></u>Welcome to&nbsp;<strong>URBANSHEF LTD</strong>.</p>
+                            <p>URBANSHEF LTD&nbsp;(&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates&nbsp;https://www.urbanshef.com and Urbanshef mobile application&nbsp;(hereinafter referred to as &ldquo;<strong>Service</strong>&rdquo;).</p>
+                            <p>Our Privacy Policy governs your visit to&nbsp;https://www.urbanshef.com and Urbanshef mobile application, and explains how we collect, safeguard and disclose information that results from your use of our Service.&nbsp;We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
+                            <p>Our Terms and Conditions (&ldquo;<strong>Terms</strong>&rdquo;) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (&ldquo;<strong>agreement</strong>&rdquo;).</p>
+                            <p>&nbsp;</p>
+                            <ol start="2">
+                              <li><strong><u>Definitions</u></strong></li>
+                            </ol>
+                            <p><u></u><strong>SERVICE&nbsp;</strong>means the&nbsp;https://www.urbanshef.com website and Urbanshef mobile application&nbsp;operated by&nbsp;URBANSHEF LTD.</p>
+                            <p><strong>PERSONAL DATA</strong>&nbsp;means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</p>
+                            <p><strong>USAGE DATA</strong>&nbsp;is data collected automatically either generated by the use of Service or from Service infrastructure itself (for example, the duration of a page visit).</p>
+                            <p><strong>COOKIES</strong>&nbsp;are small files stored on your device (computer or mobile device).</p>
+                            <p><strong>DATA CONTROLLER</strong>&nbsp;means a natural or legal person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal data are, or are to be, processed. For the purpose of this Privacy Policy, we are a Data Controller of your data.</p>
+                            <p><strong>DATA PROCESSORS (OR SERVICE PROVIDERS)</strong>&nbsp;means any natural or legal person who processes the data on behalf of the Data Controller. We may use the services of various Service Providers in order to process your data more effectively.</p>
+                            <p><strong>DATA SUBJECT&nbsp;</strong>is any living individual who is the subject of Personal Data.</p>
+                            <p><strong>THE USER&nbsp;</strong>is the individual using our Service. The User corresponds to the Data Subject, who is the subject of Personal Data.</p>
+                            <p>&nbsp;</p>
+                            <ol start="3">
+                              <li><strong><u>Information Collection and Use</u></strong></li>
+                            </ol>
+                            <p><u></u>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+                            <br>
+                            <ol start="4">
+                              <li><strong><u>Types of Data Collected</u></strong></li>
+                            </ol>
+                            <p><strong>Personal Data</strong></p>
+                            <p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you (&ldquo;<strong>Personal Data</strong>&rdquo;). Personally identifiable information may include, but is not limited to:</p>
+                            <ul>
+                              <li>Email address</li>
+                            </ul>
+                            <ul>
+                              <li>First name and last name</li>
+                            </ul>
+                            <ul>
+                              <li>Phone number</li>
+                            </ul>
+                            <ul>
+                              <li>Address, State, Province, ZIP/Postal code, City</li>
+                            </ul>
+                            <ul>
+                              <li>Cookies and Usage Data</li>
+                            </ul>
+                            <p>We may use your Personal Data to contact you with newsletters, marketing or promotional materials and other information that may be of interest to you. You may opt out of receiving any, or all, of these communications from us&nbsp;by following the unsubscribe link.</p>
+                            <p>&nbsp;</p>
+                            <p><strong>Usage Data</strong></p>
+                            <p>We may also collect information that your browser sends whenever you visit our Service or when you access Service by or through a mobile device (&ldquo;<strong>Usage Data</strong>&rdquo;).</p>
+                            <p>This Usage Data may include information such as your computer's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
+                            <p>When you access Service with a mobile device, this Usage Data may include information such as the type of mobile device you use, your mobile device unique ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browser you use, unique device identifiers and other diagnostic data.</p>
+                            <p><strong>Location Data</strong></p>
+                            <p>We may use and store information about your location if you give us permission to do so (&ldquo;<strong>Location Data</strong>&rdquo;). We use this data to provide features of our Service, to improve and customize our Service.</p>
+                            <p>You can enable or disable location services when you use our Service at any time by way of your device settings.</p>
+                            <p><strong>Tracking Cookies Data</strong></p>
+                            <p>We use cookies and similar tracking technologies to track the activity on our Service and we hold certain information.</p>
+                            <p>Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device. Other tracking technologies are also used such as beacons, tags and scripts to collect and track information and to improve and analyze our Service.</p>
+                            <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+                            <p>Examples of Cookies we use:</p>
+                            <ul>
+                              <li><strong>Session Cookies:</strong>We use Session Cookies to operate our Service.</li>
+                            </ul>
+                            <ul>
+                              <li><strong>Preference Cookies:</strong>We use Preference Cookies to remember your preferences and various settings.</li>
+                            </ul>
+                            <ul>
+                              <li><strong>Security Cookies:</strong>We use Security Cookies for security purposes.</li>
+                            </ul>
+                            <ul>
+                              <li><strong>Advertising Cookies:</strong>Advertising Cookies are used to serve you with advertisements that may be relevant to you and your interests.</li>
+                            </ul>
+                            <p>&nbsp;</p>
+                            <ol start="5">
+                              <li><strong><u>Use of Data</u></strong></li>
+                            </ol>
+                            <p>URBANSHEF LTD&nbsp;uses the collected data for various purposes:</p>
+                            <p>&nbsp;</p>
+                            <ul>
+                              <li>to provide and maintain our Service;</li>
+                            </ul>
+                            <ul>
+                              <li>to notify you about changes to our Service;</li>
+                            </ul>
+                            <ul>
+                              <li>to allow you to participate in interactive features of our Service when you choose to do so;</li>
+                            </ul>
+                            <ul>
+                              <li>to provide customer support;</li>
+                            </ul>
+                            <ul>
+                              <li>to gather analysis or valuable information so that we can improve our Service;</li>
+                            </ul>
+                            <ul>
+                              <li>to monitor the usage of our Service;</li>
+                            </ul>
+                            <ul>
+                              <li>to detect, prevent and address technical issues;</li>
+                            </ul>
+                            <ul>
+                              <li>to fulfill any other purpose for which you provide it;</li>
+                            </ul>
+                            <ul>
+                              <li>to carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including for billing and collection;</li>
+                            </ul>
+                            <ul>
+                              <li>to provide you with notices about your account and/or subscription, including expiration and renewal notices, email-instructions, etc.;</li>
+                            </ul>
+                            <ul>
+                              <li>to provide you with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless you have opted not to receive such information;</li>
+                            </ul>
+                            <ul>
+                              <li>in any other way we may describe when you provide the information;</li>
+                            </ul>
+                            <ul>
+                              <li>for any other purpose with your consent.</li>
+                            </ul>
+                            <p>&nbsp;</p>
+                            <ol start="6">
+                              <li><strong><u>Retention of Data</u></strong></li>
+                            </ol>
+                            <p><u></u>We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
+                            <p>We will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for longer time periods.</p>
+                            <p>&nbsp;</p>
+                            <ol start="7">
+                              <li><strong><u>Transfer of Data</u></strong></li>
+                            </ol>
+                            <p><u></u>Your information, including Personal Data, may be transferred to &ndash; and maintained on &ndash; computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ from those of your jurisdiction.</p>
+                            <p>If you are located outside United States and choose to provide information to us, please note that we transfer the data, including Personal Data, to United States and process it there.</p>
+                            <p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
+                            <p>URBANSHEF LTD&nbsp;will take all the steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organisation or a country unless there are adequate controls in place including the security of your data and other personal information.</p>
+                            <p>&nbsp;</p>
+                            <ol start="8">
+                              <li><strong><u>Disclosure of Data</u></strong></li>
+                            </ol>
+                            <p><u></u>We may disclose personal information that we collect, or you provide:</p>
+                            <ul>
+                              <li><strong>Disclosure for Law Enforcement.</strong></li>
+                            </ul>
+                            <p>Under certain circumstances, we may be required to disclose your Personal Data if required to do so by law or in response to valid requests by public authorities.</p>
+                            <ul>
+                              <li><strong>Business Transaction.</strong></li>
+                            </ul>
+                            <p>If we or our subsidiaries are involved in a merger, acquisition or asset sale, your Personal Data may be transferred.</p>
+                            <ul>
+                              <li><strong>Other cases. We may disclose your information also:</strong></li>
+                            </ul>
+                            <ul>
+                              <li>to our subsidiaries and affiliates;</li>
+                            </ul>
+                            <ul>
+                              <li>to contractors, service providers, and other third parties we use to support our business;</li>
+                            </ul>
+                            <ul>
+                              <li>to fulfill the purpose for which you provide it;</li>
+                            </ul>
+                            <ul>
+                              <li>for the purpose of including your company&rsquo;s logo on our website;</li>
+                            </ul>
+                            <ul>
+                              <li>for any other purpose disclosed by us when you provide the information;</li>
+                            </ul>
+                            <ul>
+                              <li>with your consent in any other cases;</li>
+                            </ul>
+                            <ul>
+                              <li>if we believe disclosure is necessary or appropriate to protect the rights, property, or safety of the Company, our customers, or others.</li>
+                            </ul>
+                            <p>&nbsp;</p>
+                            <ol start="9">
+                              <li><strong><u>Security of Data</u></strong></li>
+                            </ol>
+                            <p><u></u>The security of your data is important to us but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.<br /><br /></p>
+                            <ol start="10">
+                              <li><strong><u>Your Data Protection Rights Under General Data Protection Regulation (GDPR)</u></strong></li>
+                            </ol>
+                            <p><u></u>If you are a resident of the European Union (EU) and European Economic Area (EEA), you have certain data protection rights, covered by GDPR. &ndash; See more at https://eur-lex.europa.eu/eli/reg/2016/679/oj</p>
+                            <p>We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.</p>
+                            <p>If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please email us at info@urbanshef.com.</p>
+                            <p>In certain circumstances, you have the following data protection rights:</p>
+                            <p>&nbsp;</p>
+                            <ul>
+                              <li>the right to access, update or to delete the information we have on you;</li>
+                            </ul>
+                            <ul>
+                              <li>the right of rectification. You have the right to have your information rectified if that information is inaccurate or incomplete;</li>
+                            </ul>
+                            <ul>
+                              <li>the right to object. You have the right to object to our processing of your Personal Data;</li>
+                            </ul>
+                            <ul>
+                              <li>the right of restriction. You have the right to request that we restrict the processing of your personal information;</li>
+                            </ul>
+                            <ul>
+                              <li>the right to data portability. You have the right to be provided with a copy of your Personal Data in a structured, machine-readable and commonly used format;</li>
+                            </ul>
+                            <ul>
+                              <li>the right to withdraw consent.&nbsp;You also have the right to withdraw your consent at any time where we rely on your consent to process your personal information;</li>
+                            </ul>
+                            <p>&nbsp;</p>
+                            <p>Please note that we may ask you to verify your identity before responding to such requests. Please note, we may not able to provide Service without some necessary data.</p>
+                            <p>You have the right to complain to a Data Protection Authority about our collection and use of your Personal Data. For more information, please contact your local data protection authority in the European Economic Area (EEA).</p>
+                            <p>&nbsp;</p>
+                            <ol start="11">
+                              <li><strong><u>Service Providers</u></strong></li>
+                            </ol>
+                            <p><u></u>We may employ third party companies and individuals to facilitate our Service (&ldquo;<strong>Service Providers</strong>&rdquo;), provide Service on our behalf, perform Service-related services or assist us in analysing how our Service is used.</p>
+                            <p>These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+                            <p>&nbsp;</p>
+                            <ol start="12">
+                              <li><strong><u>Analytics</u></strong></li>
+                            </ol>
+                            <p><u></u>We may use third-party Service Providers to monitor and analyze the use of our Service.</p>
+                            <p><strong>Google Analytics</strong></p>
+                            <p>Google Analytics is a web analytics service offered by Google that tracks and reports website traffic. Google uses the data collected to track and monitor the use of our Service. This data is shared with other Google services. Google may use the collected data to contextualise and personalise the ads of its own advertising network.</p>
+                            <p>For more information on the privacy practices of Google, please visit the Google Privacy Terms web page: https://policies.google.com/privacy?hl=en</p>
+                            <p>We also encourage you to review the Google's policy for safeguarding your data: https://support.google.com/analytics/answer/6004245.</p>
+                            <p>&nbsp;</p>
+                            <ol start="13">
+                              <li><strong><u>CI/CD tools</u></strong></li>
+                            </ol>
+                            <p>We may use third-party Service Providers to automate the development process of our Service.</p>
+                            <p><strong>GitHub</strong></p>
+                            <p>GitHub is provided by GitHub, Inc.</p>
+                            <p>GitHub is a development platform to host and review code, manage projects, and build software.</p>
+                            <p>For more information on what data GitHub collects for what purpose and how the protection of the data is ensured, please visit GitHub Privacy Policy page: <a href="https://help.github.com/en/articles/github-privacy-statement">https://help.github.com/en/articles/github-privacy-statement.</a></p>
+                            <p><strong>Travis CI</strong></p>
+                            <p>Travis CI is a distributed continuous integration service to build and test projects hosted at GitHub.</p>
+                            <p>For more information on what data Travis CI collects for what purpose and how the protection of the data is ensured, please visit Travis CI Privacy Policy page: https://docs.travis-ci.com/legal/privacy-policy.</p>
+                            <p><strong>&nbsp;</strong></p>
+                            <ol start="14">
+                              <li><strong><u>Behavioral Remarketing</u></strong></li>
+                            </ol>
+                            <p><u></u>URBANSHEF LTD&nbsp;uses remarketing services to advertise on third party websites to you after you visited our Service. We and our third-party vendors use cookies to inform, optimise and serve ads based on your past visits to our Service.</p>
+                            <p><strong>Google Ads (AdWords)</strong></p>
+                            <p>Google Ads (AdWords) remarketing service is provided by Google Inc.</p>
+                            <p>You can opt-out of Google Analytics for Display Advertising and customize the Google Display Network ads by visiting the Google Ads Settings page: http://www.google.com/settings/ads</p>
+                            <p>Google also recommends installing the Google Analytics Opt-out Browser Add-on &ndash; https://tools.google.com/dlpage/gaoptout &ndash; for your web browser. Google Analytics Opt-out Browser Add-on provides visitors with the ability to prevent their data from being collected and used by Google Analytics.</p>
+                            <p>For more information on the privacy practices of Google, please visit the Google Privacy Terms web page: https://policies.google.com/privacy?hl=en</p>
+                            <p><strong>Bing Ads Remarketing</strong></p>
+                            <p>Bing Ads remarketing service is provided by Microsoft Inc.</p>
+                            <p>You can opt-out of Bing Ads interest-based ads by following their instructions: https://advertise.bingads.microsoft.com/en-us/resources/policies/personalized-ads</p>
+                            <p>You can learn more about the privacy practices and policies of Microsoft by visiting their Privacy Policy page: https://privacy.microsoft.com/en-us/PrivacyStatement</p>
+                            <p><strong>Twitter</strong></p>
+                            <p>Twitter remarketing service is provided by Twitter Inc.</p>
+                            <p>You can opt-out from Twitter's interest-based ads by following their instructions: https://support.twitter.com/articles/20170405</p>
+                            <p>You can learn more about the privacy practices and policies of Twitter by visiting their Privacy Policy page: https://twitter.com/privacy</p>
+                            <p><strong>Facebook</strong></p>
+                            <p>Facebook remarketing service is provided by Facebook Inc.</p>
+                            <p>You can learn more about interest-based advertising from Facebook by visiting this page: https://www.facebook.com/help/164968693837950</p>
+                            <p>To opt-out from Facebook's interest-based ads, follow these instructions from Facebook: https://www.facebook.com/help/568137493302217</p>
+                            <p>Facebook adheres to the Self-Regulatory Principles for Online Behavioural Advertising established by the Digital Advertising Alliance. You can also opt-out from Facebook and other participating companies through the Digital Advertising Alliance in the USA http://www.aboutads.info/choices/, the Digital Advertising Alliance of Canada in Canada http://youradchoices.ca/ or the European Interactive Digital Advertising Alliance in Europe http://www.youronlinechoices.eu/, or opt-out using your mobile device settings.</p>
+                            <p>For more information on the privacy practices of Facebook, please visit Facebook's Data Policy: https://www.facebook.com/privacy/explanation</p>
+                            <p>&nbsp;</p>
+                            <ol start="15">
+                              <li><strong><u>Payments</u></strong></li>
+                            </ol>
+                            <p><u></u>We may provide paid products and/or services within Service. In that case, we use third-party services for payment processing (e.g. payment processors).</p>
+                            <p>We will not store or collect your payment card details. That information is provided directly to our third-party payment processors whose use of your personal information is governed by their Privacy Policy. These payment processors adhere to the standards set by PCI-DSS as managed by the PCI Security Standards Council, which is a joint effort of brands like Visa, Mastercard, American Express and Discover. PCI-DSS requirements help ensure the secure handling of payment information.</p>
+                            <p>The payment processors we work with are:</p>
+                            <p><strong>Stripe:&nbsp;</strong>Their Privacy Policy can be viewed at: https://stripe.com/us/privacy</p>
+                            <p>&nbsp;</p>
+                            <ol start="16">
+                              <li><strong><u>Links to Other Sites</u></strong></li>
+                            </ol>
+                            <p><u></u>Our Service may contain links to other sites that are not operated by us. If you click a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.</p>
+                            <p><u></u>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
+                            <p>&nbsp;</p>
+                            <ol start="17">
+                              <li><strong><u>Children's Privacy</u></strong></li>
+                            </ol>
+                            <p>Our Services are not intended for use by children under the age of 13 (&ldquo;<strong>Children</strong>&rdquo;).</p>
+                            <p>We do not knowingly collect personally identifiable information from Children under 13. If you become aware that a Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from Children without verification of parental consent, we take steps to remove that information from our servers.</p>
+                            <p>&nbsp;</p>
+                            <ol start="18">
+                              <li><strong><u>Changes to This Privacy Policy</u></strong></li>
+                            </ol>
+                            <p><u></u>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                            <p><u></u>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update &ldquo;effective date&rdquo; at the top of this Privacy Policy.</p>
+                            <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                            <p>&nbsp;</p>
+                            <ol start="19">
+                              <li><strong><u>Contact Us</u></strong></li>
+                            </ol>
+                            <p><u></u>If you have any questions about this Privacy Policy, please contact us:</p>
+                            <p>By email: info@urbanshef.com.</p>
+                            <p>&nbsp;</p>
+
+                              <a href="javascript:window.print()" class="btn btn-soft-primary d-print-none">Print</a>
+                          </div>
+                      </div>
+                  </div><!--end col-->
+              </div><!--end row-->
+          </div><!--end container-->
+      </section><!--end section-->
+      <!-- End Privacy -->
+
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+                            <a href="/" class="logo-footer">
+                                <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
+                            </a>
+                            <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                            <ul class="list-unstyled social-icon social mb-0 mt-4">
+                                <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                            </ul><!--end icon-->
+                        </div><!--end col-->
+
+                        <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <h5 class="text-light footer-head">Company</h5>
+                            <ul class="list-unstyled footer-list mt-4">
+                                <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
+                                <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+
+                            </ul>
+                        </div><!--end col-->
+
+                        <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <h5 class="text-light footer-head">Legal</h5>
+                            <ul class="list-unstyled footer-list mt-4">
+                                <li><a href="{% url 'terms' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Terms of Services</a></li>
+                                <li><a href="{% url 'privacy' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Privacy Policy</a></li>
+                                <li><a href="{% url 'report-bugs' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Report Bugs </a></li>
+                            </ul>
+                        </div><!--end col-->
+
+                        <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <h5 class="text-light footer-head">Download Apps</h5>
+                            <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                            <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon!</a>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </footer><!--end footer-->
+            <footer class="footer footer-bar">
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="text-sm-start">
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <ul class="list-unstyled text-sm-end mb-0">
+                                <li class="list-inline-item"><img src="{% static 'img/visa.png' %}"  class="avatar avatar-ex-sm" title="American Express" alt=""></li>
+                                <li class="list-inline-item"><img src="{% static 'img/mastercard.png' %}"  class="avatar avatar-ex-sm" title="Master Card" alt=""></li>
+                                <li class="list-inline-item"><img src="{% static 'img/amex.png' %}"  class="avatar avatar-ex-sm" title="Visa" alt=""></li>
+                            </ul>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </footer><!--end footer-->
+            <!-- Footer End -->
+
+            <!-- javascript -->
+            <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+            <!-- Icons -->
+            <script src="{% static 'js/feather.min.js' %}"></script>
+            <!-- Main JS -->
+            <script src="{% static 'js/app.js' %}"></script>
+            <!-- JQuery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <!-- Sendgrid Subscribe -->
+            <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
+
+            {% tawkto_script %}
+
+        </body>
+</html>

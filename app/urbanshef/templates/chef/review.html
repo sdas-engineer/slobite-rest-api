@@ -1,0 +1,54 @@
+{% extends 'chef/base.html' %}
+{% block title %}My Review - Urbanshef {% endblock %}
+{% block page %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+ <h1 class="h3 mb-2 text-gray-800">Review</h1>
+  <div class="card shadow mb-4">
+        <div class="panel-body">
+            <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Rating</th>
+                    <th>Review Text</th>
+                    <th>Reply</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                        <tr>
+                          <td scope="row">{{ review.id }}</td>
+                          <td>{{review.order.id}}</td>
+                          <td>{{ review.customer.user.get_full_name }}</td>
+                          <td>{% for star in starList %}
+                              {% if star <= review.rating %}
+                              <i class="fa fa-star"></i>
+                                  {% else %}
+                                  <i class="far fa-star"></i>
+                              {% endif %}
+                          {% endfor %}
+                          </td>
+                          <td>{{review.review_text}}</td>
+                          <td>{% if review.reply != '' %}
+                              {{review.reply}}
+                              {% else %}
+                              <a class="btn btn-primary" href="{% url 'chef-reply-review' review.id %}">Add reply</a>
+                          {% endif %} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

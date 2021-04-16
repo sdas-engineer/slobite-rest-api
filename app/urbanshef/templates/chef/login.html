@@ -1,0 +1,57 @@
+  {% extends 'base_login.html' %}
+  {% load bootstrap5 %}
+
+  {% block title %}Sign in - Urbanshef {% endblock %}
+  {% block heading %}Sign in - Chef Account{% endblock %}
+
+  {% block content %}
+  {% if form.errors %}
+  <div class="col-12 text-center">
+      <p class="mb-0 mt-3"><small class="text-dark me-2">Your username, email or password is incorrect</small></p>
+  </div>
+  {% endif %}
+
+      <form method="POST" class="login-form mt-4">
+      {% csrf_token %}
+      <div class="col-lg-12">
+          <div class="mb-3">
+              <label class="form-label">Username <span class="text-danger">*</span></label>
+              <div class="form-icon position-relative">
+                  <i data-feather="user" class="fea icon-sm icons"></i>
+                  <input type="text" class="form-control ps-5" placeholder="chefelon" name="username" required="">
+              </div>
+          </div>
+      </div> <!--end col-->
+      <div class="col-lg-12">
+          <div class="mb-3">
+              <label class="form-label">Password <span class="text-danger">*</span></label>
+              <div class="form-icon position-relative">
+                  <i data-feather="key" class="fea icon-sm icons"></i>
+                  <input type="password" class="form-control ps-5" placeholder="Password" required="" name="password">
+              </div>
+          </div>
+      </div><!--end col-->
+      <div class="mx-auto">
+          <div class="d-flex justify-content-between">
+              <div class="mb-3">
+                  <div class="mx-auto">
+                    <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">Remember me</label> -->
+                    <p class="forgot-pass mb-0"><a href="{% url 'reset_password' %}" class="text-dark fw-bold">Forgot password ?</a></p>
+                </div>
+            </div>
+
+        </div>
+      </div><!--end col-->
+
+      <div class="col-lg-12 mb-0">
+          <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Sign in</button>
+          </div>
+      </div><!--end col-->
+      </form>
+      <div class="col-12 text-center">
+          <p class="mb-0 mt-3"><small class="text-dark me-2">Love cooking?</small><a href="{% url 'chef-sign-up' %}" class="text-dark fw-bold">Become a chef</a></p>
+      </div><!--end col-->
+
+    {% endblock %}

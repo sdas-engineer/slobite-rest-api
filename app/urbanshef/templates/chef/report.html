@@ -1,0 +1,162 @@
+{% extends 'chef/base.html' %}
+{% block title %} Reports - Urbanshef {% endblock %}
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+{% endblock %}
+
+{% block page %}
+
+<div class="container-fluid">
+  <h1 class="h3 mb-2 text-gray-800">Reports</h1>
+
+    <!-- Content Row -->
+    <div class="row">
+
+      <div class="col-xl-8 col-lg-7">
+
+            <!-- Revenue by Week -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Revenue Chart</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                              <canvas id="revenueChart" height="130"></canvas>
+                            </div>
+                            <hr>
+                    <script>
+                        var ctx = document.getElementById("revenueChart").getContext("2d");
+                        var data = {
+                            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                            datasets: [
+                                {
+                                    label: "Weekly Sales",
+                                    backgroundColor: "rgba(54,162,235,0.9)",
+                                    hoverBackgroundColor: "rgba(54,162,235,1)",
+                                    data: {{ revenue }}
+                                }
+                            ]
+                        };
+
+                        new Chart(ctx, {
+                          type: 'bar',
+                          data: data
+                        });
+
+                    </script>
+                  </div>
+                  </div>
+
+            <!-- Orders by Week -->
+            <!-- Revenue by Week -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order Chart</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                              <canvas id="orderChart" height="130"></canvas>
+                            </div>
+                            <hr>
+                    <script>
+                        var ctx = document.getElementById("orderChart").getContext("2d");
+                        var data = {
+                            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                            datasets: [
+                                {
+                                    label: "Weekly Order",
+                                    backgroundColor: "rgba(255,99,132,0.9)",
+                                    hoverBackgroundColor: "rgba(255,99,132,1)",
+                                    data: {{ orders }}
+                                }
+                            ]
+                        };
+
+                        new Chart(ctx, {
+                          type: 'bar',
+                          data: data
+                        });
+                        </script>
+                      </div>
+                  </div>
+
+              </div>
+
+
+          <!-- TOP 3 Meals -->
+          <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Top 3 Meals</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                      <div class="chart-pie pt-4">
+                        <canvas id="mealChart" height="242"></canvas>
+                      </div>
+                      <hr>
+                  <script>
+                      var ctx = document.getElementById("mealChart").getContext("2d");
+                      var data = {
+                          labels: {{ meal.labels|safe }},
+                          datasets: [
+                              {
+                                  backgroundColor: [
+                                    "#36A2EB", "#FFCE56", "#FF6384"
+                                  ],
+                                  data: {{ meal.data }}
+                              }
+                          ]
+                      };
+
+                      new Chart(ctx, {
+                        type: 'pie',
+                        data: data
+                      });
+
+                  </script>
+                </div>
+            </div>
+
+
+          <!-- TOP 3 Driver ALL TIME -->
+
+              <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Top 3 Drivers</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                      <div class="chart-pie pt-4">
+                  <canvas id="driverChart" height="242"></canvas>
+                </div>
+                <hr>
+                  <script>
+                      var ctx = document.getElementById("driverChart").getContext("2d");
+                      var data = {
+                          labels: {{ driver.labels|safe }},
+                          datasets: [
+                              {
+                                  backgroundColor: [
+                                    "#36A2EB", "#FFCE56", "#FF6384"
+                                  ],
+                                  data: {{ driver.data }}
+                              }
+                          ]
+                      };
+
+                      new Chart(ctx, {
+                        type: 'pie',
+                        data: data
+                      });
+
+                  </script>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

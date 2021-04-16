@@ -1,0 +1,109 @@
+{% extends 'chef/base.html' %}
+{% block page %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">Orders</h1>
+      <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">{{ request.user.chef.name }}</h6>
+          </div>
+          <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Driver</th>
+                    <th>Total</th>
+                    <th>Order Details</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td scope="row">#UBSHEF-{{ order.id }}</td>
+                            <td>{{ order.customer }}</td>
+                            <td>{{ order.phone }}</td>
+                            <td>{{ order.driver }}</td>
+                            <td>£{{ order.total }}.00</td>
+                            <td>
+                              <!-- Button trigger modal -->
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Order Details
+                              </button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLongTitle">#UBSHEF-{{ order.id }} : {{ order.chef }}</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body" id="print-content">
+                                        <p><strong>URBANSHEF.COM</strong></p>
+                                        <p><b>Chef</b> : {{ request.user.chef.name }}</p>
+                                        <p><b>Customer</b> : {{ order.customer }}</p>
+                                        <p><b>Phone</b> : {{ order.phone }}</p>
+                                        <p><b>Address</b> : {{ order.customer_flat_number }}, {{ order.customer_street_address }}</p>
+                                        {% for od in order.order_details.all %}
+                                        <table style="width: 100%;">
+                                          <tbody>
+                                            <tr>
+                                              <td style="width: 33.3333%;">{{ od.meal.name }}</td>
+                                              <td style="width: 33.3333%;">£{{ od.meal.price }}.00 x {{ od.quantity }}</td>
+                                              <td style="width: 33.3333%;">£{{ od.sub_total }}.00</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                        {% endfor %}
+                                        <br>
+                                        <p>If you have any troubles with your order, kindly reach out to your chef directly at <strong> {{ request.user.chef.phone }}</strong> or visit our website to get support.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary" onclick="printDiv('print-content')" value="print a div!">Print Delivery Info</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>{{ order.get_status_display }}</td>
+                            <td>
+                                {% if order.status == 1 %}
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                      <input name="id" value="{{ order.id }}" hidden>
+                                      <button class="btn btn-success">Ready</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        w=window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+    }
+</script>
+
+{% endblock %}
