@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: .
+    volumes:
+      - static_data:/backend/staticfiles
+      - media_file:/backend/mediafiles
+    env_file: # if .env in root, we have to show .env here must
+      - ./.env
+
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - static_data:/backend/staticfiles
+      - media_file:/backend/mediafiles
+    ports:
+      - "80:80"
+    env_file: # if .env in root, we have to show .env here must
+      - ./.env
+    depends_on:
+      - backend
+  # db:
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+volumes:
+  static_data:
+  media_file:
