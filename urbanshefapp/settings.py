@@ -155,6 +155,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/vol/web/media'
 STATIC_ROOT = '/vol/web/static'
 
+MEDIA_ROOT = 'mediafiles'
+STATIC_ROOT = 'staticfiles'
+
 # STATIC_ROOT = os.path.join(BASE_DIR, 'urbanshef/static')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'urbanshef/static/media')
 

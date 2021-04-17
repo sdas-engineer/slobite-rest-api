@@ -140,3 +140,5 @@ override.tf.json
 .atom
 
 .manage.py.icloud
+staticfiles
+mediafiles
