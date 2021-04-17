@@ -160,23 +160,18 @@ STATIC_ROOT = '/vol/web/static'
 
 LOGIN_REDIRECT_URL = '/chef/'
 
-import dj_database_url
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 AUTHENTICATION_BACKENDS = (
-
     'social_core.backends.facebook.FacebookOAuth2',
     'drf_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 # Facebook configuration
-SOCIAL_AUTH_FACEBOOK_KEY = env.str('SOCIAL_AUTH_FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = env.str('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = env.str('SOCIAL_AUTH_FACEBOOK_KEY', '')
+SOCIAL_AUTH_FACEBOOK_SECRET = env.str('SOCIAL_AUTH_FACEBOOK_SECRET', '')
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
 # Email is not sent by default, to get it, you must request the email permission.
@@ -197,12 +192,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-STRIPE_PUBLISHABLE_KEY = env.str('STRIPE_PUBLISHABLE_KEY')
-STRIPE_CONNECT_CLIENT_ID = env.str('STRIPE_CONNECT_CLIENT_ID')
-STRIPE_API_KEY = env.str('STRIPE_API_KEY')
+STRIPE_PUBLISHABLE_KEY = env.str('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_CONNECT_CLIENT_ID = env.str('STRIPE_CONNECT_CLIENT_ID', '')
+STRIPE_API_KEY = env.str('STRIPE_API_KEY', '')
 
 # Sendgrid information
-SENDGRID_API_KEY = env.str('SENDGRID_API_KEY')
+SENDGRID_API_KEY = env.str('SENDGRID_API_KEY', '')
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
@@ -213,16 +208,16 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = 'Urbanshef Team <no-reply@urbanshef.com>'
 
 # Twilio account information to send notification of order to chefs
-TWILIO_ACCOUNT_SID = env.str('TWILIO_ACCOUNT_SID')
-TWILIO_AUTH_TOKEN = env.str('TWILIO_AUTH_TOKEN')
-TWILIO_NUMBER = env.str('TWILIO_NUMBER')
+TWILIO_ACCOUNT_SID = env.str('TWILIO_ACCOUNT_SID', '')
+TWILIO_AUTH_TOKEN = env.str('TWILIO_AUTH_TOKEN', '')
+TWILIO_NUMBER = env.str('TWILIO_NUMBER', '')
 
 # Google map information
-PLACES_MAPS_API_KEY = env.str('PLACES_MAPS_API_KEY')
+PLACES_MAPS_API_KEY = env.str('PLACES_MAPS_API_KEY', '')
 PLACES_MAP_WIDGET_HEIGHT = 480
 PLACES_MAP_OPTIONS = '{"center": { "lat": 38.971584, "lng": -95.235072 }, "zoom": 10}'
 PLACES_MARKER_OPTIONS = '{"draggable": true}'
 
-TAWKTO_ID_SITE = env.str('TAWKTO_ID_SITE')
-TAWKTO_IS_SECURE = env.bool('TAWKTO_IS_SECURE')
-TAWKTO_API_KEY = env.str('TAWKTO_API_KEY')
+TAWKTO_ID_SITE = env.str('TAWKTO_ID_SITE', '')
+TAWKTO_IS_SECURE = env.bool('TAWKTO_IS_SECURE', '')
+TAWKTO_API_KEY = env.str('TAWKTO_API_KEY', '')
