@@ -3,12 +3,12 @@ deployment:
   environment:
     name: aws_lightsail
   before_script:
-    - sudo su -
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - mkdir -p ~/.ssh
     - eval $(ssh-agent -s)
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
+    - sudo su -
     - echo "Deploy to dev server"
     - ssh-add <(echo "$PRIVATE_KEY" | base64 -d)
     - rm -rf .git
