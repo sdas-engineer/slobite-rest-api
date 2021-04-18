@@ -8,7 +8,6 @@ deployment:
     - eval $(ssh-agent -s)
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - sudo su -
     - echo "Deploy to dev server"
     - ssh-add <(echo "$PRIVATE_KEY" | base64 -d)
     - rm -rf .git
