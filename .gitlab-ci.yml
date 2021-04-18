@@ -9,7 +9,7 @@ deployment:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - echo "Deploy to dev server"
-    - ssh-add <(echo "$PRIVATE_KEY" | base64 -d)
+    - ssh-add <(echo "$PRIVATE_KEY")
     - rm -rf .git
     - ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-204-2-79.compute-1.amazonaws.com "cd /var/www/html/ecom; git reset --hard; docker-compose down; git pull origin master; docker-compose up -d;exit"
   only:
