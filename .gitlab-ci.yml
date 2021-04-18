@@ -3,6 +3,7 @@ deployment:
   environment:
     name: aws_lightsail
   before_script:
+    - sudo su -
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - mkdir -p ~/.ssh
     - eval $(ssh-agent -s)
