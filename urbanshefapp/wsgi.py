@@ -1,5 +1,5 @@
 """
-WSGI config for urbanshefapp project.
+WSGI configuration for urbanshefapp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
