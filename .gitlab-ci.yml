@@ -11,7 +11,7 @@ deployment:
     - echo "Deploy to dev server"
     - ssh-add <(echo "$PRIVATE_KEY" | base64 -d)
     # - rm -rf .git
-    - ssh -o StrictHostKeyChecking=no ec2-user@ec2-18-204-2-79.compute-1.amazonaws.com "cd /var/urban; docker-compose down; git pull origin master; docker-compose up --build -d;exit"
+    - ssh -o StrictHostKeyChecking=no ec2-user@23.21.235.12 "cd /var/urban; docker-compose down; git pull origin master; docker-compose up --build -d;exit"
   only:
     - master
 
