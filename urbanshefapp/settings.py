@@ -29,6 +29,8 @@ DEBUG = env.bool('DEBUG', True)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
+SECURE_SSL_REDIRECT = True
+
 
 # Application definition
 DJANGO_APP = [
