@@ -214,3 +214,25 @@ PLACES_MARKER_OPTIONS = '{"draggable": true}'
 TAWKTO_ID_SITE = env.str('TAWKTO_ID_SITE', '')
 TAWKTO_IS_SECURE = env.bool('TAWKTO_IS_SECURE', '')
 TAWKTO_API_KEY = env.str('TAWKTO_API_KEY', '')
+
+
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
+AWS_STORAGE_REGION = env.str("AWS_STORAGE_REGION", "")
+
+
+IS_AWS_S3 = (
+    AWS_ACCESS_KEY_ID and
+    AWS_SECRET_ACCESS_KEY and
+    AWS_STORAGE_BUCKET_NAME and
+    AWS_STORAGE_REGION
+)
+
+if IS_AWS_S3:
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read") #(optional; default is None which means the file will inherit the bucket’s permission)
+    AWS_LOCATION = "media" # store files under directory `media/` in bucket `my-app-bucket`, If not set (optional: default is ‘’)
+    DEFAULT_FILE_STORAGE = env.str(
+        "DEFAULT_FILE_STORAGE", "storages.backends.s3boto3.S3Boto3Storage"
+    )
