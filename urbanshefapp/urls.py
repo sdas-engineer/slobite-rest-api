@@ -125,3 +125,6 @@ urlpatterns = [
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'urbanshef.views.error_404_view'
+admin.site.site_header = 'Urbanshef CRM'
+admin.site.site_title = 'Urbanshef CRM'
+admin.site.index_title = 'Urbanshef CRM'
