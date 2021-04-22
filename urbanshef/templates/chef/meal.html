@@ -37,7 +37,7 @@
                           <td>£{{ meal.price }}.00</td>
                           <td>{{ meal.availability }}</td>
                           <td class="text-center"><img class="img-rounded"
-                              src="{{ MEDIA_URL }}{{ meal.image }}" width="50" height="50"></td>
+                              src="{{ meal.image.url }}" width="50" height="50"></td>
                         </tr>
 
                     {% endfor %}
