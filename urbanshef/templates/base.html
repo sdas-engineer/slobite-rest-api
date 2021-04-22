@@ -115,13 +115,7 @@
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hi! {{ request.user.get_full_name }}</span>
                        <div class="topbar-divider d-none d-sm-block"></div>
-                       {% if request.user.chef.picture %}
-                       <img class="img-profile rounded-circle"
-                          src="{{ chef.picture.url }}">
-                       {% else %}
-                       <img class="img-profile rounded-circle"
-                          src="{% static 'img/default.png' %}">
-                       {% endif %}
+                       <i class="fas fa-chevron-down fa-sm fa-fw mr-2 text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
                        <a class="dropdown-item" href="{% url 'chef-logout' %}?next={{ request.path }}">
