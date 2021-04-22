@@ -117,7 +117,7 @@
                        <div class="topbar-divider d-none d-sm-block"></div>
                        {% if request.user.chef.picture %}
                        <img class="img-profile rounded-circle"
-                          src="{{ MEDIA_URL }}{{ request.user.chef.picture }}">
+                          src="{{ chef.picture.url }}">
                        {% else %}
                        <img class="img-profile rounded-circle"
                           src="{% static 'img/default.png' %}">
