@@ -127,5 +127,18 @@
       </ul>
       <!-- End of Sidebar -->
 
+    {% block navbar-nav %}
+
+    {% if request.user.chef.picture %}
+        <img class="img-profile rounded-circle"
+        src="{{ chef.picture.url }}">
+    {% else %}
+        <img class="img-profile rounded-circle"
+        src="{% static 'img/default.png' %}">
+    {% endif %}
+
+    {% endblock %}
+
+
 
 {% endblock %}
