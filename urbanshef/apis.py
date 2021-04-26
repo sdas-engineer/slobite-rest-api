@@ -146,7 +146,7 @@ def customer_add_order(request):
                     chef_id=request.POST["chef_id"],
                     total=order_total_including_charge,
                     status=Order.COOKING,
-                    phone=request.POST.get["phone"],
+                    phone=request.POST["phone"],
                     customer_street_address=request.POST["customer_street_address"],
                     customer_flat_number=request.POST["customer_flat_number"]
                     # city=request.POST["city"],
