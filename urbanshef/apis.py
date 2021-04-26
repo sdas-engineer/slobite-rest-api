@@ -149,9 +149,6 @@ def customer_add_order(request):
                     phone=request.POST["phone"],
                     customer_street_address=request.POST["customer_street_address"],
                     customer_flat_number=request.POST["customer_flat_number"]
-                    # city=request.POST["city"],
-                    # postcode=request.POST["postcode"],
-                    # tax=(order_total + 3) * 0.2,
                 )
 
                 # Step 3 - Create Order details
@@ -162,16 +159,16 @@ def customer_add_order(request):
                         quantity=meal["quantity"],
                         sub_total=Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
                     )
-                message_to_broadcast = ("Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
-                client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-                try:
-                    client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
-                except:
-                    print('Unable to send message to ' + order.chef.phone)
-                send_mail('Urbanshef: New Order Alert',
-                          'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
-                          'no-reply@urbanshef.com',
-                          [order.chef.user.email], fail_silently=False)
+                # message_to_broadcast = ("Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
+                # client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+                # try:
+                #     client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
+                # except:
+                #     print('Unable to send message to ' + order.chef.phone)
+                # send_mail('Urbanshef: New Order Alert',
+                #           'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
+                #           'no-reply@urbanshef.com',
+                #           [order.chef.user.email], fail_silently=False)
                 return JsonResponse({"status": "success"})
             else:
                 return JsonResponse({"status": "failed", "error": "Payment failed."})
