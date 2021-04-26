@@ -104,7 +104,7 @@ def customer_add_order(request):
         stripe_token = request.POST["stripe_token"]
 
         # Get Delivery Charge
-        delivery_charge = request.POST["delivery_charge"]
+        # delivery_charge = request.POST["delivery_charge"]
 
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
@@ -151,8 +151,7 @@ def customer_add_order(request):
                     # city=request.POST["city"],
                     # postcode=request.POST["postcode"],
                     # tax=(order_total + 3) * 0.2,
-                    phone=request.POST.get["phone"],
-                    delivery_charge=3
+                    # delivery_charge=3
                 )
 
                 # Step 3 - Create Order details
