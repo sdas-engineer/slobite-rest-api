@@ -8,17 +8,16 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from oauth2_provider.models import AccessToken
 from rest_framework import status, generics
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from twilio.rest import Client
 
-
-from urbanshef.models import Chef, Meal, Order, OrderDetails, Review
+from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Customer, Driver
 from urbanshef.serializers import ChefSerializer, \
     MealSerializer, \
-    OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer
+    OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer, \
+    OrderCreateSerializer
 from urbanshefapp.settings import STRIPE_API_KEY
 
 stripe.api_key = STRIPE_API_KEY
@@ -74,8 +73,11 @@ class CustomerGetMeals(APIView):
             return Response({'message': 'No Chef found'}, status=status.HTTP_404_NOT_FOUND)
 
 
-@csrf_exempt
-def customer_add_order(request):
+class CustomerAddAPIView(generics.CreateAPIView):
+    serializer_class = OrderCreateSerializer
+    permission_classes = []
+    authentication_classes = []
+    queryset = Order.objects.all()
     """
         params:
             access_token
@@ -91,36 +93,39 @@ def customer_add_order(request):
         return:
             {"status": "success"}
     """
+    def post(self, request, *args, **kwargs):
+        try:
+            access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
+                                                   expires__gt=timezone.now())
+            # Get profile
+            customer = access_token.user.customer
+        except:
+            return Response({"status": "failed", "error": "Invalid customer."})
 
-    if request.method == "POST":
-        # Get token
-        access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
-                                               expires__gt=timezone.now())
-
-        # Get profile
-        customer = access_token.user.customer
 
         # Get Stripe token
         stripe_token = request.POST["stripe_token"]
 
         # Get Delivery Charge
-        # delivery_charge = request.POST["delivery_charge"]
-
+        if not request.POST.get('delivery_charge'):
+            delivery_charge = 3
+        else:
+            delivery_charge = request.POST.get("delivery_charge")
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
-            return JsonResponse({"status": "failed", "error": "Your last order must be completed."})
+            return Response({"status": "failed", "error": "Your last order must be completed."})
 
         # Check Address
-        if not request.POST["customer_street_address"]:
-            return JsonResponse({"status": "failed", "error": "Address is required."})
+        if not request.POST.get("customer_street_address"):
+            return Response({"status": "failed", "error": "Address is required."})
 
         # Check Flat
-        if not request.POST["customer_flat_number"]:
-            return JsonResponse({"status": "failed", "error": "Flat Number is required."})
-        
+        if not request.POST.get("customer_flat_number"):
+            return Response({"status": "failed", "error": "Flat Number is required."})
+
         # Check Phone
-        if not request.POST["phone"]:
-            return JsonResponse({"status": "failed", "error": "Phone is required."})
+        if not request.POST.get("phone"):
+            return Response({"status": "failed", "error": "Phone is required."})
 
         # Get Order Details
         order_details = json.loads(request.POST["order_details"])
@@ -128,7 +133,7 @@ def customer_add_order(request):
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
-        order_total_including_charge = order_total + 3
+        order_total_including_charge = order_total + delivery_charge
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
@@ -138,17 +143,21 @@ def customer_add_order(request):
                 source=stripe_token,
                 description="Urbanshef Order"
             )
-
-            if charge.status != "failed":
+            if charge['status'] != "failed":
                 # Step 2 - Create an Order
                 order = Order.objects.create(
                     customer=customer,
                     chef_id=request.POST["chef_id"],
                     total=order_total_including_charge,
                     status=Order.COOKING,
-                    phone=request.POST["phone"],
                     customer_street_address=request.POST["customer_street_address"],
-                    customer_flat_number=request.POST["customer_flat_number"]
+                    customer_flat_number=request.POST["customer_flat_number"],
+                    # city=request.POST["city"],
+                    # postcode=request.POST["postcode"],
+                    # tax=(order_total + 3) * 0.2,
+                    phone=request.POST["phone"],
+                    delivery_charge=delivery_charge,
+                    # service_charge=0
                 )
 
                 # Step 3 - Create Order details
@@ -157,44 +166,59 @@ def customer_add_order(request):
                         order=order,
                         meal_id=meal["meal_id"],
                         quantity=meal["quantity"],
-                        sub_total=Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
+                        sub_total=Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"],
+                        # tax=0,
+                        # service_charge=0,
+                        # customer_street_address=request.POST["customer_street_address"],
+                        # customer_flat_number=request.POST["customer_flat_number"],
+
                     )
-                # message_to_broadcast = ("Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
-                # client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-                # try:
-                #     client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
-                # except:
-                #     print('Unable to send message to ' + order.chef.phone)
-                # send_mail('Urbanshef: New Order Alert',
-                #           'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
-                #           'no-reply@urbanshef.com',
-                #           [order.chef.user.email], fail_silently=False)
-                return JsonResponse({"status": "success"})
+                message_to_broadcast = ("Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
+                client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+                try:
+                    client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
+                except:
+                    print('Unable to send message to ' + order.chef.phone)
+                send_mail('Urbanshef: New Order Alert',
+                          'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
+                          'no-reply@urbanshef.com',
+                          [order.chef.user.email], fail_silently=False)
+                return Response({"status": "success"})
             else:
-                return JsonResponse({"status": "failed", "error": "Payment failed."})
+                return Response({"status": "failed", "error": "Payment failed."})
 
 
-def customer_get_latest_order(request):
-    access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
-                                           expires__gt=timezone.now())
+class customer_get_latest_order(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+                                                   expires__gt=timezone.now())
 
-    customer = access_token.user.customer
-    order = OrderSerializer(Order.objects.filter(customer=customer).last()).data
+            customer = access_token.user.customer
+            # customer = Customer.objects.get(id=request.GET.get('access_token'))
+        except:
+            return Response({'status': 'failed', 'error': 'Invalid customer'})
+        order = OrderSerializer(Order.objects.filter(customer=customer).last()).data
 
-    return JsonResponse({"order": order})
+        return Response({"order": order})
 
 
-def customer_driver_location(request):
-    access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
-                                           expires__gt=timezone.now())
+class customer_driver_location(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+                                                   expires__gt=timezone.now())
 
-    customer = access_token.user.customer
+            customer = access_token.user.customer
+        except:
+            return Response({'status': 'failed', 'error': 'Invalid customer'})
 
-    # Get driver's location related to this customer's current order.
-    current_order = Order.objects.filter(customer=customer, status=Order.DELIVERED).last()
-    location = current_order.driver.location
+        # Get driver's location related to this customer's current order.
+        current_order = Order.objects.filter(customer=customer, status=Order.DELIVERED).last()
+        location = current_order.driver.location
 
-    return JsonResponse({"location": location})
+        return Response({"location": location})
+
 
 
 ##############
@@ -212,13 +236,14 @@ def chef_order_notification(request, last_request_time):
 # DRIVERS
 ##############
 
-def driver_get_ready_orders(request):
-    orders = OrderSerializer(
-        Order.objects.filter(status=Order.READY, driver=None).order_by("-id"),
-        many=True
-    ).data
+class driver_get_ready_orders(generics.ListAPIView):
+    def get(self, request, *args, **kwargs):
+        orders = OrderSerializer(
+            Order.objects.filter(status=Order.READY).order_by("-id"),
+            many=True
+        ).data
 
-    return JsonResponse({"orders": orders})
+        return Response({"orders": orders})
 
 
 @csrf_exempt
@@ -226,12 +251,15 @@ def driver_get_ready_orders(request):
 # params: access_token, order_id
 def driver_pick_order(request):
     if request.method == "POST":
-        # Get token
-        access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
-                                               expires__gt=timezone.now())
+        try:
+            # Get token
+            access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
+                                                   expires__gt=timezone.now())
 
-        # Get Driver
-        driver = access_token.user.driver
+            # Get Driver
+            driver = access_token.user.driver
+        except:
+            return JsonResponse({'status':'failed', 'error':'Invalid user'})
 
         # Check if driver can only pick up one order at the same time
         if Order.objects.filter(driver=driver).exclude(status=Order.ONTHEWAY):
@@ -259,10 +287,13 @@ def driver_pick_order(request):
 # GET params: access_token
 def driver_get_latest_order(request):
     # Get token
-    access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
-                                           expires__gt=timezone.now())
+    try:
+        access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+                                               expires__gt=timezone.now())
 
-    driver = access_token.user.driver
+        driver = access_token.user.driver
+    except:
+        return JsonResponse({'status': 'failed', 'error': 'Invalid user'})
     order = OrderSerializer(
         Order.objects.filter(driver=driver).order_by("picked_at").last()
     ).data
@@ -274,24 +305,33 @@ def driver_get_latest_order(request):
 @csrf_exempt
 def driver_complete_order(request):
     # Get token
-    access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
-                                           expires__gt=timezone.now())
+    try:
+        access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
+                                               expires__gt=timezone.now())
 
-    driver = access_token.user.driver
+        driver = access_token.user.driver
+        # driver=Driver.objects.get(id=request.POST.get("access_token"))
+    except:
+        return JsonResponse({'status': 'failed', 'error': 'Invalid user'})
+    try:
+        order = Order.objects.get(id=request.POST["order_id"], driver=driver)
+        order.status = Order.DELIVERED
+        order.save()
 
-    order = Order.objects.get(id=request.POST["order_id"], driver=driver)
-    order.status = Order.DELIVERED
-    order.save()
-
-    return JsonResponse({"status": "success"})
+        return JsonResponse({"status": "success"})
+    except:
+        return JsonResponse({'status': 'failed', 'error': 'Invalid order'})
 
 
 # GET params: access_token
 def driver_get_revenue(request):
-    access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
-                                           expires__gt=timezone.now())
+    try:
+        access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+                                               expires__gt=timezone.now())
 
-    driver = access_token.user.driver
+        driver = access_token.user.driver
+    except:
+        return JsonResponse({'status': 'failed', 'error': 'Invalid user'})
 
     from datetime import timedelta
 
@@ -317,16 +357,17 @@ def driver_get_revenue(request):
 @csrf_exempt
 def driver_update_location(request):
     if request.method == "POST":
-        access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
-                                               expires__gt=timezone.now())
+        try:
+            access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
+                                                   expires__gt=timezone.now())
 
-        driver = access_token.user.driver
+            driver = access_token.user.driver
+            driver.location = request.POST["location"]
+            driver.save()
 
-        # Set location string => database
-        driver.location = request.POST["location"]
-        driver.save()
-
-        return JsonResponse({"status": "success"})
+            return JsonResponse({"status": "success"})
+        except:
+            return JsonResponse({'status': 'failed', 'error': 'Invalid user'})
 
 
 class ReviewAPIView(generics.ListCreateAPIView):
