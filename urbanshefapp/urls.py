@@ -95,13 +95,13 @@ urlpatterns = [
     # # APIs for CUSTOMERS
     path('api/customer/chefs/', apis.CustomerGetChefs.as_view()),
     path('api/customer/meals/<int:chef_id>/', apis.CustomerGetMeals.as_view()),
-    path('api/customer/order/add/', apis.customer_add_order),
-    path('api/customer/order/latest/', apis.customer_get_latest_order),
-    path('api/customer/driver/location/', apis.customer_driver_location),
+    path('api/customer/order/add/', apis.CustomerAddAPIView.as_view()),
+    path('api/customer/order/latest/', apis.customer_get_latest_order.as_view()),
+    path('api/customer/driver/location/', apis.customer_driver_location.as_view()),
     #
     #
     # # APIs for DRIVERS
-    path('api/driver/orders/ready/', apis.driver_get_ready_orders),
+    path('api/driver/orders/ready/', apis.driver_get_ready_orders.as_view()),
     path('api/driver/order/pick/', apis.driver_pick_order),
     path('api/driver/order/latest/', apis.driver_get_latest_order),
     path('api/driver/order/complete/', apis.driver_complete_order),
