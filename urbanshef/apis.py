@@ -111,6 +111,14 @@ def customer_add_order(request):
         if not request.POST["customer_street_address"]:
             return JsonResponse({"status": "failed", "error": "Address is required."})
 
+        # Check Flat
+        if not request.POST["customer_flat_number"]:
+            return JsonResponse({"status": "failed", "error": "Flat Number is required."})
+        
+        # Check Phone
+        if not request.POST["phone"]:
+            return JsonResponse({"status": "failed", "error": "Phone is required."})
+
         # Get Order Details
         order_details = json.loads(request.POST["order_details"])
 
