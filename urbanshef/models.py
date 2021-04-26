@@ -120,6 +120,7 @@ class Order(models.Model):
     customer_flat_number = models.CharField(max_length=500)
     phone = models.CharField(max_length=500)
     total = models.IntegerField(blank=True, null=True)
+    delivery_charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     delivery_instructions = models.CharField(max_length=500, null=False, blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(default=timezone.now)
@@ -136,6 +137,7 @@ class OrderDetails(models.Model):
     customer_street_address = models.CharField(max_length=500)
     customer_flat_number = models.CharField(max_length=500)
     delivery_instructions = models.CharField(max_length=500, null=False, blank=True)
+    delivery_charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     sub_total = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
