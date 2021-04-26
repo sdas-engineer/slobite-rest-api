@@ -103,6 +103,9 @@ def customer_add_order(request):
         # Get Stripe token
         stripe_token = request.POST["stripe_token"]
 
+        # Get Delivery Charge
+        delivery_charge = request.POST["delivery_charge"]
+
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
             return JsonResponse({"status": "failed", "error": "Your last order must be completed."})
@@ -125,12 +128,12 @@ def customer_add_order(request):
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
-        # order_total_including_charge = order_total + 3
+        order_total_including_charge = order_total + 3
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
             charge = stripe.Charge.create(
-                amount=int(order_total*100),  # Amount in pence
+                amount=int(order_total_including_charge*100),  # Amount in pence
                 currency="gbp",
                 source=stripe_token,
                 description="Urbanshef Order"
