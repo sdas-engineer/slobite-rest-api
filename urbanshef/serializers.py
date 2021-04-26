@@ -1,3 +1,4 @@
+from django.utils.encoding import smart_text
 from places.fields import PlacesField
 from rest_framework import serializers
 
@@ -59,11 +60,14 @@ class OrderDriverSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source="user.get_full_name")
 
     class Meta:
-        model = Customer
-        fields = ("id", "name", "avatar", "phone", "customer_street_address", "customer_flat_number")
+        model = Driver
+        fields = ("id", "name", "avatar", "phone", "location")
+
 
 
 class OrderChefSerializer(serializers.ModelSerializer):
+    chef_street_address = PlacesSerializer(many=False)
+
     class Meta:
         model = Chef
         fields = ("id", "name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode")
@@ -85,15 +89,27 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     customer = OrderCustomerSerializer()
-    driver = OrderDriverSerializer()
     chef = OrderChefSerializer()
     order_details = OrderDetailsSerializer(many=True)
     status = serializers.ReadOnlyField(source="get_status_display")
 
     class Meta:
         model = Order
-        fields = ("id", "customer", "chef", "driver", "order_details", "total", "status", "customer_street_address",
+        fields = ("id", "customer", "chef", "order_details", "total", "status", "customer_street_address",
                   "customer_flat_number", "phone", "delivery_instructions")
+
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+    access_token = serializers.CharField(max_length=200, allow_blank=False, allow_null=False)
+    chef_id = serializers.IntegerField()
+    order_details = serializers.CharField()
+    stripe_token=serializers.CharField()
+
+    class Meta:
+        model = Order
+        fields = (
+            'access_token', 'chef_id','stripe_token','delivery_charge', "customer_street_address", "customer_flat_number", "phone",
+            'order_details')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
