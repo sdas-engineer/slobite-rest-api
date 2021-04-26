@@ -148,11 +148,10 @@ def customer_add_order(request):
                     status=Order.COOKING,
                     phone=request.POST.get["phone"],
                     customer_street_address=request.POST["customer_street_address"],
-                    customer_flat_number=request.POST["customer_flat_number"],
+                    customer_flat_number=request.POST["customer_flat_number"]
                     # city=request.POST["city"],
                     # postcode=request.POST["postcode"],
                     # tax=(order_total + 3) * 0.2,
-                    delivery_charge=3
                 )
 
                 # Step 3 - Create Order details
