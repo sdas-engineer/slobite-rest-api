@@ -22,9 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = env.str('SECRET_KEY')
-
-SECRET_KEY = '**9s!*qszjed^iimc+5r74o)6au5=zi(y%4vsj27cnptehx7w*'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', True)
@@ -104,21 +102,13 @@ WSGI_APPLICATION = 'urbanshefapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': env.str('DB_HOST', 'localhost'),
+        'NAME': env.str('DB_NAME', 'urbanshef'),
+        'USER': env.str('DB_USER', 'postgres'),
+        'PASSWORD': env.str('DB_PASS', '12345'),
     }
 }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'HOST': env.str('DB_HOST', 'localhost'),
-#         'NAME': env.str('DB_NAME', 'urbanshef'),
-#         'USER': env.str('DB_USER', 'postgres'),
-#         'PASSWORD': env.str('DB_PASS', '12345'),
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
