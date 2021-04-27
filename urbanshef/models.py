@@ -134,8 +134,6 @@ class OrderDetails(models.Model):
     order = models.ForeignKey(Order, related_name='order_details', on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     quantity = models.IntegerField(blank=True, null=True)
-    customer_street_address = models.CharField(max_length=500)
-    customer_flat_number = models.CharField(max_length=500)
     delivery_instructions = models.CharField(max_length=500, null=False, blank=True)
     delivery_charge = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     sub_total = models.IntegerField(blank=True, null=True)

@@ -97,8 +97,10 @@ class CustomerAddAPIView(generics.CreateAPIView):
         try:
             access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
                                                    expires__gt=timezone.now())
-            # Get profile
+
             customer = access_token.user.customer
+
+            # customer=Customer.objects.get(id=request.POST.get('access_token'))
         except:
             return Response({"status": "failed", "error": "Invalid customer."})
 
@@ -110,7 +112,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
         if not request.POST.get('delivery_charge'):
             delivery_charge = 3
         else:
-            delivery_charge = request.POST.get("delivery_charge")
+            delivery_charge = int(request.POST.get("delivery_charge"))
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
             return Response({"status": "failed", "error": "Your last order must be completed."})
