@@ -64,12 +64,23 @@
                     <label class="form-label" for="kithen_name">Kitchen Name <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="home" class="fea icon-sm icons"></i>
-                        <input type="text" name="kitchen_name" class="form-control ps-5" placeholder="Elon's Burritos" title=""
+                        <input type="text" name="kitchen_name" class="form-control ps-5" placeholder="Elon's Burritos"
+                               title=""
                                required="" id="kithen_name">
                     </div>
                 </div>
             </div><!--end col-->
-
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="agree_terms_and_condition" class="form-check-input"
+                               id="id_agree_terms_and_condition" required>
+                        <label class="form-check-label" for="id_agree_terms_and_condition">I agree to the <a
+                                href="{% url 'terms' %}" target="_blank">Urbanshef Terms and
+                            Conditions</a></label>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-12">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Register</button>

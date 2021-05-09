@@ -24,17 +24,22 @@ from django.db.models import Sum, Count, Case, When
 def index(request):
     return render(request, 'home.html')
 
+
 def privacy(request):
     return render(request, 'privacy.html')
+
 
 def terms(request):
     return render(request, 'terms.html')
 
+
 def food_safety(request):
     return render(request, 'food-safety.html')
 
+
 def report_bugs(request):
     return render(request, 'report-bugs.html')
+
 
 def home(request):
     return redirect(chef_home)
@@ -84,6 +89,7 @@ def chef_add_meal(request):
         if form.is_valid():
             meal = form.save(commit=False)
             meal.chef = request.user.chef
+            meal.price = float(meal.price) + (float(meal.price) * 0.2)
             meal.save()
             return redirect(chef_meal)
 
@@ -96,16 +102,19 @@ def chef_add_meal(request):
 def chef_edit_meal(request, meal_id):
     loadChefAvailability(request)
     form = MealForm(instance=Meal.objects.get(id=meal_id))
-    inst=Meal.objects.get(id=meal_id)
+    inst = Meal.objects.get(id=meal_id)
 
     if request.method == "POST":
         form = MealForm(request.POST, request.FILES, instance=Meal.objects.get(id=meal_id))
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            if float(inst.price) != float(request.POST.get('price')):
+                instance.price = float(request.POST.get('price')) + (float(request.POST.get('price')) * 0.2)
+            instance.save()
             return redirect(chef_meal)
 
     return render(request, 'chef/edit_meal.html', {
-        "form": form, "meal":inst
+        "form": form, "meal": inst
     })
 
 
@@ -228,7 +237,8 @@ def chef_sign_up(request):
 
         if user_form.is_valid():
             new_user = User.objects.create_user(**user_form.cleaned_data)
-            Chef.objects.create(user=new_user, name=request.POST.get('kitchen_name'))
+            Chef.objects.create(user=new_user, name=request.POST.get('kitchen_name'),
+                                agree_terms_and_condition=bool(request.POST.get('agree_terms_and_condition')))
             login(request, authenticate(
                 username=user_form.cleaned_data["username"],
                 password=user_form.cleaned_data["password"]
@@ -333,5 +343,6 @@ def BrowseUsers(request):
     else:
         return redirect(chef_home)
 
+
 def error_404_view(request, exception):
-    return render(request,'404.html')
+    return render(request, '404.html')

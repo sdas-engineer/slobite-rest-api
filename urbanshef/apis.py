@@ -93,6 +93,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
         return:
             {"status": "success"}
     """
+
     def post(self, request, *args, **kwargs):
         try:
             access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
@@ -104,7 +105,6 @@ class CustomerAddAPIView(generics.CreateAPIView):
         except:
             return Response({"status": "failed", "error": "Invalid customer."})
 
-
         # Get Stripe token
         stripe_token = request.POST["stripe_token"]
 
@@ -113,6 +113,9 @@ class CustomerAddAPIView(generics.CreateAPIView):
             delivery_charge = 3
         else:
             delivery_charge = int(request.POST.get("delivery_charge"))
+
+        if not request.POST.get('service_charge'):
+            return Response({'status': 'failed', 'error': 'Service charge is required'})
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
             return Response({"status": "failed", "error": "Your last order must be completed."})
@@ -135,12 +138,12 @@ class CustomerAddAPIView(generics.CreateAPIView):
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
-        order_total_including_charge = order_total + delivery_charge
+        order_total_including_charge = order_total + delivery_charge + int(request.POST.get('service_charge'))
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
             charge = stripe.Charge.create(
-                amount=order_total_including_charge*100,  # Amount in pence
+                amount=int(order_total_including_charge * 100),  # Amount in pence
                 currency="gbp",
                 source=stripe_token,
                 description="Urbanshef Order"
@@ -159,7 +162,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     # tax=(order_total + 3) * 0.2,
                     phone=request.POST["phone"],
                     delivery_charge=delivery_charge,
-                    # service_charge=0
+                    service_charge=request.POST.get('service_charge')
                 )
 
                 # Step 3 - Create Order details
@@ -175,7 +178,8 @@ class CustomerAddAPIView(generics.CreateAPIView):
                         # customer_flat_number=request.POST["customer_flat_number"],
 
                     )
-                message_to_broadcast = ("Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
+                message_to_broadcast = (
+                    "Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
                 client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
                 try:
                     client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
@@ -222,7 +226,6 @@ class customer_driver_location(generics.ListAPIView):
         return Response({"location": location})
 
 
-
 ##############
 # CHEF
 ##############
@@ -261,7 +264,7 @@ def driver_pick_order(request):
             # Get Driver
             driver = access_token.user.driver
         except:
-            return JsonResponse({'status':'failed', 'error':'Invalid user'})
+            return JsonResponse({'status': 'failed', 'error': 'Invalid user'})
 
         # Check if driver can only pick up one order at the same time
         if Order.objects.filter(driver=driver).exclude(status=Order.ONTHEWAY):
@@ -401,7 +404,7 @@ class ChefAvgRatingAPIView(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         qset = self.queryset.filter(chef_id=self.kwargs['pk'])
         if qset.count() < 1:
-            return Response({'message':'No review found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'No review found'}, status=status.HTTP_404_NOT_FOUND)
         count = 0
         for x in qset:
             count = count + x.rating

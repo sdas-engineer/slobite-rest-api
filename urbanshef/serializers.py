@@ -64,7 +64,6 @@ class OrderDriverSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "avatar", "phone", "location")
 
 
-
 class OrderChefSerializer(serializers.ModelSerializer):
     chef_street_address = PlacesSerializer(many=False)
 
@@ -96,19 +95,20 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "customer", "chef", "order_details", "total", "status", "customer_street_address",
-                  "customer_flat_number", "phone", "delivery_instructions")
+                  "customer_flat_number", "service_charge", "phone", "delivery_instructions")
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     access_token = serializers.CharField(max_length=200, allow_blank=False, allow_null=False)
     chef_id = serializers.IntegerField()
     order_details = serializers.CharField()
-    stripe_token=serializers.CharField()
+    stripe_token = serializers.CharField()
 
     class Meta:
         model = Order
         fields = (
-            'access_token', 'chef_id','stripe_token','delivery_charge', "customer_street_address", "customer_flat_number", "phone",
+            'access_token', 'chef_id', 'stripe_token', 'delivery_charge',"service_charge", "customer_street_address",
+            "customer_flat_number", "phone",
             'order_details')
 
 
