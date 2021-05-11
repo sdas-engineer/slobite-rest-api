@@ -162,7 +162,6 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     # tax=(order_total + 3) * 0.2,
                     phone=request.POST["phone"],
                     delivery_charge=delivery_charge,
-                    delivery_instructions=request.POST('delivery_instructions'),
                     service_charge=request.POST.get('service_charge')
                 )
 
