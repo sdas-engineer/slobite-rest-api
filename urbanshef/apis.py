@@ -141,6 +141,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
         if not request.POST.get('service_charge'):
             service_charge = (order_total + delivery_charge)*0.1
         else:
+            print(type(request.POST.get("service_charge")))
             service_charge = int(request.POST.get("service_charge"))
 
         order_total_including_charge = order_total + delivery_charge + service_charge
