@@ -110,9 +110,9 @@ class CustomerAddAPIView(generics.CreateAPIView):
 
         # Get Delivery Charge
         if not request.POST.get('delivery_charge'):
-            delivery_charge = 3
+            delivery_charge = 3.0
         else:
-            delivery_charge = int(request.POST.get("delivery_charge"))
+            delivery_charge = float(request.POST.get("delivery_charge"))
 
 
         # Check whether customer has any order that is not delivered
@@ -139,11 +139,11 @@ class CustomerAddAPIView(generics.CreateAPIView):
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
         
         if not request.POST.get('service_charge'):
-            service_charge = (order_total + delivery_charge)*0.1
+            service_charge = float(order_total + delivery_charge)*0.1
         else:
             service_charge = float(request.POST.get("service_charge"))
 
-        order_total_including_charge = order_total + delivery_charge + service_charge
+        order_total_including_charge = float(order_total) + float(delivery_charge) + service_charge
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
