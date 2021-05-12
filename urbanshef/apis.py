@@ -138,7 +138,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
-        order_total_including_charge = order_total + delivery_charge + int(request.POST.get('service_charge'))
+        order_total_including_charge = order_total + delivery_charge + request.POST.get('service_charge')
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
@@ -162,7 +162,8 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     # tax=(order_total + 3) * 0.2,
                     phone=request.POST["phone"],
                     delivery_charge=delivery_charge,
-                    service_charge=request.POST.get('service_charge')
+                    service_charge=request.POST.get('service_charge'),
+                    delivery_instructions = request.POST.get('delivery_instructions')
                 )
 
                 # Step 3 - Create Order details
