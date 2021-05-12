@@ -32,7 +32,7 @@
                             <td>{{ order.customer }}</td>
                             <td>{{ order.phone }}</td>
                             <td>{{ order.driver }}</td>
-                            <td>£{{ order.total }}.00</td>
+                            <td>£{{ order.total }}</td>
                             <td>
                               <!-- Button trigger modal -->
                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -66,6 +66,8 @@
                                           </tbody>
                                         </table>
                                         {% endfor %}
+                                        <br>
+                                        <p><b>Delivery instructions: {{ order.delivery_instructions }} </b></p>
                                         <br>
                                         <p>If you have any troubles with your order, kindly reach out to your chef directly at <strong> {{ request.user.chef.phone }}</strong> or visit our website to get support.</p>
                                     </div>
