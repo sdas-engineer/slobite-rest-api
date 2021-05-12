@@ -109,7 +109,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         fields = (
             'access_token', 'chef_id', 'stripe_token', 'delivery_charge',"service_charge", "customer_street_address",
             "customer_flat_number", "phone",
-            'order_details')
+            'order_details', 'delivery_instructions')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
