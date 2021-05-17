@@ -28,7 +28,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', True)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = ['urbanshef.com', 'www.urbanshef.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
