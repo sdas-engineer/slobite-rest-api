@@ -7,7 +7,7 @@ from urbanshef.models import Chef, \
     Customer, \
     Driver, \
     Order, \
-    OrderDetails, Review
+    OrderDetails, Review, Coupon
 
 
 class PlacesSerializer(serializers.Serializer):
@@ -31,7 +31,8 @@ class ChefSerializer(serializers.ModelSerializer):
         model = Chef
         fields = ("id", "name", "phone", "chef_street_address", "chef_flat_number", "city",
                   "postcode", "picture", "stripe_user_id", "stripe_access_token", "available",
-                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender")
+                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender",
+                  "cuisine")
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -103,13 +104,13 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     chef_id = serializers.IntegerField()
     order_details = serializers.CharField()
     stripe_token = serializers.CharField()
-
+    coupon=serializers.CharField(max_length=100, allow_blank=True)
     class Meta:
         model = Order
         fields = (
-            'access_token', 'chef_id', 'stripe_token', 'delivery_charge',"service_charge", "customer_street_address",
+            'access_token', 'chef_id', 'stripe_token', 'delivery_charge', "service_charge", "customer_street_address",
             "customer_flat_number", "phone",
-            'order_details', 'delivery_instructions')
+            'order_details', 'delivery_instructions', 'coupon')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -134,3 +135,16 @@ class ChefBioSerializer(serializers.ModelSerializer):
 class ChefAvgRatingSerializer(serializers.Serializer):
     rating = serializers.DecimalField(max_digits=2, decimal_places=1)
     number_of_reviews = serializers.IntegerField()
+
+
+class MealAllergensSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meal,
+        fields = ['allergen']
+
+
+class CouponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coupon
+        fields = ['id', 'code', 'valid_from', 'valid_to', 'discount', 'active']
+        read_only_fields = ['id', 'valid_from', 'valid_to', 'discount', 'active']

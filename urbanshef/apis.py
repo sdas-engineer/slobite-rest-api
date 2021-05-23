@@ -3,6 +3,7 @@ import json
 import stripe
 from django.conf import settings
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -13,11 +14,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from twilio.rest import Client
 
-from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Customer, Driver
+from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Coupon
 from urbanshef.serializers import ChefSerializer, \
     MealSerializer, \
     OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer, \
-    OrderCreateSerializer
+    OrderCreateSerializer, MealAllergensSerializer, CouponSerializer
 from urbanshefapp.settings import STRIPE_API_KEY
 
 stripe.api_key = STRIPE_API_KEY
@@ -35,17 +36,12 @@ class CustomerGetChefs(generics.ListAPIView):
     queryset = Chef.objects.filter(disabled_by_admin=False, available=True).order_by("-id")
 
     def get(self, request, *args, **kwargs):
+        """
+        customer/chefs/?cuisine=
+        """
         c = self.get_queryset()
         if request.GET.get('cuisine'):
-            meal = Meal.objects.filter(chef__available=True, chef__disabled_by_admin=False,
-                                       cuisine=request.GET.get('cuisine')).values('chef_id').distinct()
-            if meal.count() != 0:
-                l = []
-                for m in meal:
-                    l.append(m['chef_id'])
-                c = c.filter(id__in=l)
-            else:
-                c = []
+            c = c.filter(cuisine=request.GET.get('cuisine'))
         chefs = self.get_serializer(
             c,
             many=True,
@@ -101,7 +97,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
 
             customer = access_token.user.customer
 
-            # customer=Customer.objects.get(id=request.POST.get('access_token'))
+            # customer = Customer.objects.get(id=request.POST.get('access_token'))
         except:
             return Response({"status": "failed", "error": "Invalid customer."})
 
@@ -113,7 +109,6 @@ class CustomerAddAPIView(generics.CreateAPIView):
             delivery_charge = 3.0
         else:
             delivery_charge = float(request.POST.get("delivery_charge"))
-
 
         # Check whether customer has any order that is not delivered
         if Order.objects.filter(customer=customer).exclude(status=Order.DELIVERED):
@@ -130,20 +125,32 @@ class CustomerAddAPIView(generics.CreateAPIView):
         # Check Phone
         if not request.POST.get("phone"):
             return Response({"status": "failed", "error": "Phone is required."})
-
+        # Check the coupon
+        discountParcent = 0
+        cInstance = None
+        if request.POST.get('coupon'):
+            c = Coupon.objects.filter(code=request.POST.get('coupon'), active=True, valid_from__lte=timezone.now(),
+                                      valid_to__gte=timezone.now())
+            if len(c):
+                cInstance = c.first()
+                discountParcent = cInstance.discount
         # Get Order Details
         order_details = json.loads(request.POST["order_details"])
 
         order_total = 0
         for meal in order_details:
             order_total += Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"]
-        
+
         if not request.POST.get('service_charge'):
-            service_charge = float(order_total + delivery_charge)*0.1
+            service_charge = float(order_total + delivery_charge) * 0.1
         else:
             service_charge = float(request.POST.get("service_charge"))
 
         order_total_including_charge = float(order_total) + float(delivery_charge) + service_charge
+        discountedAmount = 0
+        if discountParcent != 0:
+            discountedAmount = order_total_including_charge * (discountParcent / 100)
+        order_total_including_charge = order_total_including_charge - discountedAmount
         if len(order_details) > 0:
 
             # Step 1: Create a charge: this will charge customer's card
@@ -162,13 +169,12 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     status=Order.COOKING,
                     customer_street_address=request.POST["customer_street_address"],
                     customer_flat_number=request.POST["customer_flat_number"],
-                    # city=request.POST["city"],
-                    # postcode=request.POST["postcode"],
-                    # tax=(order_total + 3) * 0.2,
                     phone=request.POST["phone"],
                     delivery_charge=delivery_charge,
                     service_charge=service_charge,
-                    delivery_instructions = request.POST.get('delivery_instructions')
+                    delivery_instructions=request.POST.get('delivery_instructions'),
+                    coupon=cInstance,
+                    discount_amount=discountedAmount
                 )
 
                 # Step 3 - Create Order details
@@ -430,3 +436,26 @@ def get_or_create_customer(email, token):
                 email=email,
                 source=token,
             )
+
+
+class MealAllergens(generics.RetrieveAPIView):
+    serializer_class = [MealAllergensSerializer]
+    queryset = Meal.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        m = Meal.objects.filter(Q(id=self.kwargs['meal_id']))
+        if m.exists():
+            return Response({"allergens": m[0].allergen}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "No meal found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ApplyCoupon(generics.CreateAPIView):
+    serializer_class = CouponSerializer
+    queryset = Coupon.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        c = Coupon.objects.filter(Q(code=request.data['code']))
+        if c.exists():
+            return Response(CouponSerializer(c.first(), many=False).data)
+        return Response({'error': 'Invalid coupon code'}, status=status.HTTP_406_NOT_ACCEPTABLE)

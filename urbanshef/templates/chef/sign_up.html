@@ -5,6 +5,11 @@
 {% block heading %}Become a chef{% endblock %}
 
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">{{ message }}</div>
+            {% endfor %}
+    {% endif %}
     <form method="POST" class="login-form mt-4">
         {% csrf_token %}
         <div class="row">
@@ -56,6 +61,12 @@
                         <i data-feather="key" class="fea icon-sm icons"></i>
                         <input type="password" name="password" class="form-control ps-5" placeholder="Password" title=""
                                required="" id="id_password">
+                        <small>
+                            <ul>
+                                <li>Password must contains 8 characters</li>
+                                <li>Password can't be entirely numeric.</li>
+                            </ul>
+                        </small>
                     </div>
                 </div>
             </div><!--end col-->

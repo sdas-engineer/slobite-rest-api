@@ -27,11 +27,16 @@ class UserFormForEdit(forms.ModelForm):
 class ChefForm(forms.ModelForm):
     date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type':'date', 'placeholder':'YYYY-MM-DD'}))
     gender=forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(("Male", "Male"), ("Female", "Female"), ("Other", "Other"))))
-
+    cuisine = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
+        ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
+        ("Italian", "Italian"), ("Pakistani", "Pakistani"), ("Middle East", "Middle East"), ("Nepalese", "Nepalese"),
+        ("Mexican", "Mexican"), ("Korean", "Korean"), ("African", "African"), ("Mediterranean", "Mediterranean"),
+        ("Caribbean", "Caribbean"), ("French", "French"), ("Latin American", "Latin American"), ("Spanish", "Spanish"),
+        ("South East Asian", "South East Asian"), ("European", "European"))))
     class Meta:
         model = Chef
         fields = ("name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode", "picture",
-                  "level_2_food_hygiene_certificate", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio')
+                  "level_2_food_hygiene_certificate", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio', 'cuisine')
 
 
 class MealForm(forms.ModelForm):

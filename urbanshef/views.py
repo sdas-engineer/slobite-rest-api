@@ -1,7 +1,18 @@
+import re
 import urllib
+from datetime import time, datetime, timedelta
+
 import requests
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from urbanshef.forms import UserForm, ChefForm, UserFormForEdit, MealForm
 from django.contrib.auth import authenticate, login
@@ -17,7 +28,7 @@ from .models import Chef, Review, Customer
 from django.contrib.auth.models import User
 from urbanshef.models import Meal, Order, Driver
 
-from django.db.models import Sum, Count, Case, When
+from django.db.models import Sum, Count, Case, When, Q
 
 
 # Create your views here.
@@ -129,7 +140,24 @@ def chef_order(request):
             order.save()
 
     orders = Order.objects.filter(chef=request.user.chef).order_by("-id")
-    return render(request, 'chef/order.html', {"orders": orders})
+    if request.GET.get('filter'):
+        if request.GET.get('filter') == '24_hours':
+            orders = orders.filter(created_at__range=(datetime.now() - timedelta(hours=24), datetime.now()))
+        if request.GET.get('filter') == '7_days':
+            orders = orders.filter(created_at__range=(datetime.now() - timedelta(days=7), datetime.now()))
+        if request.GET.get('filter') == '30_days':
+            orders = orders.filter(created_at__range=(datetime.now() - timedelta(days=30), datetime.now()))
+    page = request.GET.get('page', 1)
+    paginator = Paginator(orders, 25)  # Show 25 contacts per page.
+
+    try:
+        p = paginator.page(page)
+    except PageNotAnInteger:
+        p = paginator.page(1)
+    except EmptyPage:
+        p = paginator.page(paginator.num_pages)
+    return render(request, 'chef/order.html',
+                  {"orders": p})
 
 
 @login_required(login_url='/chef/login/')
@@ -233,6 +261,22 @@ def chef_sign_up(request):
     user_form = UserForm()
 
     if request.method == "POST":
+        user = User.objects.all()
+        has_error = False
+        if user.filter(Q(email=request.POST['email'])).exists():
+            messages.error(request, 'Email already registered.')
+            has_error = True
+        if user.filter(Q(username=request.POST['username'])):
+            messages.error(request, 'Username already registered.')
+            has_error = True
+        if len(request.POST['password']) < 8:
+            messages.error(request, 'Password must be greater than 8 character')
+            has_error = True
+        if request.POST['password'].isdigit():
+            messages.error(request, 'Password can\'t be entirely numeric')
+            has_error = True
+        if has_error:
+            return redirect('chef-sign-up')
         user_form = UserForm(request.POST)
 
         if user_form.is_valid():
@@ -244,6 +288,9 @@ def chef_sign_up(request):
                 password=user_form.cleaned_data["password"]
             ))
             return redirect(chef_account)
+        else:
+            messages.error(request, 'Something went wrong. Try again')
+            return redirect('chef-sign-up')
 
     return render(request, "chef/sign_up.html", {
         "user_form": user_form
@@ -346,3 +393,56 @@ def BrowseUsers(request):
 
 def error_404_view(request, exception):
     return render(request, '404.html')
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'chef/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        isUsernameEmail = False
+        emailRegex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+        if (re.search(emailRegex, username)):
+            isUsernameEmail = True
+        if isUsernameEmail:
+            try:
+                auth = authenticate(request, username=User.objects.get(email=username).username, password=password)
+            except:
+                messages.error(request, 'Invalid email address')
+                return redirect('chef-login')
+        else:
+            auth = authenticate(request, username=username, password=password)
+        if auth:
+            login(request, auth)
+            return redirect('chef-home')
+        else:
+            messages.error(request, 'Invalid credential provided')
+            return redirect('chef-login')
+
+
+class PasswordReset(View):
+    def get(self, request):
+        return render(request, 'chef/password_reset.html')
+
+    def post(self, request):
+        associated_users = User.objects.filter(Q(email=request.POST['email']))
+        if associated_users.exists():
+            subject = "Password Reset Requested"
+            email_template_name = "chef/password_reset_subject.txt"
+            user = User.objects.get(email=request.POST['email'])
+            current_site = get_current_site(request)
+            c = {
+                "email": request.POST['email'],
+                'domain': current_site.domain,
+                'site_name': 'Website',
+                "uid": urlsafe_base64_encode(force_bytes(user)),
+                "user": user,
+                'token': default_token_generator.make_token(user),
+                'protocol': 'http',
+            }
+            email = render_to_string(email_template_name, c)
+            send_mail(subject, email, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
+            return redirect('password_reset_done')
+        return redirect('password_reset_done')

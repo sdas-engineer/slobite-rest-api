@@ -48,18 +48,17 @@ urlpatterns = [
     path('', include('urbanshef.urls')),
 
     # Chef
-    path('chef/login/', auth_views.LoginView.as_view(template_name='chef/login.html'), name='chef-login'),
+    path('chef/login/', views.LoginView.as_view(), name='chef-login'),
     path('chef/logout/', auth_views.LogoutView.as_view(next_page='/'), name='chef-logout'),
     path('chef/sign-up/', views.chef_sign_up, name='chef-sign-up'),
-    path('chef/reset_password/', auth_views.PasswordResetView.as_view(template_name="chef/password_reset.html"),
-         name="reset_password"),
+    path('chef/reset_password/', auth_views.PasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
 
     path('chef/reset_password_sent/',
          auth_views.PasswordResetDoneView.as_view(template_name="chef/password_reset_sent.html"),
          name="password_reset_done"),
 
     path('chef/reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(template_name="chef/password_reset_form.html"),
+         auth_views.PasswordResetConfirmView.as_view(template_name='chef/password_reset_form.html'),
          name="password_reset_confirm"),
 
     path('chef/reset_password_complete/',
@@ -95,7 +94,9 @@ urlpatterns = [
     # # APIs for CUSTOMERS
     path('api/customer/chefs/', apis.CustomerGetChefs.as_view()),
     path('api/customer/meals/<int:chef_id>/', apis.CustomerGetMeals.as_view()),
+    path('api/customer/allergens/<int:meal_id>/', apis.MealAllergens.as_view()),
     path('api/customer/order/add/', apis.CustomerAddAPIView.as_view()),
+    path('api/customer/order/coupon/', apis.ApplyCoupon.as_view()),
     path('api/customer/order/latest/', apis.customer_get_latest_order.as_view()),
     path('api/customer/driver/location/', apis.customer_driver_location.as_view()),
     #

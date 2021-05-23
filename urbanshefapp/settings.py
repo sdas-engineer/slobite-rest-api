@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import environ
-
+from django.contrib.messages import constants as messages
 env = environ.Env()
 # environ.Env.read_env()
 
@@ -80,7 +80,7 @@ ROOT_URLCONF = 'urbanshefapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR+'/urbanshef/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -205,6 +205,7 @@ EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
 DEFAULT_FROM_EMAIL = 'Urbanshef Team <no-reply@urbanshef.com>'
 
 # Twilio account information to send notification of order to chefs
@@ -243,3 +244,8 @@ if IS_AWS_S3:
     DEFAULT_FILE_STORAGE = env.str(
         "DEFAULT_FILE_STORAGE", "storages.backends.s3boto3.S3Boto3Storage"
     )
+MESSAGE_TAGS = {
+    messages.INFO: 'alert alert-info',
+    messages.WARNING: 'alert alert-warning',
+    messages.ERROR: 'alert alert-danger',
+}

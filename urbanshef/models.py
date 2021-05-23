@@ -28,7 +28,13 @@ class Chef(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=100, choices=(("Male", "Male"), ("Female", "Female"), ("Other", "Other")),
                               blank=True)
-    agree_terms_and_condition=models.BooleanField()
+    agree_terms_and_condition = models.BooleanField()
+    cuisine = models.CharField(max_length=255, blank=True, choices=(
+        ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
+        ("Italian", "Italian"), ("Pakistani", "Pakistani"), ("Middle East", "Middle East"), ("Nepalese", "Nepalese"),
+        ("Mexican", "Mexican"), ("Korean", "Korean"), ("African", "African"), ("Mediterranean", "Mediterranean"),
+        ("Caribbean", "Caribbean"), ("French", "French"), ("Latin American", "Latin American"), ("Spanish", "Spanish"),
+        ("South East Asian", "South East Asian"), ("European", "European")))
 
     def __str__(self):
         return self.name
@@ -103,6 +109,17 @@ class Meal(models.Model):
         return self.name
 
 
+class Coupon(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    active = models.BooleanField()
+
+    def __str__(self):
+        return self.code
+
+
 class Order(models.Model):
     COOKING = 1
     READY = 2
@@ -129,6 +146,8 @@ class Order(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(default=timezone.now)
     picked_at = models.DateTimeField(blank=True, null=True)
+    coupon = models.ForeignKey(Coupon, related_name='order_coupon', to_field='code', blank=True, null=True, on_delete=models.SET_NULL)
+    discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
@@ -156,14 +175,3 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-
-# class Coupon(models.Model):
-#     code = models.CharField(max_length=50, unique=True)
-#     valid_from = models.DateTimeField()
-#     valid_to = models.DateTimeField()
-#     discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-#     active = models.BooleanField()
-#
-#     def __str__(self):
-#         return self.code
