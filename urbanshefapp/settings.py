@@ -40,6 +40,7 @@ CSRF_COOKIE_SECURE = True
 # Application definition
 DJANGO_APP = [
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
