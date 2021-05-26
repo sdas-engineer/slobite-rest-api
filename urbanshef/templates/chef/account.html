@@ -54,6 +54,7 @@
                 {% bootstrap_field chef_form.gender %}
                 {% bootstrap_field chef_form.bio %}
                 {% bootstrap_field chef_form.name %}
+                <div class="mb-3"><label class="form-label" for="id_name">Chef name</label><input type="text" name="name" value="{{ chef.name }}" maxlength="500" class="form-control" placeholder="Chef name" title="" id="id_name"></div>
                 {% bootstrap_field chef_form.cuisine %}
                 {% bootstrap_field chef_form.phone %}
                 {% bootstrap_field chef_form.chef_street_address %}
@@ -69,7 +70,7 @@
                     </div>
                 </div>
                 <div class="mb-3 is-valid">
-                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene certificated</label>
+                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene certificate</label>
                     <div class="custom-file">
                         <input type="file" name="level_2_food_hygiene_certificate" class="is-valid custom-file-input" title="" id="id_level_2_food_hygiene_certificate">
                         <label class="custom-file-label" for="id_level_2_food_hygiene_certificate" aria-describedby="inputGroupFileAddon02">Choose file</label>
