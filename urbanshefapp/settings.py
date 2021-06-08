@@ -45,6 +45,7 @@ DJANGO_APP = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 THIRD_PARTY_APP = [
     'bootstrap5',
@@ -62,6 +63,9 @@ THIRD_PARTY_APP = [
 LOCAL_APP = [
     'urbanshef',
 ]
+
+SITE_ID = 1
+
 INSTALLED_APPS = DJANGO_APP + THIRD_PARTY_APP + LOCAL_APP
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
