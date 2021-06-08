@@ -76,5 +76,5 @@ class MealForm(forms.ModelForm):
 class CustomPasswordResetForm(PasswordResetForm):
     
     def save(self, *args, **kwargs):
-        # kwargs['use_https'] = True
+        kwargs['use_https'] = True
         super(CustomPasswordResetForm, self).save(*args, **kwargs)
