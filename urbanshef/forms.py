@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from places.fields import PlacesField
 
 from urbanshef.models import Chef, Meal, Review
+from django.contrib.auth.forms import PasswordResetForm
 
 
 class UserForm(forms.ModelForm):
@@ -70,3 +71,7 @@ class MealForm(forms.ModelForm):
         fields = ['name', 'short_description', 'image', 'price', 'portion_size', 'food_type', 'allergen', 'cuisine',
                   'availability']
         exclude = ("chef",)
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    pass

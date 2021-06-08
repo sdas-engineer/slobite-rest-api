@@ -24,6 +24,7 @@ from django.contrib.auth import views as auth_views
 
 from django.conf.urls.static import static
 from django.conf import settings
+from urbanshef.views import CustomPasswordResetView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -52,7 +53,7 @@ urlpatterns = [
     path('chef/login/', views.LoginView.as_view(), name='chef-login'),
     path('chef/logout/', auth_views.LogoutView.as_view(next_page='/'), name='chef-logout'),
     path('chef/sign-up/', views.chef_sign_up, name='chef-sign-up'),
-    path('chef/reset_password/', auth_views.PasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
+    path('chef/reset_password/', CustomPasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
 
     path('chef/reset_password_sent/',
          auth_views.PasswordResetDoneView.as_view(template_name="chef/password_reset_sent.html"),

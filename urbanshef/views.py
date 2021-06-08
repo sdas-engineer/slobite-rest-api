@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from urbanshef.forms import UserForm, ChefForm, UserFormForEdit, MealForm
+from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit
 from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
@@ -29,6 +29,7 @@ from django.contrib.auth.models import User
 from urbanshef.models import Meal, Order, Driver
 
 from django.db.models import Sum, Count, Case, When, Q
+from django.contrib.auth.views import PasswordResetView
 
 
 # Create your views here.
@@ -446,3 +447,8 @@ class PasswordReset(View):
             send_mail(subject, email, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
             return redirect('password_reset_done')
         return redirect('password_reset_done')
+
+
+
+class CustomPasswordResetView(PasswordResetView):
+    form_class = CustomPasswordResetForm
