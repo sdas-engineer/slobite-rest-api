@@ -56,7 +56,7 @@ class MealForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple
     )
     food_type = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
-        ('Appetizer', 'Appetizer'), ('Main', 'Main'), ('Side', 'Side'), ('Dessert', 'Dessert'))))
+        ('Appentizer', 'Appentizer'), ('Main', 'Main'), ('Side', 'Side'), ('Dessert', 'Dessert'))))
     cuisine = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
         ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
         ("Italian", "Italian"), ("Pakistani", "Pakistani"), ("Middle East", "Middle East"), ("Nepalese", "Nepalese"),
