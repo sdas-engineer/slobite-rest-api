@@ -83,6 +83,10 @@
                                         </table>
                                         {% endfor %}
                                         <br>
+                                        {% if order.pre_order  %}
+                                         <p><b>Pre-Order</b> : {{ order.pre_order }}</p>
+                                        {% endif %}
+                                        <br>
                                         <p><b>Delivery instructions:</b> {{ order.delivery_instructions }}</p>
                                         <br>
                                         <p>If you have any troubles with your order, kindly reach out to your chef directly at <strong> {{ request.user.chef.phone }}</strong> or visit our website to get support.</p>
