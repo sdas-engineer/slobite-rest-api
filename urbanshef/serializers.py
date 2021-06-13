@@ -45,7 +45,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ("id", "name", "short_description", "image", "price", 'availability')
+        fields = ("id", "name", "short_description", "image", "price", 'availability','spicy','diet')
 
 
 # ORDER SERIALIZER
