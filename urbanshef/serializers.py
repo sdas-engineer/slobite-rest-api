@@ -100,12 +100,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    access_token = serializers.CharField(max_length=200, allow_blank=False, allow_null=False)
+    access_token = serializers.CharField(max_length=200, required=True)
     chef_id = serializers.IntegerField()
     order_details = serializers.CharField()
     stripe_token = serializers.CharField()
-    coupon=serializers.CharField(max_length=100, allow_blank=True)
-    pre_order = serializers.DateTimeField(allow_blank=True)
+    coupon=serializers.CharField(max_length=100, required=False)
+    pre_order = serializers.DateTimeField(required=False)
     class Meta:
         model = Order
         fields = (

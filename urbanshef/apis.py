@@ -98,7 +98,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
             customer = access_token.user.customer
 
             # customer = Customer.objects.get(id=request.POST.get('access_token'))
-        except:
+        except Exception:
             return Response({"status": "failed", "error": "Invalid customer."})
 
         # Get Stripe token
@@ -162,7 +162,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
             )
             if charge['status'] != "failed":
                 # Step 2 - Create an Order
-               order = Order.objects.create(
+                order = Order.objects.create(
                     customer=customer,
                     chef_id=request.POST["chef_id"],
                     total=order_total_including_charge,
