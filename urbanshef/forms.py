@@ -63,7 +63,7 @@ class MealForm(forms.ModelForm):
 
     # Added On Demand
     spicy =  forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
-        (None,'----'), ('Mild', 'Mild'), ('Medium', 'Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme'))),     required=False)
+        (None,'----'), ('Mild', 'Mild'), ('Medium', 'Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme'))), required=False)
            
     diet =  forms.CharField(widget=forms.Select(attrs={'class': 'form-control'},  choices=(
         (None, '----'),('Vegan', 'Vegan'), ('Vegetarian', 'Vegetarian'))),required=False)
