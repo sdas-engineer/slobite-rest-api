@@ -162,7 +162,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
             )
             if charge['status'] != "failed":
                 # Step 2 - Create an Order
-                order = Order.objects.create(
+                order = Order(
                     customer=customer,
                     chef_id=request.POST["chef_id"],
                     total=order_total_including_charge,
@@ -174,10 +174,13 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     service_charge=service_charge,
                     delivery_instructions=request.POST.get('delivery_instructions'),
                     coupon=cInstance,
-                    pre_order=request.POST.get('pre_order',None),
                     discount_amount=discountedAmount
                 )
-
+                pre_order = request.POST.get('pre_order',None),
+                if pre_order:
+                    order.pre_order = pre_order
+                    
+                order.save()
                 # Step 3 - Create Order details
                 for meal in order_details:
                     OrderDetails.objects.create(
