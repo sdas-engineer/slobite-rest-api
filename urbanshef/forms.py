@@ -40,7 +40,7 @@ class ChefForm(forms.ModelForm):
     class Meta:
         model = Chef
         fields = ("name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode", "picture",
-                  "level_2_food_hygiene_certificate", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio', 'cuisine')
+                  "level_2_food_hygiene_certificate", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio', 'cuisine','delivery_time')
 
 
 class MealForm(forms.ModelForm):
@@ -63,10 +63,10 @@ class MealForm(forms.ModelForm):
 
     # Added On Demand
     spicy =  forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
-        ('','----'), ('Mild', 'Mild'), ('Medium', 'Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme'))))
+        (None,'----'), ('Mild', 'Mild'), ('Medium', 'Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme'))),required=False)
     
     diet =  forms.CharField(widget=forms.Select(attrs={'class': 'form-control'},  choices=(
-        ('', '----'),('Vegan', 'Vegan'), ('Vegetarian', 'Vegetarian'))))
+        (None, '----'),('Vegan', 'Vegan'), ('Vegetarian', 'Vegetarian'))),required=False)
     
     # -------------------------
     cuisine = forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}, choices=(
@@ -80,7 +80,7 @@ class MealForm(forms.ModelForm):
 
     class Meta:
         model = Meal
-        fields = ['name', 'short_description', 'image', 'price', 'portion_size', 'food_type', 'spicy', 'allergen', 'cuisine',
+        fields = ['name', 'short_description', 'image', 'price', 'portion_size', 'food_type', 'spicy', 'diet' ,'allergen', 'cuisine',
                   'availability']
         exclude = ("chef",)
 
