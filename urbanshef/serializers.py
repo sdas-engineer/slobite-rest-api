@@ -31,7 +31,7 @@ class ChefSerializer(serializers.ModelSerializer):
         model = Chef
         fields = ("id", "name", "phone", "chef_street_address", "chef_flat_number", "city",
                   "postcode", "picture", "stripe_user_id", "stripe_access_token", "available",
-                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender",
+                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender","delivery_time",
                   "cuisine")
 
 
@@ -96,7 +96,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "customer", "chef", "order_details", "total", "status", "customer_street_address",
-                  "customer_flat_number", "service_charge", "phone", "delivery_instructions")
+                  "customer_flat_number", "service_charge", "phone", "delivery_instructions",'pre_order')
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):

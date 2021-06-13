@@ -55,6 +55,7 @@
                 {% bootstrap_field chef_form.bio %}
                 <div class="mb-3"><label class="form-label" for="id_name">Kitchen name</label><input type="text" name="name" value="{{ chef.name }}" maxlength="500" class="form-control" placeholder="Chef name" title="" id="id_name"></div>
                 {% bootstrap_field chef_form.cuisine %}
+                {% bootstrap_field chef_form.delivery_time %}
                 {% bootstrap_field chef_form.phone %}
                 {% bootstrap_field chef_form.chef_street_address %}
                 {% bootstrap_field chef_form.chef_flat_number %}

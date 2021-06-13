@@ -29,6 +29,9 @@ class Chef(models.Model):
     gender = models.CharField(max_length=100, choices=(("Male", "Male"), ("Female", "Female"), ("Other", "Other")),
                               blank=True)
     agree_terms_and_condition = models.BooleanField()
+    # Added on Demand
+    delivery_time = models.CharField(max_length=255, blank=True, choices=(('Pre-order', 'Pre-order'),('30-60 min', '30-60 min'),('60-120 min', '60-120 min')),default='Pre-order')
+    # -------------
     cuisine = models.CharField(max_length=255, blank=True, choices=(
         ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
         ("Italian", "Italian"), ("Pakistani", "Pakistani"), ("Middle East", "Middle East"), ("Nepalese", "Nepalese"),
@@ -89,7 +92,13 @@ class Meal(models.Model):
                                 help_text='A 20% tax will be automatically added to the price')
     portion_size = models.CharField(max_length=255, help_text="12 pieces or 12 oz. container or others", blank=True)
     food_type = models.CharField(max_length=255, choices=(
-        ('Appentizer', 'Appentizer'), ('Main', 'Main'), ('Side', 'Side'), ('Dessert', 'Dessert')), default=0)
+        ('Appetizer', 'Appetizer'), ('Main', 'Main'), ('Side', 'Side'), ('Dessert', 'Dessert')), default=0)
+    # Added on demand
+    spicy = models.CharField(max_length=255, choices=(
+        ('Mild', 'Mild'), ('Medium','Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme')), blank=True, null=True)
+    diet = models.CharField(max_length=255, choices=(
+        ('Vegan', 'Vegan'), ('Vegetarian', 'Vegetarian')), blank=True, null=True)
+    # --------------------
     allergen = MultiSelectField(choices=(
         ('Celery', 'Celery'), ('Gluten', 'Gluten'), ('Crustaceans', 'Crustaceans'), ('Eggs', 'Eggs'), ('Fish', 'Fish'),
         ('Lupin', 'Lupin'), ('Milk', 'Milk'), ('Molluscs', 'Molluscs'), ('Mustard', 'Mustard'), ('Peanuts', 'Peanuts'),
@@ -148,7 +157,7 @@ class Order(models.Model):
     picked_at = models.DateTimeField(blank=True, null=True)
     coupon = models.ForeignKey(Coupon, related_name='order_coupon', to_field='code', blank=True, null=True, on_delete=models.SET_NULL)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-
+    pre_order = models.DateTimeField(null=True,blank=True)
     def __str__(self):
         return str(self.id)
 
