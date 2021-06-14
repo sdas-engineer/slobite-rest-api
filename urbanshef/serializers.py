@@ -105,7 +105,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     order_details = serializers.CharField()
     stripe_token = serializers.CharField()
     coupon=serializers.CharField(max_length=100, required=False)
-    re_order = serializers.DateTimeField(required=False)
+    pre_order = serializers.DateTimeField(required=False)
     class Meta:
         model = Order
         fields = (
