@@ -105,7 +105,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     order_details = serializers.CharField()
     stripe_token = serializers.CharField()
     coupon=serializers.CharField(max_length=100, required=False)
-    pre_order = serializers.DateTimeField(required=False)
+    pre_order = serializers.DateTimeField(format="%dd/%mm/%yyyy %H:%M", required=False)
 
     # def to_internal_value(self, data):
     #     if data.get('pre_order') == '':
