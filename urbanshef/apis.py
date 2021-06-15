@@ -174,7 +174,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
                     service_charge=service_charge,
                     delivery_instructions=request.POST.get('delivery_instructions'),
                     coupon=cInstance,
-                    pre_order=request.POST.get('pre_order', None),
+                    pre_order=request.POST.get('pre_order'),
                     discount_amount=discountedAmount
                 )
                 # Step 3 - Create Order details
