@@ -30,7 +30,8 @@ class Chef(models.Model):
                               blank=True)
     agree_terms_and_condition = models.BooleanField()
     # Added on Demand
-    delivery_time = models.CharField(max_length=255, blank=True, choices=(('Pre-order', 'Pre-order'),('30-60 min', '30-60 min'),('60-120 min', '60-120 min')),default='Pre-order')
+    delivery_time = models.CharField(max_length=255, blank=True, choices=(
+    ('Pre-order', 'Pre-order'), ('30-60 min', '30-60 min'), ('60-120 min', '60-120 min')), default='Pre-order')
     # -------------
     cuisine = models.CharField(max_length=255, blank=True, choices=(
         ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
@@ -95,7 +96,7 @@ class Meal(models.Model):
         ('Appetizer', 'Appetizer'), ('Main', 'Main'), ('Side', 'Side'), ('Dessert', 'Dessert')), default=0)
     # Added on demand
     spicy = models.CharField(max_length=255, choices=(
-        ('Mild', 'Mild'), ('Medium','Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme')), blank=True, null=True)
+        ('Mild', 'Mild'), ('Medium', 'Medium'), ('Hot', 'Hot'), ('Extreme', 'Extreme')), blank=True, null=True)
     diet = models.CharField(max_length=255, choices=(
         ('Vegan', 'Vegan'), ('Vegetarian', 'Vegetarian')), blank=True, null=True)
     # --------------------
@@ -155,10 +156,11 @@ class Order(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(default=timezone.now)
     picked_at = models.DateTimeField(blank=True, null=True)
-    coupon = models.ForeignKey(Coupon, related_name='order_coupon', to_field='code', blank=True, null=True, on_delete=models.SET_NULL)
+    coupon = models.ForeignKey(Coupon, related_name='order_coupon', to_field='code', blank=True, null=True,
+                               on_delete=models.SET_NULL)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    pre_order = models.DateTimeField(null=True,blank=True)
-    
+    pre_order = models.DateTimeField(null=True, blank=True)
+
     def __str__(self):
         return str(self.id)
 
@@ -185,3 +187,13 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class CheckList(models.Model):
+    chef = models.ForeignKey(Chef, related_name="checklist_chef", on_delete=models.CASCADE)
+    reg_as_self_employed = models.BooleanField(verbose_name='Register as self employed')
+    hygiene_certificate = models.BooleanField(verbose_name='Complete Level 2 Food Hygiene Certificate')
+    reg_kitchen_with_council = models.BooleanField(verbose_name='Register kitchen with local council')
+
+    def __str__(self):
+        return self.chef.name

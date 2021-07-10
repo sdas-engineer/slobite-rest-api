@@ -14,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit
+from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit, CheckListForm
 from django.contrib.auth import authenticate, login
 
 from django.urls import reverse
@@ -23,7 +23,7 @@ from django.http import HttpResponseRedirect, JsonResponse, Http404
 from django.views import View
 from django.conf import settings
 
-from .models import Chef, Review, Customer
+from .models import Chef, Review, Customer, CheckList
 
 from django.contrib.auth.models import User
 from urbanshef.models import Meal, Order, Driver
@@ -417,7 +417,7 @@ class LoginView(View):
             auth = authenticate(request, username=username, password=password)
         if auth:
             login(request, auth)
-            return redirect('chef-home')
+            return redirect('chef-checklist')
         else:
             messages.error(request, 'Invalid credential provided')
             return redirect('chef-login')
@@ -449,6 +449,34 @@ class PasswordReset(View):
         return redirect('password_reset_done')
 
 
-
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
+
+
+class CheckListView(View):
+    def get(self, request):
+        try:
+            instance = CheckList.objects.get(chef__user=self.request.user)
+            form = CheckListForm(instance=instance)
+        except:
+            form = CheckListForm()
+        return render(request, 'chef/checklist.html', {'form': form})
+
+    def post(self, request):
+        try:
+            instance = CheckList.objects.get(chef__user=self.request.user)
+            form = CheckListForm(instance=instance, data=request.POST)
+            update = True
+        except:
+            form = CheckListForm(request.POST)
+            update = False
+        if form.is_valid():
+            if update:
+                form.save()
+            else:
+                ins = form.save(commit=False)
+                ins.chef = Chef.objects.get(user=self.request.user)
+                ins.save()
+            return redirect('chef-checklist')
+        else:
+            return redirect('chef-checklist')

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from urbanshef.models import Chef, Customer, Driver, Meal, Order, OrderDetails, Review, Coupon
+from urbanshef.models import Chef, Customer, Driver, Meal, Order, OrderDetails, Review, Coupon, CheckList
 
 
 class ChefModel(admin.ModelAdmin):
@@ -106,3 +106,16 @@ class CouponModel(admin.ModelAdmin):
 
 
 admin.site.register(Coupon, CouponModel)
+
+
+class CheckListModel(admin.ModelAdmin):
+    class Meta:
+        model = CheckList
+
+    list_display = ['__str__', 'reg_as_self_employed', 'hygiene_certificate', 'reg_kitchen_with_council']
+    list_filter = ['reg_as_self_employed', 'hygiene_certificate', 'reg_kitchen_with_council']
+    list_per_page = 25
+    search_fields = ['chef__name']
+
+
+admin.site.register(CheckList, CheckListModel)

@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -81,6 +82,7 @@ urlpatterns = [
     path('chef/report/', views.chef_report, name='chef-report'),
     path('chef/review/', views.review, name='chef-review'),
     path('chef/review/reply/<int:review_id>', views.reply_to_review, name='chef-reply-review'),
+    path('chef/checklist/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-checklist'),
 
     # # Stripe Connect
     # path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),

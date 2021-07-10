@@ -1,0 +1,52 @@
+{% extends 'chef/base.html' %}
+{% block title %} Edit checklist - Urbanshef {% endblock %}
+{% load bootstrap5 %}
+
+{% block page %}
+    <div class="col-lg-offset-3 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Edit Checklist</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><label for="id_reg_as_self_employed">Schedule Chef Onboarding Call</label></td>
+                            <td>
+                                <button class="btn btn-primary" type="button" onclick="Calendly.showPopupWidget('https://calendly.com/sid-das');return false;">Schedule</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><label for="id_reg_as_self_employed">Register as self employed</label></td>
+                            <td>{% bootstrap_label form.reg_as_self_employed %}</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><label for="id_hygiene_certificate">Complete Level 2 Food Hygiene Certificate</label>
+                            </td>
+                            <td>{% bootstrap_label form.hygiene_certificate %}</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><label for="id_reg_kitchen_with_council">Register kitchen with local council</label>
+                            </td>
+                            <td>{% bootstrap_label form.reg_kitchen_with_council %}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Update Checklist</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+        <!-- Calendly badge widget begin -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+            <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+    <!-- Calendly badge widget end -->
+{% endblock %}
