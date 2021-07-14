@@ -31,7 +31,8 @@ class ChefSerializer(serializers.ModelSerializer):
         model = Chef
         fields = ("id", "name", "phone", "chef_street_address", "chef_flat_number", "city",
                   "postcode", "picture", "stripe_user_id", "stripe_access_token", "available",
-                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender","delivery_time",
+                  "level_2_food_hygiene_certificate", "disabled_by_admin", "note", "bio", "date_of_birth", "gender",
+                  "delivery_time",
                   "cuisine")
 
 
@@ -45,7 +46,7 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ("id", "name", "short_description", "image", "price", 'availability','spicy','diet')
+        fields = ("id", "name", "short_description", "image", "price", 'availability', 'spicy', 'diet')
 
 
 # ORDER SERIALIZER
@@ -96,28 +97,26 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "customer", "chef", "order_details", "total", "status", "customer_street_address",
-                  "customer_flat_number", "service_charge", "phone", "delivery_instructions",'pre_order')
+                  "customer_flat_number", "service_charge", "phone", "delivery_instructions", 'pre_order')
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     access_token = serializers.CharField(max_length=200, required=True)
     chef_id = serializers.IntegerField()
     order_details = serializers.CharField()
-    stripe_token = serializers.CharField()
-    coupon=serializers.CharField(max_length=100, required=False)
+    coupon = serializers.CharField(max_length=100, required=False)
     pre_order = serializers.DateTimeField(required=False)
 
     # def to_internal_value(self, data):
     #     if data.get('pre_order') == '':
     #         data['pre_order'] = None
     #     return super().to_internal_value(data)
-    
+
     class Meta:
         model = Order
         fields = (
-            'access_token', 'chef_id', 'stripe_token', 'delivery_charge', "service_charge", "customer_street_address",
-            "customer_flat_number", "phone",
-            'order_details', 'delivery_instructions', 'coupon','pre_order')
+            'access_token', 'chef_id', 'delivery_charge', "service_charge", "customer_street_address",
+            "customer_flat_number", "phone", 'order_details', 'delivery_instructions', 'coupon', 'pre_order')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -155,3 +154,19 @@ class CouponSerializer(serializers.ModelSerializer):
         model = Coupon
         fields = ['id', 'code', 'valid_from', 'valid_to', 'discount', 'active']
         read_only_fields = ['id', 'valid_from', 'valid_to', 'discount', 'active']
+
+
+class PaymentMethodSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2, required=True)
+    currency = serializers.CharField(max_length=100, required=True)
+    payment_method = serializers.CharField(max_length=200, required=True)
+
+    class Meta:
+        fields = ['amount', 'currency', 'payment_method']
+
+
+class CheckPaymentSerializer(serializers.Serializer):
+    id = serializers.CharField(max_length=100, required=True)
+
+    class Meta:
+        fields = ['id']

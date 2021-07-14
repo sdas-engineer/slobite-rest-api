@@ -104,7 +104,9 @@ urlpatterns = [
     path('api/customer/order/latest/', apis.customer_get_latest_order.as_view()),
     path('api/customer/driver/location/', apis.customer_driver_location.as_view()),
     #
-    #
+    # Payment securing
+    path('api/customer/payment/secure/', apis.PaymentIntentCreate.as_view()),
+    path('api/customer/payment/secure/check/', apis.PaymentIntentCheck.as_view()),
     # # APIs for DRIVERS
     path('api/driver/orders/ready/', apis.driver_get_ready_orders.as_view()),
     path('api/driver/order/pick/', apis.driver_pick_order),

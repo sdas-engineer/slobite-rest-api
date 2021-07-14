@@ -18,7 +18,7 @@ from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Coupon
 from urbanshef.serializers import ChefSerializer, \
     MealSerializer, \
     OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer, \
-    OrderCreateSerializer, MealAllergensSerializer, CouponSerializer
+    OrderCreateSerializer, MealAllergensSerializer, CouponSerializer, PaymentMethodSerializer, CheckPaymentSerializer
 from urbanshefapp.settings import STRIPE_API_KEY
 
 stripe.api_key = STRIPE_API_KEY
@@ -69,6 +69,49 @@ class CustomerGetMeals(APIView):
             return Response({'message': 'No Chef found'}, status=status.HTTP_404_NOT_FOUND)
 
 
+class PaymentIntentCreate(generics.CreateAPIView):
+    serializer_class = PaymentMethodSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            pass
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        amount = request.POST.get("amount")
+        currency = request.POST.get('currency')
+        payment_method = request.POST.get('payment_method')
+        payment_intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency=currency,
+            payment_method=payment_method,
+            confirm=True
+        )
+        if payment_intent.status == 'succeeeded':
+            return Response({'message': 'Payment successful', 'id': payment_intent.id}, status.HTTP_200_OK)
+        if payment_intent.status == 'requires_action':
+            return Response({'message': "3D secure required", 'clientSecret': payment_intent.client_secret},
+                            status.HTTP_200_OK)
+        else:
+            return Response(payment_intent, status.HTTP_400_BAD_REQUEST)
+
+
+class PaymentIntentCheck(generics.CreateAPIView):
+    serializer_class = CheckPaymentSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            pass
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        intent_id = request.POST['id']
+        try:
+            return stripe.PaymentIntent.retrieve(intent_id)
+        except:
+            return Response({'message': 'Invalid payment id'}, status.HTTP_400_BAD_REQUEST)
+
+
 class CustomerAddAPIView(generics.CreateAPIView):
     serializer_class = OrderCreateSerializer
     permission_classes = []
@@ -100,9 +143,6 @@ class CustomerAddAPIView(generics.CreateAPIView):
             # customer = Customer.objects.get(id=request.POST.get('access_token'))
         except Exception:
             return Response({"status": "failed", "error": "Invalid customer."})
-
-        # Get Stripe token
-        stripe_token = request.POST["stripe_token"]
 
         # Get Delivery Charge
         if not request.POST.get('delivery_charge'):
@@ -152,58 +192,47 @@ class CustomerAddAPIView(generics.CreateAPIView):
             discountedAmount = order_total_including_charge * (discountParcent / 100)
         order_total_including_charge = order_total_including_charge - discountedAmount
         if len(order_details) > 0:
-
-            # Step 1: Create a charge: this will charge customer's card
-            charge = stripe.Charge.create(
-                amount=int(order_total_including_charge * 100),  # Amount in pence
-                currency="gbp",
-                source=stripe_token,
-                description="Urbanshef Order"
+            # Step 2 - Create an Order
+            order = Order.objects.create(
+                customer=customer,
+                chef_id=request.POST["chef_id"],
+                total=order_total_including_charge,
+                status=Order.COOKING,
+                customer_street_address=request.POST["customer_street_address"],
+                customer_flat_number=request.POST["customer_flat_number"],
+                phone=request.POST["phone"],
+                delivery_charge=delivery_charge,
+                service_charge=service_charge,
+                delivery_instructions=request.POST.get('delivery_instructions'),
+                coupon=cInstance,
+                pre_order=request.POST.get('pre_order'),
+                discount_amount=discountedAmount
             )
-            if charge['status'] != "failed":
-                # Step 2 - Create an Order
-                order = Order.objects.create(
-                    customer=customer,
-                    chef_id=request.POST["chef_id"],
-                    total=order_total_including_charge,
-                    status=Order.COOKING,
-                    customer_street_address=request.POST["customer_street_address"],
-                    customer_flat_number=request.POST["customer_flat_number"],
-                    phone=request.POST["phone"],
-                    delivery_charge=delivery_charge,
-                    service_charge=service_charge,
-                    delivery_instructions=request.POST.get('delivery_instructions'),
-                    coupon=cInstance,
-                    pre_order=request.POST.get('pre_order'),
-                    discount_amount=discountedAmount
-                )
-                # Step 3 - Create Order details
-                for meal in order_details:
-                    OrderDetails.objects.create(
-                        order=order,
-                        meal_id=meal["meal_id"],
-                        quantity=meal["quantity"],
-                        sub_total=Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"],
-                        # tax=0,
-                        # service_charge=0,
-                        # customer_street_address=request.POST["customer_street_address"],
-                        # customer_flat_number=request.POST["customer_flat_number"],
+            # Step 3 - Create Order details
+            for meal in order_details:
+                OrderDetails.objects.create(
+                    order=order,
+                    meal_id=meal["meal_id"],
+                    quantity=meal["quantity"],
+                    sub_total=Meal.objects.get(id=meal["meal_id"]).price * meal["quantity"],
+                    # tax=0,
+                    # service_charge=0,
+                    # customer_street_address=request.POST["customer_street_address"],
+                    # customer_flat_number=request.POST["customer_flat_number"],
 
-                    )
-                message_to_broadcast = (
-                    "Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
-                client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-                try:
-                    client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
-                except:
-                    print('Unable to send message to ' + order.chef.phone)
-                send_mail('Urbanshef: New Order Alert',
-                          'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
-                          'no-reply@urbanshef.com',
-                          [order.chef.user.email], fail_silently=False)
-                return Response({"status": "success"})
-            else:
-                return Response({"status": "failed", "error": "Payment failed."})
+                )
+            message_to_broadcast = (
+                "Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
+            client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+            try:
+                client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
+            except:
+                print('Unable to send message to ' + order.chef.phone)
+            send_mail('Urbanshef: New Order Alert',
+                      'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
+                      'no-reply@urbanshef.com',
+                      [order.chef.user.email], fail_silently=False)
+            return Response({"status": "success"})
 
 
 class customer_get_latest_order(generics.ListAPIView):
