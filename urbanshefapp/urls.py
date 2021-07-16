@@ -83,7 +83,7 @@ urlpatterns = [
     path('chef/review/', views.review, name='chef-review'),
     path('chef/review/reply/<int:review_id>', views.reply_to_review, name='chef-reply-review'),
     path('chef/checklist/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-checklist'),
-    path('chef/uk_food_hygiene_rating/', login_required(login_url='/chef/login/')(views.UKFoodHygieneRating.as_view()), name='chef-ukfoodhygienerating'),
+    # path('chef/uk_food_hygiene_rating/', login_required(login_url='/chef/login/')(views.UKFoodHygieneRating.as_view()), name='chef-ukfoodhygienerating'),
 
     # # Stripe Connect
     # path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),
