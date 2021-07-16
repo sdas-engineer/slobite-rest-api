@@ -58,7 +58,7 @@ THIRD_PARTY_APP = [
     'rest_framework',
     'places',
     'crispy_forms',
-    'tawkto'
+    'tawkto',
 ]
 LOCAL_APP = [
     'urbanshef',

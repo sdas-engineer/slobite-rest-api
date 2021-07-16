@@ -95,7 +95,7 @@ urlpatterns = [
     # /convert-token (sign in/ sign up)
     # /revoke-token (sign out)
     path('api/chef/order/notification/<int:last_request_time>/', apis.chef_order_notification),
-    path('api/chef/uk_food_rating/<chef_id>/', apis.ShefUKFoodRating.as_view()),
+    # path('api/chef/uk_food_rating/<chef_id>/', apis.ShefUKFoodRating.as_view()),
 
     # # APIs for CUSTOMERS
     path('api/customer/chefs/', apis.CustomerGetChefs.as_view()),

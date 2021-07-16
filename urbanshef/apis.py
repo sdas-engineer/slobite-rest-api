@@ -1,10 +1,7 @@
 import json
 
-import requests
 import stripe
-import xmltodict
 from django.conf import settings
-from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import JsonResponse
@@ -492,46 +489,46 @@ class ApplyCoupon(generics.CreateAPIView):
             return Response(CouponSerializer(c.first(), many=False).data)
         return Response({'error': 'Invalid coupon code'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-
-class ShefUKFoodRating(APIView):
-    def get(self, request, chef_id):
-        try:
-            chef = Chef.objects.get(id=chef_id)
-        except:
-            return Response({'status': 'Invalid chef id'}, status.HTTP_400_BAD_REQUEST)
-        if chef.chef_street_address.place == '':
-            return Response({'status': 'Chef doesn\'t have street address'}, status.HTTP_400_BAD_REQUEST)
-        response = requests.get(
-            'http://ratings.food.gov.uk/search/' + chef.name + '/' + chef.chef_street_address.place.split(',')[
-                0] + '/xml')
-        responseData = response.text
-        data_dict = xmltodict.parse(responseData)
-        jdump = json.dumps(data_dict)
-        json_data = json.loads(jdump)
-        if int(json_data['FHRSEstablishment']['Header']['ItemCount']) == 1:
-            dObject = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-            if dObject['RatingValue'] == 'Awaiting Inspection':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_awaiting_inspection.jpg')
-            elif dObject['RatingValue'] == 'AwaitingInspection':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_awaitinginspection_en-gb.jpg')
-            elif dObject['RatingValue'] == '5':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_5_en-gb.jpg')
-            elif dObject['RatingValue'] == '4':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_4_en-gb.jpg')
-            elif dObject['RatingValue'] == '3':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_3_en-gb.jpg')
-            elif dObject['RatingValue'] == '2':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_2_en-gb.jpg')
-            elif dObject['RatingValue'] == '1':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_1_en-gb.jpg')
-            elif dObject['RatingValue'] == '0':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_0_en-gb.jpg')
-            elif dObject['RatingValue'] == 'Exempt':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_exempt_en-gb.jpg')
-            elif dObject['RatingValue'] == 'Pass':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_pass.jpg')
-            else:
-                imgUrl = dObject['RatingValue']
-            return Response({'url': imgUrl})
-        else:
-            return Response({'status': 'No rating found'}, status.HTTP_404_NOT_FOUND)
+#
+# class ShefUKFoodRating(APIView):
+#     def get(self, request, chef_id):
+#         try:
+#             chef = Chef.objects.get(id=chef_id)
+#         except:
+#             return Response({'status': 'Invalid chef id'}, status.HTTP_400_BAD_REQUEST)
+#         if chef.chef_street_address.place == '':
+#             return Response({'status': 'Chef doesn\'t have street address'}, status.HTTP_400_BAD_REQUEST)
+#         response = requests.get(
+#             'http://ratings.food.gov.uk/search/' + chef.name + '/' + chef.chef_street_address.place.split(',')[
+#                 0] + '/xml')
+#         responseData = response.text
+#         data_dict = xmltodict.parse(responseData)
+#         jdump = json.dumps(data_dict)
+#         json_data = json.loads(jdump)
+#         if int(json_data['FHRSEstablishment']['Header']['ItemCount']) == 1:
+#             dObject = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
+#             if dObject['RatingValue'] == 'Awaiting Inspection':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_awaiting_inspection.jpg')
+#             elif dObject['RatingValue'] == 'AwaitingInspection':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_awaitinginspection_en-gb.jpg')
+#             elif dObject['RatingValue'] == '5':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_5_en-gb.jpg')
+#             elif dObject['RatingValue'] == '4':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_4_en-gb.jpg')
+#             elif dObject['RatingValue'] == '3':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_3_en-gb.jpg')
+#             elif dObject['RatingValue'] == '2':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_2_en-gb.jpg')
+#             elif dObject['RatingValue'] == '1':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_1_en-gb.jpg')
+#             elif dObject['RatingValue'] == '0':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_0_en-gb.jpg')
+#             elif dObject['RatingValue'] == 'Exempt':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_exempt_en-gb.jpg')
+#             elif dObject['RatingValue'] == 'Pass':
+#                 imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_pass.jpg')
+#             else:
+#                 imgUrl = dObject['RatingValue']
+#             return Response({'url': imgUrl})
+#         else:
+#             return Response({'status': 'No rating found'}, status.HTTP_404_NOT_FOUND)
