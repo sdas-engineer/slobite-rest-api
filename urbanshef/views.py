@@ -1,11 +1,8 @@
-import json
-import pprint
 import re
 import urllib
 from datetime import time, datetime, timedelta
 
 import requests
-import xmltodict
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -483,42 +480,3 @@ class CheckListView(View):
             return redirect('chef-checklist')
         else:
             return redirect('chef-checklist')
-
-
-# class UKFoodHygieneRating(View):
-#     def get(self, request):
-#         return render(request, 'chef/uk_food_hygiene_rating.html')
-#
-#     def post(self, request):
-#         shef = request.POST['shef_name']
-#         location = request.POST['location']
-#         response = requests.get('http://ratings.food.gov.uk/search/' + shef + '/' + location + '/xml')
-#         responseData = response.text
-#         data_dict = xmltodict.parse(responseData)
-#         jdump = json.dumps(data_dict)
-#         json_data = json.loads(jdump)
-#         dataList = []
-#         if int(json_data['FHRSEstablishment']['Header']['ItemCount']) > 1:
-#             dlist = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-#             for data in dlist:
-#                 dataList.append({
-#                     'businessName': data['BusinessName'],
-#                     'addressLine1': data['AddressLine1'],
-#                     'addressLine2': data['AddressLine2'],
-#                     'addressLine3': data['AddressLine3'],
-#                     'lastInspection': data['RatingDate'],
-#                     'ratingValue': data['RatingValue'],
-#                     'postCode': data['PostCode'],
-#                 })
-#         elif int(json_data['FHRSEstablishment']['Header']['ItemCount']) == 1:
-#             dObject = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-#             dataList.append({
-#                 'businessName': dObject['BusinessName'],
-#                 'addressLine1': dObject['AddressLine1'],
-#                 'addressLine2': dObject['AddressLine2'],
-#                 'addressLine3': dObject['AddressLine3'],
-#                 'lastInspection': dObject['RatingDate'],
-#                 'ratingValue': dObject['RatingValue'],
-#                 'postCode': dObject['PostCode'],
-#             })
-#         return render(request, 'chef/uk_food_hygiene_rating.html', {'dataList': dataList})

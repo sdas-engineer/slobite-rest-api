@@ -83,7 +83,6 @@ urlpatterns = [
     path('chef/review/', views.review, name='chef-review'),
     path('chef/review/reply/<int:review_id>', views.reply_to_review, name='chef-reply-review'),
     path('chef/checklist/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-checklist'),
-    # path('chef/uk_food_hygiene_rating/', login_required(login_url='/chef/login/')(views.UKFoodHygieneRating.as_view()), name='chef-ukfoodhygienerating'),
 
     # # Stripe Connect
     # path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),
@@ -95,7 +94,6 @@ urlpatterns = [
     # /convert-token (sign in/ sign up)
     # /revoke-token (sign out)
     path('api/chef/order/notification/<int:last_request_time>/', apis.chef_order_notification),
-    # path('api/chef/uk_food_rating/<chef_id>/', apis.ShefUKFoodRating.as_view()),
 
     # # APIs for CUSTOMERS
     path('api/customer/chefs/', apis.CustomerGetChefs.as_view()),
