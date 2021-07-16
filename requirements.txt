@@ -41,4 +41,3 @@ whitenoise==5.2.0
 wheel
 psycopg2-binary==2.8.6
 # psycopg2>=2.7.5,<2.8.0
-xmltodict==0.12.0

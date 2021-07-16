@@ -1,37 +1,30 @@
-import json
 import re
 import urllib
-from datetime import time, datetime, timedelta
+from datetime import datetime, timedelta
 
 import requests
-import xmltodict
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Sum, Count, Case, When, Q
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.views import View
 
 from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit, CheckListForm
-from django.contrib.auth import authenticate, login
-
-from django.urls import reverse
-from django.http import HttpResponseRedirect, JsonResponse, Http404
-
-from django.views import View
-from django.conf import settings
-
-from .models import Chef, Review, Customer, CheckList
-
-from django.contrib.auth.models import User
 from urbanshef.models import Meal, Order, Driver
-
-from django.db.models import Sum, Count, Case, When, Q
-from django.contrib.auth.views import PasswordResetView
+from .models import Chef, Review, Customer, CheckList
 
 
 # Create your views here.
@@ -491,11 +484,8 @@ class UKFoodHygieneRating(View):
     def post(self, request):
         shef = request.POST['shef_name']
         location = request.POST['location']
-        response = requests.get('http://ratings.food.gov.uk/search/' + shef + '/' + location + '/xml')
-        responseData = response.text
-        data_dict = xmltodict.parse(responseData)
-        jdump = json.dumps(data_dict)
-        json_data = json.loads(jdump)
+        response = requests.get('http://ratings.food.gov.uk/search/' + shef + '/' + location + '/json')
+        json_data = response.json()
         dataList = []
         if int(json_data['FHRSEstablishment']['Header']['ItemCount']) > 1:
             dlist = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
