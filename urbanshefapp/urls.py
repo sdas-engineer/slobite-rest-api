@@ -127,6 +127,8 @@ urlpatterns = [
     # Chef average review
     path('api/chef/review/<pk>/', apis.ChefAvgRatingAPIView.as_view()),
 
+    path('api/chef/uk_food_rating/<chef_id>/', apis.ShefUKFoodRating.as_view()),
+
     path('doc/', schema_view.with_ui('swagger', cache_timeout=-25), name='schema-swagger-ui')
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

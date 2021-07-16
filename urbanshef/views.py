@@ -283,7 +283,7 @@ def chef_sign_up(request):
                 username=user_form.cleaned_data["username"],
                 password=user_form.cleaned_data["password"]
             ))
-            return redirect(chef_account)
+            return redirect('chef-checklist')
         else:
             messages.error(request, 'Something went wrong. Try again')
             return redirect('chef-sign-up')
