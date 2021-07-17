@@ -14,25 +14,27 @@
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td><label for="id_reg_as_self_employed">Schedule Chef onboarding call</label></td>
+                            <td><label for="id_reg_as_self_employed">Schedule chef onboarding call</label></td>
                             <td>
-                                <button class="btn btn-primary" type="button" onclick="Calendly.showPopupWidget('https://calendly.com/sid-das');return false;">Schedule</button>
+                                <button class="btn btn-primary" type="button" onclick="Calendly.showPopupWidget('https://calendly.com/sid-das?hide_gdpr_banner=1');return false;">Schedule</button>
                             </td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td><label for="id_reg_as_self_employed">Register as self-employed</label></td>
+                            <td><label for="id_reg_as_self_employed">Register as self-employed - <a href="https://www.gov.uk/set-up-sole-trader" target="_blank">here</a></label></td>
                             <td>{% bootstrap_label form.reg_as_self_employed %}</td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td><label for="id_hygiene_certificate">Complete Level 2 Food Hygiene Certificate</label>
+                            <td><label for="id_hygiene_certificate">Complete Level 2 Food Hygiene Certificate - <a
+                                    href="https://essentialfoodhygiene.co.uk/courses/level-2-food-hygiene-and-safety-manufacturing/" target="_blank">here</a></label>
                             </td>
                             <td>{% bootstrap_label form.hygiene_certificate %}</td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td><label for="id_reg_kitchen_with_council">Register kitchen with local council</label>
+                            <td><label for="id_reg_kitchen_with_council">Register your kitchen with the local council - <a
+                                    href="https://www.gov.uk/food-business-registration" target="_blank">here</a></label>
                             </td>
                             <td>{% bootstrap_label form.reg_kitchen_with_council %}</td>
                         </tr>
