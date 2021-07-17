@@ -31,7 +31,7 @@ class Chef(models.Model):
     agree_terms_and_condition = models.BooleanField()
     # Added on Demand
     delivery_time = models.CharField(max_length=255, blank=True, choices=(
-    ('Pre-order', 'Pre-order'), ('30-60 min', '30-60 min'), ('60-120 min', '60-120 min')), default='Pre-order')
+        ('Pre-order', 'Pre-order'), ('30-60 min', '30-60 min'), ('60-120 min', '60-120 min')), default='Pre-order')
     # -------------
     cuisine = models.CharField(max_length=255, blank=True, choices=(
         ("British", "British"), ("Chinese", "Chinese"), ("Japanese", "Japanese"), ("Indian", "Indian"),
@@ -39,6 +39,7 @@ class Chef(models.Model):
         ("Mexican", "Mexican"), ("Korean", "Korean"), ("African", "African"), ("Mediterranean", "Mediterranean"),
         ("Caribbean", "Caribbean"), ("French", "French"), ("Latin American", "Latin American"), ("Spanish", "Spanish"),
         ("South East Asian", "South East Asian"), ("European", "European")))
+    status = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.name

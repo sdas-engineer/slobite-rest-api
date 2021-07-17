@@ -482,6 +482,11 @@ class UKFoodHygieneRating(View):
         return render(request, 'chef/uk_food_hygiene_rating.html')
 
     def post(self, request):
+        if request.POST.get('saveRating'):
+            chef = Chef.objects.get(user=self.request.user)
+            chef.status = request.POST['hygiene_rating']
+            chef.save()
+            return redirect('chef-account')
         shef = request.POST['shef_name']
         location = request.POST['location']
         response = requests.get('http://ratings.food.gov.uk/search/' + shef + '/' + location + '/json')
