@@ -115,7 +115,7 @@ class PaymentIntentCreate(generics.CreateAPIView):
                 payment_method=payment_method,
                 confirm=False
             )
-            return Response(payment_intent, status.HTTP_400_BAD_REQUEST)
+            return Response(payment_intent, status.HTTP_200_OK)
         except:
             return Response({'message': 'Payment is not initiated, try again'}, status.HTTP_400_BAD_REQUEST)
 
