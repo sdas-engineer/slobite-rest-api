@@ -1,5 +1,3 @@
-from django.utils.encoding import smart_text
-from places.fields import PlacesField
 from rest_framework import serializers
 
 from urbanshef.models import Chef, \
@@ -157,6 +155,17 @@ class CouponSerializer(serializers.ModelSerializer):
 
 
 class PaymentMethodSerializer(serializers.Serializer):
+    type = serializers.CharField(max_length=100, required=True, label='Payment method type')
+    card_number = serializers.CharField(max_length=30, required=True, label='Card number')
+    exp_month = serializers.IntegerField(required=True, label='Expiry month')
+    exp_year = serializers.IntegerField(required=True, label='Expiry year')
+    cvc = serializers.CharField(max_length=20, required=True)
+
+    class Meta:
+        fields = ['type', 'card_number', 'exp_month', 'exp_year', 'cvc']
+
+
+class PaymentIntentSerializer(serializers.Serializer):
     amount = serializers.DecimalField(max_digits=10, decimal_places=2, required=True)
     currency = serializers.CharField(max_length=100, required=True)
     payment_method = serializers.CharField(max_length=200, required=True)
@@ -167,6 +176,21 @@ class PaymentMethodSerializer(serializers.Serializer):
 
 class CheckPaymentSerializer(serializers.Serializer):
     id = serializers.CharField(max_length=100, required=True)
+
+    class Meta:
+        fields = ['id']
+
+
+class PaymentIntentConfirmSerializer(serializers.Serializer):
+    id = serializers.CharField(max_length=100, required=True)
+    payment_method = serializers.CharField(max_length=100, required=True)
+
+    class Meta:
+        fields = ['id', 'payment_method']
+
+
+class PaymentIntentCancelSerializer(serializers.Serializer):
+    id = serializers.CharField(max_length=200, required=True)
 
     class Meta:
         fields = ['id']
