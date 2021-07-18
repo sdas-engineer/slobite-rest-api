@@ -81,16 +81,19 @@ class PaymentMethodCreate(generics.CreateAPIView):
             pass
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
-        s = stripe.PaymentMethod.create(
-            type=request.POST['type'],
-            card={
-                "number": request.POST['card_number'],
-                "exp_month": request.POST['exp_month'],
-                "exp_year": request.POST['exp_year'],
-                "cvc": request.POST['cvc']
-            }
-        )
-        return Response(s, status.HTTP_200_OK)
+        try:
+            s = stripe.PaymentMethod.create(
+                type=request.POST['type'],
+                card={
+                    "number": request.POST['card_number'],
+                    "exp_month": request.POST['exp_month'],
+                    "exp_year": request.POST['exp_year'],
+                    "cvc": request.POST['cvc']
+                }
+            )
+            return Response(s, status.HTTP_200_OK)
+        except:
+            return Response({'message':'Invalid card information'}, status.HTTP_400_BAD_REQUEST)
 
 
 class PaymentIntentCreate(generics.CreateAPIView):
