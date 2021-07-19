@@ -168,21 +168,28 @@ class PaymentMethodSerializer(serializers.Serializer):
 class PaymentIntentSerializer(serializers.Serializer):
     amount = serializers.DecimalField(max_digits=10, decimal_places=2, required=True)
     currency = serializers.CharField(max_length=100, required=True)
+
+    class Meta:
+        fields = ['amount', 'currency']
+
+
+class PaymentIntentModifySerializer(serializers.Serializer):
+    id = serializers.CharField(max_length=200, required=True, label='Payment ID')
     payment_method = serializers.CharField(max_length=200, required=True)
 
     class Meta:
-        fields = ['amount', 'currency', 'payment_method']
+        fields = ['id', 'payment_method']
 
 
 class CheckPaymentSerializer(serializers.Serializer):
-    id = serializers.CharField(max_length=100, required=True)
+    id = serializers.CharField(max_length=100, required=True, label='Payment ID')
 
     class Meta:
         fields = ['id']
 
 
 class PaymentIntentConfirmSerializer(serializers.Serializer):
-    id = serializers.CharField(max_length=100, required=True)
+    id = serializers.CharField(max_length=100, required=True, label='Payment ID')
     payment_method = serializers.CharField(max_length=100, required=True)
 
     class Meta:
@@ -190,7 +197,7 @@ class PaymentIntentConfirmSerializer(serializers.Serializer):
 
 
 class PaymentIntentCancelSerializer(serializers.Serializer):
-    id = serializers.CharField(max_length=200, required=True)
+    id = serializers.CharField(max_length=200, required=True, label='Payment ID')
 
     class Meta:
         fields = ['id']

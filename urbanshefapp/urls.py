@@ -108,6 +108,7 @@ urlpatterns = [
     path('api/customer/payment/method/', apis.PaymentMethodCreate.as_view()),
     path('api/customer/payment/intent/create', apis.PaymentIntentCreate.as_view()),
     path('api/customer/payment/intent/check/', apis.PaymentIntentCheck.as_view()),
+    path('api/customer/payment/intent/modify/', apis.PaymentIntentModify.as_view()),
     path('api/customer/payment/intent/confirm/', apis.PaymentIntentConfirm.as_view()),
     path('api/customer/payment/intent/cancel/', apis.PaymentIntentCancel.as_view()),
     # # APIs for DRIVERS

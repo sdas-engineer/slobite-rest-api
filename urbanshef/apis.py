@@ -21,7 +21,8 @@ from urbanshef.serializers import ChefSerializer, \
     MealSerializer, \
     OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer, \
     OrderCreateSerializer, MealAllergensSerializer, CouponSerializer, PaymentMethodSerializer, CheckPaymentSerializer, \
-    PaymentIntentSerializer, PaymentIntentConfirmSerializer, PaymentIntentCancelSerializer
+    PaymentIntentSerializer, PaymentIntentConfirmSerializer, PaymentIntentCancelSerializer, \
+    PaymentIntentModifySerializer
 from urbanshefapp.settings import STRIPE_API_KEY
 
 stripe.api_key = STRIPE_API_KEY
@@ -93,7 +94,7 @@ class PaymentMethodCreate(generics.CreateAPIView):
             )
             return Response(s, status.HTTP_200_OK)
         except:
-            return Response({'message':'Invalid card information'}, status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid card information'}, status.HTTP_400_BAD_REQUEST)
 
 
 class PaymentIntentCreate(generics.CreateAPIView):
@@ -107,17 +108,37 @@ class PaymentIntentCreate(generics.CreateAPIView):
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
         amount = request.POST.get("amount")
         currency = request.POST.get('currency')
-        payment_method = request.POST.get('payment_method')
         try:
             payment_intent = stripe.PaymentIntent.create(
                 amount=amount,
                 currency=currency,
-                payment_method=payment_method,
                 confirm=False
             )
             return Response(payment_intent, status.HTTP_200_OK)
         except:
-            return Response({'message': 'Payment is not initiated, try again'}, status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid amount or currency'}, status.HTTP_400_BAD_REQUEST)
+
+
+class PaymentIntentModify(generics.CreateAPIView):
+    serializer_class = PaymentIntentModifySerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            pass
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+        pi = request.POST.get("id")
+        payment_method = request.POST.get('payment_method')
+        try:
+            payment_intent = stripe.PaymentIntent.modify(
+                pi,
+                payment_method=payment_method
+            )
+            return Response(payment_intent, status.HTTP_200_OK)
+        except:
+            return Response({'message': 'Invalid payment ID or method. Try again'}, status.HTTP_400_BAD_REQUEST)
 
 
 class PaymentIntentCheck(generics.CreateAPIView):
