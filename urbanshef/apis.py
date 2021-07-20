@@ -16,7 +16,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from twilio.rest import Client
 
-from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Coupon
+from urbanshef.models import Chef, Meal, Order, OrderDetails, Review, Coupon, Customer
 from urbanshef.serializers import ChefSerializer, \
     MealSerializer, \
     OrderSerializer, ReviewSerializer, ChefContactSerializer, ChefBioSerializer, ChefAvgRatingSerializer, \
@@ -82,7 +82,20 @@ class PaymentSheet(generics.CreateAPIView):
             pass
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
-        customer = stripe.Customer.create()
+        try:
+            access_token = AccessToken.objects.get(token=request.POST.get("access_token"),
+                                                   expires__gt=timezone.now())
+
+            customer_user = access_token.user
+        except:
+            return Response({'error': 'Invalid customer'}, status.HTTP_400_BAD_REQUEST)
+        try:
+            customer = stripe.Customer.retrieve(id=customer_user.customer.stripe_id)
+        except:
+            customer = stripe.Customer.create()
+            c = Customer.objects.get(user=customer_user)
+            c.stripe_id = customer.id
+            c.save()
         ephemeralKey = stripe.EphemeralKey.create(customer=customer.id, stripe_version='2020-08-27')
         try:
             payment_intent = stripe.PaymentIntent.create(

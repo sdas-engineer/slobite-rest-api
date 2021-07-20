@@ -168,9 +168,10 @@ class PaymentMethodSerializer(serializers.Serializer):
 class PaymentIntentSerializer(serializers.Serializer):
     amount = serializers.DecimalField(max_digits=10, decimal_places=2, required=True)
     currency = serializers.CharField(max_length=100, required=True)
+    access_token = serializers.CharField(max_length=200, required=True)
 
     class Meta:
-        fields = ['amount', 'currency']
+        fields = ['amount', 'currency', 'access_token']
 
 
 class PaymentIntentModifySerializer(serializers.Serializer):

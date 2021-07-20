@@ -68,7 +68,8 @@ class Customer(models.Model):
     avatar = models.CharField(max_length=500)
     phone = models.CharField(max_length=500)
     customer_street_address = models.CharField(max_length=500)
-    customer_flat_number = models.CharField(max_length=500)
+    customer_flat_number = models.CharField(max_length=500),
+    stripe_id = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.user.get_full_name()
