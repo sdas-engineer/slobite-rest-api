@@ -105,6 +105,7 @@ urlpatterns = [
     path('api/customer/driver/location/', apis.customer_driver_location.as_view()),
     #
     # Payment securing
+    path('api/customer/payment/sheet/', apis.PaymentSheet.as_view()),
     path('api/customer/payment/method/', apis.PaymentMethodCreate.as_view()),
     path('api/customer/payment/intent/create', apis.PaymentIntentCreate.as_view()),
     path('api/customer/payment/intent/check/', apis.PaymentIntentCheck.as_view()),

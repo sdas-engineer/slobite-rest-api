@@ -73,6 +73,30 @@ class CustomerGetMeals(APIView):
             return Response({'message': 'No Chef found'}, status=status.HTTP_404_NOT_FOUND)
 
 
+class PaymentSheet(generics.CreateAPIView):
+    serializer_class = PaymentIntentSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            pass
+        else:
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+        customer = stripe.Customer.create()
+        ephemeralKey = stripe.EphemeralKey.create(customer=customer.id, stripe_version='2020-08-27')
+        try:
+            payment_intent = stripe.PaymentIntent.create(
+                amount=request.POST['amount'],
+                currency=request.POST['currency'],
+                confirm=False
+            )
+            return Response({'customer': customer, 'ephemeralKey': ephemeralKey, 'payment_intent': payment_intent},
+                            status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Invalid amount or currency'}, status.HTTP_400_BAD_REQUEST)
+
+
 class PaymentMethodCreate(generics.CreateAPIView):
     serializer_class = PaymentMethodSerializer
 
