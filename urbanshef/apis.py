@@ -281,6 +281,10 @@ class CustomerAddAPIView(generics.CreateAPIView):
         if not request.POST.get("customer_flat_number"):
             return Response({"status": "failed", "error": "Flat Number is required."})
 
+        # Check Payment ID
+        if not request.POST.get("payment_id"):
+            return Response({"status": "failed", "error": "Payment ID is required."})
+
         # Check Phone
         if not request.POST.get("phone"):
             return Response({"status": "failed", "error": "Phone is required."})
@@ -325,7 +329,8 @@ class CustomerAddAPIView(generics.CreateAPIView):
                 delivery_instructions=request.POST.get('delivery_instructions'),
                 coupon=cInstance,
                 pre_order=request.POST.get('pre_order'),
-                discount_amount=discountedAmount
+                discount_amount=discountedAmount,
+                payment_id=request.POST['payment_id']
             )
             # Step 3 - Create Order details
             for meal in order_details:
