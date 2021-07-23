@@ -101,7 +101,8 @@ class PaymentSheet(generics.CreateAPIView):
             payment_intent = stripe.PaymentIntent.create(
                 amount=request.POST['amount'],
                 currency=request.POST['currency'],
-                confirm=False
+                confirm=False,
+                receipt_email=customer_user.email
             )
             return Response({'customer': customer, 'ephemeralKey': ephemeralKey, 'payment_intent': payment_intent},
                             status.HTTP_200_OK)
