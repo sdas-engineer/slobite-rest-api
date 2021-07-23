@@ -22,7 +22,7 @@ class CustomerModel(admin.ModelAdmin):
     class Meta:
         model = Customer
 
-    list_display = ['__str__', 'phone']
+    list_display = ['__str__', 'first_name', 'last_name','email', 'phone']
     list_display_links = ['__str__']
     search_fields = ['phone', 'name']
     list_per_page = 25
