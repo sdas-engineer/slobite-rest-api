@@ -362,16 +362,14 @@ class CustomerAddAPIView(generics.CreateAPIView):
 class customer_get_latest_order(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         try:
-            access_token = AccessToken.objects.get(token=request.GET.get("access_token"),
+            access_token = AccessToken.objects.get(token=request.GET["access_token"],
                                                    expires__gt=timezone.now())
-
             customer = access_token.user.customer
             # customer = Customer.objects.get(id=request.GET.get('access_token'))
         except:
             return Response({'status': 'failed', 'error': 'Invalid customer'})
-        order = OrderSerializer(Order.objects.filter(customer=customer).last()).data
-
-        return Response({"order": order})
+        order = OrderSerializer(Order.objects.filter(customer=customer).last(), many=False).data
+        return Response(order, status.HTTP_200_OK)
 
 
 class customer_driver_location(generics.ListAPIView):

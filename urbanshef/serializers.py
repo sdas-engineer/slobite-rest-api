@@ -53,7 +53,7 @@ class OrderCustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ("id", "name", "avatar", "phone", "customer_street_address", "customer_flat_number")
+        fields = ("id", "name", "avatar", "phone", "customer_street_address")
 
 
 class OrderDriverSerializer(serializers.ModelSerializer):
@@ -87,7 +87,7 @@ class OrderDetailsSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    customer = OrderCustomerSerializer()
+    customer = OrderCustomerSerializer(many=False)
     chef = OrderChefSerializer()
     order_details = OrderDetailsSerializer(many=True)
     status = serializers.ReadOnlyField(source="get_status_display")
