@@ -14,4 +14,3 @@ COPY nginx.conf /etc/nginx/conf.d
 # RUN chmod 755 /vol/static
 
 # USER nginx
-
