@@ -54,6 +54,7 @@ urlpatterns = [
     path('chef/login/', views.LoginView.as_view(), name='chef-login'),
     path('chef/logout/', auth_views.LogoutView.as_view(next_page='/'), name='chef-logout'),
     path('chef/sign-up/', views.chef_sign_up, name='chef-sign-up'),
+    path('become-a-shef/', views.BecomeAShef.as_view(), name='become-a-shef'),
     path('chef/reset_password/', CustomPasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
 
     path('chef/reset_password_sent/',
@@ -82,11 +83,7 @@ urlpatterns = [
     path('chef/report/', views.chef_report, name='chef-report'),
     path('chef/review/', views.review, name='chef-review'),
     path('chef/review/reply/<int:review_id>', views.reply_to_review, name='chef-reply-review'),
-    path('chef/checklist/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-checklist'),
-    path('chef/uk_food_hygiene_rating/', login_required(login_url='/chef/login/')(views.UKFoodHygieneRating.as_view()), name='chef-ukfoodhygienerating'),
-    # # Stripe Connect
-    # path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),
-    # path('oauth/callback/', StripeAuthorizeCallbackView.as_view(), name='authorize_callback'),
+    path('chef/onboarding-call/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-onboarding-call'),
 
     # Sign In/ Sign Up/ Sign Out
     path('api/social/', include('drf_social_oauth2.urls', namespace='drf')),

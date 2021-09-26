@@ -7,41 +7,11 @@
         <div class="card">
             <div class="card-body">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Edit Checklist</h1>
-                <form method="POST">
-                    {% csrf_token %}
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><label for="id_reg_as_self_employed">Schedule chef onboarding call</label></td>
-                            <td>
-                                <button class="btn btn-primary" type="button" onclick="Calendly.showPopupWidget('https://calendly.com/sid-das?hide_gdpr_banner=1');return false;">Schedule</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><label for="id_reg_as_self_employed">Register as self-employed - <a href="https://www.gov.uk/set-up-sole-trader" target="_blank">here</a></label></td>
-                            <td>{% bootstrap_label form.reg_as_self_employed %}</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><label for="id_hygiene_certificate">Complete Level 2 Food Hygiene Certificate - <a
-                                    href="https://essentialfoodhygiene.co.uk/courses/level-2-food-hygiene-and-safety-manufacturing/" target="_blank">here</a></label>
-                            </td>
-                            <td>{% bootstrap_label form.hygiene_certificate %}</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><label for="id_reg_kitchen_with_council">Register your kitchen with the local council - <a
-                                    href="https://www.gov.uk/food-business-registration" target="_blank">here</a></label>
-                            </td>
-                            <td>{% bootstrap_label form.reg_kitchen_with_council %}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-primary">Update Checklist</button>
-                </form>
+                <h1 class="h3 mb-2 text-gray-800">Onboarding Call</h1>
+                <!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/sid-das/chat-with-sid?hide_gdpr_banner=1" style="min-width:320px;height:630px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
             </div>
         </div>
     </div>

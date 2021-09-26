@@ -22,9 +22,9 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views import View
 
-from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit, CheckListForm
+from urbanshef.forms import ChefForm, CustomPasswordResetForm, MealForm, UserForm, UserFormForEdit
 from urbanshef.models import Meal, Order, Driver
-from .models import Chef, Review, Customer, CheckList
+from .models import Chef, Review, Customer
 
 
 # Create your views here.
@@ -277,13 +277,13 @@ def chef_sign_up(request):
 
         if user_form.is_valid():
             new_user = User.objects.create_user(**user_form.cleaned_data)
-            Chef.objects.create(user=new_user, name=request.POST.get('kitchen_name'),
+            Chef.objects.create(user=new_user, phone=request.POST.get('phone_number'),
                                 agree_terms_and_condition=bool(request.POST.get('agree_terms_and_condition')))
             login(request, authenticate(
                 username=user_form.cleaned_data["username"],
                 password=user_form.cleaned_data["password"]
             ))
-            return redirect('chef-checklist')
+            return redirect('chef-onboarding-call')
         else:
             messages.error(request, 'Something went wrong. Try again')
             return redirect('chef-sign-up')
@@ -450,69 +450,8 @@ class CustomPasswordResetView(PasswordResetView):
 
 class CheckListView(View):
     def get(self, request):
-        try:
-            instance = CheckList.objects.get(chef__user=self.request.user)
-            form = CheckListForm(instance=instance)
-        except:
-            form = CheckListForm()
-        return render(request, 'chef/checklist.html', {'form': form})
+        return render(request, 'chef/checklist.html')
 
-    def post(self, request):
-        try:
-            instance = CheckList.objects.get(chef__user=self.request.user)
-            form = CheckListForm(instance=instance, data=request.POST)
-            update = True
-        except:
-            form = CheckListForm(request.POST)
-            update = False
-        if form.is_valid():
-            if update:
-                form.save()
-            else:
-                ins = form.save(commit=False)
-                ins.chef = Chef.objects.get(user=self.request.user)
-                ins.save()
-            return redirect('chef-checklist')
-        else:
-            return redirect('chef-checklist')
-
-
-class UKFoodHygieneRating(View):
+class BecomeAShef(View):
     def get(self, request):
-        return render(request, 'chef/uk_food_hygiene_rating.html')
-
-    def post(self, request):
-        if request.POST.get('saveRating'):
-            chef = Chef.objects.get(user=self.request.user)
-            chef.status = request.POST['hygiene_rating']
-            chef.save()
-            return redirect('chef-account')
-        shef = request.POST['shef_name']
-        location = request.POST['location']
-        response = requests.get('http://ratings.food.gov.uk/search/' + shef + '/' + location + '/json')
-        json_data = response.json()
-        dataList = []
-        if int(json_data['FHRSEstablishment']['Header']['ItemCount']) > 1:
-            dlist = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-            for data in dlist:
-                dataList.append({
-                    'businessName': data['BusinessName'],
-                    'addressLine1': data['AddressLine1'],
-                    'addressLine2': data['AddressLine2'],
-                    'addressLine3': data['AddressLine3'],
-                    'lastInspection': data['RatingDate'],
-                    'ratingValue': data['RatingValue'],
-                    'postCode': data['PostCode']
-                })
-        elif int(json_data['FHRSEstablishment']['Header']['ItemCount']) == 1:
-            dObject = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-            dataList.append({
-                'businessName': dObject['BusinessName'],
-                'addressLine1': dObject['AddressLine1'],
-                'addressLine2': dObject['AddressLine2'],
-                'addressLine3': dObject['AddressLine3'],
-                'lastInspection': dObject['RatingDate'],
-                'ratingValue': dObject['RatingValue'],
-                'postCode': dObject['PostCode']
-            })
-        return render(request, 'chef/uk_food_hygiene_rating.html', {'dataList': dataList})
+        return render(request, 'chef/become_a_shef.html')

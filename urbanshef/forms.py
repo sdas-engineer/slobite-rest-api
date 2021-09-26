@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from places.fields import PlacesField
 
-from urbanshef.models import Chef, Meal, Review, CheckList
+from urbanshef.models import Chef, Meal, Review
 from django.contrib.auth.forms import PasswordResetForm
 
 
@@ -41,8 +41,7 @@ class ChefForm(forms.ModelForm):
 
     class Meta:
         model = Chef
-        fields = ("name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode", "picture",
-                  "level_2_food_hygiene_certificate", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio',
+        fields = ("name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode", "picture", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio',
                   'cuisine', 'delivery_time')
 
 
@@ -94,10 +93,3 @@ class CustomPasswordResetForm(PasswordResetForm):
     def save(self, *args, **kwargs):
         kwargs['use_https'] = True
         super(CustomPasswordResetForm, self).save(*args, **kwargs)
-
-
-class CheckListForm(forms.ModelForm):
-    class Meta:
-        model = CheckList
-        fields = '__all__'
-        exclude = ['chef']

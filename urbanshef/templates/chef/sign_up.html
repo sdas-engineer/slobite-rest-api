@@ -1,7 +1,7 @@
 {% extends 'base_signup.html' %}
 {% load bootstrap5 %}
 
-{% block title %} Become a chef - Urbanshef {% endblock %}
+{% block title %} Become a chef - Slobite {% endblock %}
 {% block heading %}Become a chef{% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">First name <span class="text-danger">*</span></label>
+                    <label class="form-label">First Name <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="user" class="fea icon-sm icons"></i>
                         <input type="text" name="first_name" maxlength="150" class="form-control ps-5"
@@ -25,7 +25,7 @@
             </div><!--end col-->
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Last name <span class="text-danger">*</span></label>
+                    <label class="form-label">Last Name <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="user-check" class="fea icon-sm icons"></i>
                         <input type="text" name="last_name" maxlength="150" class="form-control ps-5"
@@ -72,12 +72,12 @@
             </div><!--end col-->
             <div class="col-md-12">
                 <div class="mb-3">
-                    <label class="form-label" for="kithen_name">Kitchen Name <span class="text-danger">*</span></label>
+                    <label class="form-label" for="phone_number">Phone Number <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="home" class="fea icon-sm icons"></i>
-                        <input type="text" name="kitchen_name" class="form-control ps-5" placeholder="Elon's Burritos"
+                        <input type="tel" name="phone_number" class="form-control ps-5" placeholder="Enter phone number"
                                title=""
-                               required="" id="kithen_name">
+                               required="" id="phone_number">
                     </div>
                 </div>
             </div><!--end col-->
