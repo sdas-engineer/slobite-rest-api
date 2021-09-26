@@ -412,7 +412,7 @@ class LoginView(View):
             auth = authenticate(request, username=username, password=password)
         if auth:
             login(request, auth)
-            return redirect('chef-checklist')
+            return redirect('chef-onboarding-call')
         else:
             messages.error(request, 'Invalid credential provided')
             return redirect('chef-login')
