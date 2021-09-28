@@ -454,4 +454,4 @@ class CheckListView(View):
 
 class BecomeAShef(View):
     def get(self, request):
-        return render(request, 'chef/become_a_shef.html')
+        return render(request, 'landriks/index-landing-three.html')

@@ -54,7 +54,7 @@ urlpatterns = [
     path('chef/login/', views.LoginView.as_view(), name='chef-login'),
     path('chef/logout/', auth_views.LogoutView.as_view(next_page='/'), name='chef-logout'),
     path('chef/sign-up/', views.chef_sign_up, name='chef-sign-up'),
-    path('become-a-shef/', views.BecomeAShef.as_view(), name='become-a-shef'),
+    path('become-a-chef/', views.BecomeAShef.as_view(), name='become-a-shef'),
     path('chef/reset_password/', CustomPasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
 
     path('chef/reset_password_sent/',
