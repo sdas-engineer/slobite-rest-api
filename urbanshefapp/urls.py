@@ -29,16 +29,16 @@ from urbanshef.views import CustomPasswordResetView
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Urbanshef API",
+        title="Slobite API",
         default_version='1.0',
-        description="Urbanshef API Documentation",
-        terms_of_service="https://www.urbanshef.com/privacy/",
-        contact=openapi.Contact(email="developers@urbanshef.com"),
+        description="Slobite API Documentation",
+        terms_of_service="https://www.slobite.com/privacy/",
+        contact=openapi.Contact(email="developers@slobite.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
-    url='https://urbanshef.com'
+    url='https://slobite.com'
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -136,6 +136,6 @@ urlpatterns = [
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'urbanshef.views.error_404_view'
-admin.site.site_header = 'Urbanshef CRM'
-admin.site.site_title = 'Urbanshef CRM'
-admin.site.index_title = 'Urbanshef CRM'
+admin.site.site_header = 'Slobite CRM'
+admin.site.site_title = 'Slobite CRM'
+admin.site.index_title = 'Slobite CRM'
