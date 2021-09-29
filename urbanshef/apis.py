@@ -70,7 +70,7 @@ class CustomerGetMeals(APIView):
             ).data
             return Response({"meals": meals}, status=status.HTTP_200_OK)
         except:
-            return Response({'message': 'No Chef found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'No chefs found'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class PaymentSheet(generics.CreateAPIView):
@@ -347,14 +347,14 @@ class CustomerAddAPIView(generics.CreateAPIView):
 
                 )
             message_to_broadcast = (
-                "Hello chef! You have a new order. View your Slobite dashboard to fulfill the order!")
+                "Hello Chef! You have a new order. View your Slobite dashboard to fulfill the order!")
             client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
             try:
                 client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
             except:
                 print('Unable to send message to ' + order.chef.phone)
             send_mail('Slobite: New Order Alert',
-                      'Hello chef! You have a new order. View your Slobite dashboard to fulfill the order!',
+                      'Hello Chef! You have a new order. View your Slobite dashboard to fulfill the order!',
                       'no-reply@urbanshef.com',
                       [order.chef.user.email], fail_silently=False)
             return Response({"status": "success"})
@@ -448,7 +448,7 @@ def driver_pick_order(request):
             return JsonResponse({"status": "success"})
 
         except Order.DoesNotExist:
-            return JsonResponse({"status": "failed", "error": "This order has been picked up by another rider."})
+            return JsonResponse({"status": "failed", "error": "This order has been picked up by another driver."})
 
     return JsonResponse({})
 
