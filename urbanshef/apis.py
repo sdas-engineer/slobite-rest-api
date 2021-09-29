@@ -62,7 +62,7 @@ class CustomerGetMeals(APIView):
                 return Response({'message': 'Chef is unavailable now'},
                                 status=status.HTTP_451_UNAVAILABLE_FOR_LEGAL_REASONS)
             if chef.disabled_by_admin is True:
-                return Response({'message': 'Chef is disabled by Urbanshef'}, status=status.HTTP_423_LOCKED)
+                return Response({'message': 'Chef is disabled by Slobite'}, status=status.HTTP_423_LOCKED)
             meals = MealSerializer(
                 Meal.objects.filter(chef_id=chef_id, availability='Available').order_by("-id"),
                 many=True,
@@ -347,14 +347,14 @@ class CustomerAddAPIView(generics.CreateAPIView):
 
                 )
             message_to_broadcast = (
-                "Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!")
+                "Hello chef! You have a new order. View your Slobite dashboard to fulfill the order!")
             client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
             try:
                 client.messages.create(to=order.chef.phone, from_=settings.TWILIO_NUMBER, body=message_to_broadcast)
             except:
                 print('Unable to send message to ' + order.chef.phone)
-            send_mail('Urbanshef: New Order Alert',
-                      'Hello chef! You have a new order. View your Urbanshef dashboard to fulfill the order!',
+            send_mail('Slobite: New Order Alert',
+                      'Hello chef! You have a new order. View your Slobite dashboard to fulfill the order!',
                       'no-reply@urbanshef.com',
                       [order.chef.user.email], fail_silently=False)
             return Response({"status": "success"})
@@ -611,44 +611,3 @@ class ApplyCoupon(generics.CreateAPIView):
         if c.exists():
             return Response(CouponSerializer(c.first(), many=False).data)
         return Response({'error': 'Invalid coupon code'}, status=status.HTTP_406_NOT_ACCEPTABLE)
-
-
-class ShefUKFoodRating(APIView):
-    def get(self, request, chef_id):
-        try:
-            chef = Chef.objects.get(id=chef_id)
-        except:
-            return Response({'status': 'Invalid chef id'}, status.HTTP_400_BAD_REQUEST)
-        if chef.chef_street_address.place == '':
-            return Response({'status': 'Chef doesn\'t have street address'}, status.HTTP_400_BAD_REQUEST)
-        response = requests.get(
-            'http://ratings.food.gov.uk/search/' + chef.name + '/' + chef.chef_street_address.place.split(',')[
-                0] + '/json')
-        json_data = response.json()
-        if int(json_data['FHRSEstablishment']['Header']['ItemCount']) == 1:
-            dObject = json_data['FHRSEstablishment']['EstablishmentCollection']['EstablishmentDetail']
-            if dObject['RatingValue'] == 'Awaiting Inspection':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_awaiting_inspection.jpg')
-            elif dObject['RatingValue'] == 'AwaitingInspection':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_awaitinginspection_en-gb.jpg')
-            elif dObject['RatingValue'] == '5':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_5_en-gb.jpg')
-            elif dObject['RatingValue'] == '4':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_4_en-gb.jpg')
-            elif dObject['RatingValue'] == '3':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_3_en-gb.jpg')
-            elif dObject['RatingValue'] == '2':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_2_en-gb.jpg')
-            elif dObject['RatingValue'] == '1':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_1_en-gb.jpg')
-            elif dObject['RatingValue'] == '0':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_0_en-gb.jpg')
-            elif dObject['RatingValue'] == 'Exempt':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhrs_exempt_en-gb.jpg')
-            elif dObject['RatingValue'] == 'Pass':
-                imgUrl = staticfiles_storage.url('img/uk_food_rating/large/326ppi/fhis_pass.jpg')
-            else:
-                imgUrl = dObject['RatingValue']
-            return Response({'url': imgUrl})
-        else:
-            return Response({'status': 'No rating found'}, status.HTTP_404_NOT_FOUND)
