@@ -39,11 +39,11 @@
               <div class="buy-button">
                 {% if request.user.is_authenticated %}
 
-                <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                 {% else %}
 
-                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Apply</a>
 
                 {% endif %}
               </div><!--end login button-->
@@ -66,11 +66,11 @@
                   <div class="buy-menu-btn d-none">
                     {% if request.user.is_authenticated %}
 
-                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                     {% else %}
 
-                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                    <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Apply</a>
 
                     {% endif %}
                   </div><!--end login button-->
