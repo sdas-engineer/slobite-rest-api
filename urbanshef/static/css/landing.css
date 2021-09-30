@@ -2206,7 +2206,7 @@ p {
 
 #topnav .navbar-toggle .lines {
   width: 25px;
-  display: block;
+  display: none;
   position: relative;
   margin: 28px 20px;
   height: 18px;
