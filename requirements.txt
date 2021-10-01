@@ -2,7 +2,6 @@ dj-database-url==0.5.0
 dj-places==4.0.0
 Django==3.1.7
 django-environ==0.4.5
-django-tawkto==0.3
 django-bootstrap-v5==1.0.1
 django-braces==1.14.0
 django-crispy-forms==1.11.2

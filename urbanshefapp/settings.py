@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
+
 env = environ.Env()
 # environ.Env.read_env()
 
@@ -35,8 +36,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-
-
 # Application definition
 DJANGO_APP = [
     'django.contrib.admin',
@@ -57,8 +56,7 @@ THIRD_PARTY_APP = [
     'multiselectfield',
     'rest_framework',
     'places',
-    'crispy_forms',
-    'tawkto'
+    'crispy_forms'
 ]
 LOCAL_APP = [
     'urbanshef',
@@ -84,7 +82,7 @@ ROOT_URLCONF = 'urbanshefapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR+'/urbanshef/templates'],
+        'DIRS': [BASE_DIR + '/urbanshef/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -170,7 +168,6 @@ STATIC_ROOT = 'staticfiles'
 
 LOGIN_REDIRECT_URL = '/chef/'
 
-
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 AUTHENTICATION_BACKENDS = (
@@ -229,28 +226,23 @@ PLACES_MAP_WIDGET_HEIGHT = 480
 PLACES_MAP_OPTIONS = '{"center": { "lat": 38.971584, "lng": -95.235072 }, "zoom": 10}'
 PLACES_MARKER_OPTIONS = '{"draggable": true}'
 
-TAWKTO_ID_SITE = env.str('TAWKTO_ID_SITE', '')
-TAWKTO_IS_SECURE = env.bool('TAWKTO_IS_SECURE', '')
-TAWKTO_API_KEY = env.str('TAWKTO_API_KEY', '')
-
-
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
 AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
 AWS_STORAGE_REGION = env.str("AWS_STORAGE_REGION", "")
 
-
 IS_AWS_S3 = (
-    AWS_ACCESS_KEY_ID and
-    AWS_SECRET_ACCESS_KEY and
-    AWS_STORAGE_BUCKET_NAME and
-    AWS_STORAGE_REGION
+        AWS_ACCESS_KEY_ID and
+        AWS_SECRET_ACCESS_KEY and
+        AWS_STORAGE_BUCKET_NAME and
+        AWS_STORAGE_REGION
 )
 
 if IS_AWS_S3:
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", "public-read") #(optional; default is None which means the file will inherit the bucket’s permission)
-    AWS_LOCATION = "media" # store files under directory `media/` in bucket `my-app-bucket`, If not set (optional: default is ‘’)
+    AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL",
+                              "public-read")  # (optional; default is None which means the file will inherit the bucket’s permission)
+    AWS_LOCATION = "media"  # store files under directory `media/` in bucket `my-app-bucket`, If not set (optional: default is ‘’)
     DEFAULT_FILE_STORAGE = env.str(
         "DEFAULT_FILE_STORAGE", "storages.backends.s3boto3.S3Boto3Storage"
     )
@@ -259,3 +251,4 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert alert-warning',
     messages.ERROR: 'alert alert-danger',
 }
+
