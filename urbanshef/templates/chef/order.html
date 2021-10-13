@@ -48,7 +48,7 @@
                             <td>{{ order.customer }}</td>
                             <td>{{ order.phone }}</td>
                             <!-- <td>{{ order.driver }}</td> -->
-                            <td>£{{ order.total }}</td>
+                            <td>₹{{ order.total }}</td>
                             <td>
                               <!-- Button trigger modal -->
                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -76,8 +76,8 @@
                                           <tbody>
                                             <tr>
                                               <td style="width: 33.3333%;">{{ od.meal.name }}</td>
-                                              <td style="width: 33.3333%;">£{{ od.meal.price }}x {{ od.quantity }}</td>
-                                              <td style="width: 33.3333%;">£{{ od.sub_total }}</td>
+                                              <td style="width: 33.3333%;">₹{{ od.meal.price }}x {{ od.quantity }}</td>
+                                              <td style="width: 33.3333%;">₹{{ od.sub_total }}</td>
                                             </tr>
                                           </tbody>
                                         </table>
