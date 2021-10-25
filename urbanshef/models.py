@@ -48,12 +48,12 @@ class Chef(models.Model):
         if self.id:
             chef = Chef.objects.get(id=self.id)
             if chef.disabled_by_admin == False and self.disabled_by_admin == True:
-                send_mail('Urbanshef: Account Alert  ',
+                send_mail('Slobite: Account Alert  ',
                           'Hello chef! Your account has been disabled by our chef operations team. Kindly, get in touch with us to discuss this matter urgently.',
                           'admin@slobite.com',
                           [chef.user.email], fail_silently=False)
             if chef.disabled_by_admin == True and self.disabled_by_admin == False:
-                send_mail('Urbanshef: Account Alert',
+                send_mail('Slobite: Account Alert',
                           'Hello chef! Great news. You account is now active. Start sharing your recipies safely with your neighbourhood. For any further assistance, please contact us at chef@slobite.com or by using the chat support on our website.',
                           'admin@slobite.com',
                           [chef.user.email], fail_silently=False)
