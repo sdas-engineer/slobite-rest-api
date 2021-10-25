@@ -355,7 +355,7 @@ class CustomerAddAPIView(generics.CreateAPIView):
                 print('Unable to send message to ' + order.chef.phone)
             send_mail('Slobite: New Order Alert',
                       'Hello Chef! You have a new order. View your Slobite dashboard to fulfill the order!',
-                      'no-reply@urbanshef.com',
+                      'no-reply@slobite.com',
                       [order.chef.user.email], fail_silently=False)
             return Response({"status": "success"})
 
