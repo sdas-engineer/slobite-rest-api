@@ -213,7 +213,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
-DEFAULT_FROM_EMAIL = 'Urbanshef Team <no-reply@urbanshef.com>'
+DEFAULT_FROM_EMAIL = 'Slobite Team <no-reply@slobite.com>'
 
 # Twilio account information to send notification of order to chefs
 TWILIO_ACCOUNT_SID = env.str('TWILIO_ACCOUNT_SID', '')

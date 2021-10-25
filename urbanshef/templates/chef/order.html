@@ -44,7 +44,7 @@
                 <tbody>
                     {% for order in orders %}
                         <tr>
-                            <td scope="row">#UBSHEF-{{ order.id }}</td>
+                            <td scope="row">#SLO-{{ order.id }}</td>
                             <td>{{ order.customer }}</td>
                             <td>{{ order.phone }}</td>
                             <!-- <td>{{ order.driver }}</td> -->
@@ -66,7 +66,7 @@
                                       </button>
                                     </div>
                                     <div class="modal-body" id="print-content">
-                                        <p><strong>URBANSHEF.COM</strong></p>
+                                        <p><strong>SLOBITE.COM</strong></p>
                                         <p><b>Chef</b> : {{ request.user.chef.name }}</p>
                                         <p><b>Customer</b> : {{ order.customer }}</p>
                                         <p><b>Phone</b> : {{ order.phone }}</p>
