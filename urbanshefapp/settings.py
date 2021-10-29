@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
+from decouple import config
 
 env = environ.Env()
 # environ.Env.read_env()
@@ -24,10 +25,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = 'go071tr+%&^tyq8@q!#b*q83_z5=%v(hwab*i6!y=l772dc07#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', True)
+DEBUG = config('DEBUG', True)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
@@ -106,10 +108,10 @@ WSGI_APPLICATION = 'urbanshefapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': env.str('DB_HOST', 'localhost'),
-        'NAME': env.str('DB_NAME', 'urbanshef'),
-        'USER': env.str('DB_USER', 'postgres'),
-        'PASSWORD': env.str('DB_PASS', '12345'),
+        'HOST': config('DB_HOST', 'localhost'),
+        'NAME': config('DB_NAME', 'urbanshef'),
+        'USER': config('DB_USER', 'postgres'),
+        'PASSWORD': config('DB_PASS', '12345'),
     }
 }
 
@@ -177,8 +179,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Facebook configuration
-SOCIAL_AUTH_FACEBOOK_KEY = env.str('SOCIAL_AUTH_FACEBOOK_KEY', '')
-SOCIAL_AUTH_FACEBOOK_SECRET = env.str('SOCIAL_AUTH_FACEBOOK_SECRET', '')
+SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY', '')
+SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET', '')
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
 # Email is not sent by default, to get it, you must request the email permission.
@@ -199,12 +201,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-STRIPE_PUBLISHABLE_KEY = env.str('STRIPE_PUBLISHABLE_KEY', '')
-STRIPE_CONNECT_CLIENT_ID = env.str('STRIPE_CONNECT_CLIENT_ID', '')
-STRIPE_API_KEY = env.str('STRIPE_API_KEY', '')
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY', '')
+STRIPE_CONNECT_CLIENT_ID = config('STRIPE_CONNECT_CLIENT_ID', '')
+STRIPE_API_KEY = config('STRIPE_API_KEY', '')
 
 # Sendgrid information
-SENDGRID_API_KEY = env.str('SENDGRID_API_KEY', '')
+SENDGRID_API_KEY = config('SENDGRID_API_KEY', '')
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
@@ -216,20 +218,20 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 DEFAULT_FROM_EMAIL = 'Slobite Team <no-reply@slobite.com>'
 
 # Twilio account information to send notification of order to chefs
-TWILIO_ACCOUNT_SID = env.str('TWILIO_ACCOUNT_SID', '')
-TWILIO_AUTH_TOKEN = env.str('TWILIO_AUTH_TOKEN', '')
-TWILIO_NUMBER = env.str('TWILIO_NUMBER', '')
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID', '')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN', '')
+TWILIO_NUMBER = config('TWILIO_NUMBER', '')
 
 # Google map information
-PLACES_MAPS_API_KEY = env.str('PLACES_MAPS_API_KEY', '')
+PLACES_MAPS_API_KEY = config('PLACES_MAPS_API_KEY', '')
 PLACES_MAP_WIDGET_HEIGHT = 480
 PLACES_MAP_OPTIONS = '{"center": { "lat": 38.971584, "lng": -95.235072 }, "zoom": 10}'
 PLACES_MARKER_OPTIONS = '{"draggable": true}'
 
-AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
-AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
-AWS_STORAGE_REGION = env.str("AWS_STORAGE_REGION", "")
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", "")
+AWS_STORAGE_REGION = config("AWS_STORAGE_REGION", "")
 
 IS_AWS_S3 = (
         AWS_ACCESS_KEY_ID and
@@ -240,10 +242,10 @@ IS_AWS_S3 = (
 
 if IS_AWS_S3:
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL",
+    AWS_DEFAULT_ACL = config("AWS_DEFAULT_ACL",
                               "public-read")  # (optional; default is None which means the file will inherit the bucket’s permission)
     AWS_LOCATION = "media"  # store files under directory `media/` in bucket `my-app-bucket`, If not set (optional: default is ‘’)
-    DEFAULT_FILE_STORAGE = env.str(
+    DEFAULT_FILE_STORAGE = config(
         "DEFAULT_FILE_STORAGE", "storages.backends.s3boto3.S3Boto3Storage"
     )
 MESSAGE_TAGS = {
