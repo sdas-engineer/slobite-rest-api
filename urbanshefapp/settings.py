@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
-from decouple import config
 
 env = environ.Env()
 # environ.Env.read_env()
