@@ -39,7 +39,7 @@
 .tns-controls button[data-controls="prev"]:hover, 
 .tns-controls button[data-controls="next"]:hover,
 .back-to-top {
-    background-color: #2f55d4 !important;
+    background-color: #FE724C !important;
 }
 
 .text-primary,
@@ -100,7 +100,7 @@
 .accordion .accordion-button:not(.collapsed),
 .accordion .accordion-item .accordion-button:before,
 #navmenu-nav li.active a {
-    color: #2f55d4 !important;
+    color: #FE724C !important;
 }
 
 .btn-primary,
@@ -138,7 +138,7 @@
 .container-filter li.active, .container-filter li:hover,
 .blockquote-wrapper .blockquote,
 .blockquote-wrapper .blockquote:after {
-    border-color: #2f55d4 !important;
+    border-color: #FE724C !important;
 }
 
 .bg-soft-primary,
@@ -242,7 +242,7 @@
 }
 a.text-primary:hover, 
 a.text-primary:focus {
-    color: #284bc1 !important;
+    color: #FE724C !important;
 }
 
 .btn-primary:hover, 
@@ -250,16 +250,16 @@ a.text-primary:focus {
 .btn-primary:active, 
 .btn-primary.active, 
 .btn-primary.focus {
-    background-color: #2443ac !important;
-    border-color: #2443ac !important;
+    background-color: #FE724C !important;
+    border-color: #FE724C !important;
 }
 
 .ribbon.ribbon-primary span:before {
-    border-left-color: #2443ac;
-    border-top-color: #2443ac;
+    border-left-color: #FE724C;
+    border-top-color: #FE724C;
 }
 
 .ribbon.ribbon-primary span:after {
-    border-right-color: #2443ac;
-    border-top-color: #2443ac;
+    border-right-color: #FE724C;
+    border-top-color: #FE724C;
 }
