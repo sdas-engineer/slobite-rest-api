@@ -92,33 +92,33 @@ h6, .h6 {
 .bg-soft-primary {
   background-color: rgba(47, 85, 212, 0.1) !important;
   border: 1px solid rgba(47, 85, 212, 0.1) !important;
-  color: #2f55d4 !important;
+  color: #FE724C !important;
 }
 
 .text-primary {
-  color: #2f55d4 !important;
+  color: #FE724C !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #284bc1 !important;
+  color: #FE724C !important;
 }
 
 .bg-secondary {
-  background-color: #5a6d90 !important;
+  background-color: #FFC529 !important;
 }
 
 .bg-soft-secondary {
   background-color: rgba(90, 109, 144, 0.1) !important;
   border: 1px solid rgba(90, 109, 144, 0.1) !important;
-  color: #5a6d90 !important;
+  color: #FFC529 !important;
 }
 
 .text-secondary {
-  color: #5a6d90 !important;
+  color: #FFC529 !important;
 }
 
 a.text-secondary:hover, a.text-secondary:focus {
-  color: #506180 !important;
+  color: #FFC529 !important;
 }
 
 .bg-success {
@@ -194,7 +194,7 @@ a.text-danger:hover, a.text-danger:focus {
 }
 
 .bg-dark {
-  background-color: #3c4858 !important;
+  background-color: #000000 !important;
 }
 
 .bg-soft-dark {
@@ -1928,7 +1928,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Nunito", sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.5;
   font-weight: 600;
 }
@@ -5313,7 +5313,7 @@ p {
 /*         Footer                */
 /*===============================*/
 .footer {
-  background: #202942;
+  background: #000000;
   position: relative;
   color: #adb5bd;
 }
