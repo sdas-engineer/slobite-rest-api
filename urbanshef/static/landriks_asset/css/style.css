@@ -272,7 +272,7 @@ a.text-blue:hover, a.text-blue:focus {
 .bg-soft-footer {
   background-color: rgba(32, 41, 66, 0.1) !important;
   border: 1px solid rgba(32, 41, 66, 0.1) !important;
-  color: #202942 !important;
+  color: #000000 !important;
 }
 
 .text-footer {
@@ -5384,7 +5384,7 @@ p {
 
 .footer .footer-border,
 .footer .footer-bar {
-  border-top: 1px solid #283353;
+  border-top: 1px solid #ADADB8;
 }
 
 .footer .border {
