@@ -1,4 +1,67 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,700&display=swap");
+@font-face {
+    font-family: 'sofia_problack';
+    src: url('urbanshef/static/fonts/sofia_pro_black_az-webfont.woff2') format('woff2'),
+         url('fonts/sofia_pro_black_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_probold';
+    src: url('urbanshef/static/fonts/sofia_pro_bold_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_bold_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proextralight';
+    src: url('urbanshef/static/fonts/sofia_pro_extralight_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_extralight_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_prolight';
+    src: url('urbanshef/static/fonts/sofia_pro_light_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_light_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_promedium';
+    src: url('urbanshef/static/fonts/sofia_pro_medium_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_medium_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proregular';
+    src: url('urbanshef/static/fonts/sofia_pro_regular_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_regular_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_prosemibold';
+    src: url('urbanshef/static/fonts/sofia_pro_semi_bold_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_semi_bold_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proultralight';
+    src: url('urbanshef/static/fonts/sofia_pro_ultralight_az-webfont.woff2') format('woff2'),
+         url('urbanshef/static/fonts/sofia_pro_ultralight_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 @media (min-width: 1400px) {
   .container {
     max-width: 1140px !important;
@@ -1830,14 +1893,14 @@ button:not(:disabled) {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   overflow-x: hidden !important;
   font-size: 16px;
   color: #161c2d;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Poppins", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   line-height: 1.5;
   font-weight: 600;
 }
@@ -2308,7 +2371,7 @@ p {
   text-transform: uppercase;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  font-family: "Poppins", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   padding-left: 15px;
   padding-right: 15px;
 }
