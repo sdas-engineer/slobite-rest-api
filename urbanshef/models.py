@@ -21,6 +21,7 @@ class Chef(models.Model):
     stripe_access_token = models.CharField(max_length=255, blank=True)
     authorized_to_work_in_the_UK = models.BooleanField(default=False)
     available = models.BooleanField(default=False)
+    level_2_food_hygiene_certificate = models.FileField(upload_to='chef_certificate/', blank=True, null=True)
     disabled_by_admin = models.BooleanField(default=True)
     note = models.TextField(null=True, blank=True)
     bio = models.TextField(blank=True)
