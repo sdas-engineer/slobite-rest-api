@@ -39,7 +39,7 @@
 .tns-controls button[data-controls="prev"]:hover, 
 .tns-controls button[data-controls="next"]:hover,
 .back-to-top {
-    background-color: #FE724C !important;
+    background-color: #000000!important;
 }
 
 .text-primary,
@@ -193,7 +193,7 @@
 }
 
 .social-icon li a:hover .fea-social {
-    fill: #2f55d4;
+    fill: #FE724C;
 }
 
 .bg-circle-gradiant {
@@ -201,7 +201,7 @@
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(to left, #614092 0%, #2443ac 100%);
+  background: linear-gradient(to left, #614092 0%, #FE724C 100%);
 }
 
 .tns-nav button {
