@@ -1966,7 +1966,7 @@ p {
 }
 
 .bg-overlay {
-  background-color: rgba(60, 72, 88, 0.7);
+  background-color: rgba(0, 0, 0);
   position: absolute;
   top: 0;
   right: 0;
