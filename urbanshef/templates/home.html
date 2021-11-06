@@ -43,6 +43,7 @@
     <!-- Main Css -->
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <link rel="stylesheet"  id="color-opt" href="{% static 'css/colors/default.css' %}">
+    {% block script %}{% endblock %}
     <!-- Facebook Pixel Code -->
 <script>
   !function(f,b,e,v,n,t,s)
@@ -60,7 +61,6 @@
   src="https://www.facebook.com/tr?id=2887928421498262&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Facebook Pixel Code -->
-    {% block script %}{% endblock %}
   </head>
 
   <body>
