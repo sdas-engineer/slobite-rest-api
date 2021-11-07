@@ -42,7 +42,7 @@ class Chef(models.Model):
     status = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.user
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
