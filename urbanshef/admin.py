@@ -8,9 +8,9 @@ class ChefModel(admin.ModelAdmin):
     class Meta:
         model = Chef
 
-    list_display = ['__str__', 'phone', 'available', 'disabled_by_admin', 'gender', 'cuisine']
+    list_display = ['user', 'phone', 'available', 'disabled_by_admin', 'gender', 'cuisine']
     list_filter = ['available', 'disabled_by_admin', 'gender', 'cuisine']
-    list_display_links = ['__str__']
+    list_display_links = ['user']
     search_fields = ['phone', 'name']
     list_per_page = 25
 
