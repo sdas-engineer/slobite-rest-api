@@ -303,7 +303,7 @@ class StripeAuthorizeView(View):
             'response_type': 'code',
             'scope': 'read_write',
             'client_id': settings.STRIPE_CONNECT_CLIENT_ID,
-            'redirect_uri': f'https://www.urbanshef.com/oauth/callback'
+            'redirect_uri': f'https://www.slobite.com/oauth/callback'
         }
         url = f'{url}?{urllib.parse.urlencode(params)}'
         return redirect(url)
