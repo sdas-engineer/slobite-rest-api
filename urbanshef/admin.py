@@ -8,7 +8,7 @@ class ChefModel(admin.ModelAdmin):
     class Meta:
         model = Chef
 
-    list_display = ['user', 'phone', 'email', 'gender', 'cuisine']
+    list_display = ['user', 'phone', 'available', 'disabled_by_admin', 'gender', 'cuisine']
     list_filter = ['available', 'disabled_by_admin', 'gender', 'cuisine']
     list_display_links = ['user']
     search_fields = ['phone', 'name']
