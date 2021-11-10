@@ -3,40 +3,40 @@
 {% block title %} Profile Settings - Slobite {% endblock %}
 {% block script %}
     <style>
-    .places {
-    display: none;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6e707e;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #d1d3e2;
-    border-radius: .35rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-    .places-widget > input:first-child{
-        width: 100%!important;
-    }
-    .places-widget > input:nth-child(2) {
-    width: 39%;
-    position: absolute;
-        margin-bottom: 10px;
-}
-    .places-widget > input:nth-child(3) {
-    width: 50%;
-    position: relative;
-        float: right;
-        margin-bottom: 10px;
-}
+        .places {
+            display: none;
+            width: 100%;
+            height: calc(1.5em + .75rem + 2px);
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #6e707e;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #d1d3e2;
+            border-radius: .35rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .places-widget > input:first-child{
+            width: 100%!important;
+        }
+        .places-widget > input:nth-child(2) {
+        width: 39%;
+        position: absolute;
+            margin-bottom: 10px;
+        }
+        .places-widget > input:nth-child(3) {
+        width: 50%;
+        position: relative;
+            float: right;
+            margin-bottom: 10px;
+        }
 
-    .card {
-    padding: 10px 10px 10px 10px;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
+        .card {
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        }
     </style>
 {% endblock %}
 {% load bootstrap5 %}
@@ -49,7 +49,7 @@
   <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% bootstrap_form user_form %}
+                {% bootstrap_form user_form %}
                 {% bootstrap_field chef_form.date_of_birth %}
                 {% bootstrap_field chef_form.gender %}
                 {% bootstrap_field chef_form.bio %}

@@ -62,14 +62,7 @@
             <span>Home</span>
         </a>
     </li>
-
-    <li class="nav-item">
-        <a href="{% url 'chef-onboarding-call' %}"
-            class="nav-link {% if request.path == '/chef/onboarding-call/' %}active{% endif %}">
-            <i class="fas fa-fw fa-check"></i>
-            <span>Onboarding</span>
-        </a>
-    </li>
+    
 
     <li class="nav-item">
         <a href="{% url 'chef-order' %}" class="nav-link {% if request.path == '/chef/order/' %}active{% endif %}">
@@ -105,13 +98,13 @@
             <span>Review</span>
         </a>
     </li>
-    {# <li class="nav-item">#}
+    {% comment %} {# <li class="nav-item">#}
         {# <a href="{% url 'chef-ukfoodhygienerating' %}" #} {#
             class="nav-link  {% if request.path == '/chef/uk_food_hygiene_rating/' %}active{% endif %}">#}
             {# <i class="fas fa-fw fa-star"></i>#}
             {# <span>UK food hygiene rating</span>#}
             {# </a>#}
-        {# </li>#}
+        {# </li>#} {% endcomment %}
     <li class="nav-item">
         <a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank"
             class="nav-link">
