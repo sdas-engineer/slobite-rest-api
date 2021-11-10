@@ -62,7 +62,15 @@
             <span>Home</span>
         </a>
     </li>
-    
+
+    <li class="nav-item">
+        <a href="{% url 'chef-onboarding-call' %}"
+            class="nav-link {% if request.path == '/chef/onboarding-call/' %}active{% endif %}">
+            <i class="fas fa-fw fa-check"></i>
+            <span>Onboarding</span>
+        </a>
+    </li>
+
 
     <li class="nav-item">
         <a href="{% url 'chef-order' %}" class="nav-link {% if request.path == '/chef/order/' %}active{% endif %}">

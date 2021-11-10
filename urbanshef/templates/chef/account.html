@@ -2,91 +2,172 @@
 {% load crispy_forms_filters %}
 {% block title %} Profile Settings - Slobite {% endblock %}
 {% block script %}
-    <style>
-        .places {
-            display: none;
-            width: 100%;
-            height: calc(1.5em + .75rem + 2px);
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #6e707e;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #d1d3e2;
-            border-radius: .35rem;
-            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        }
-        .places-widget > input:first-child{
-            width: 100%!important;
-        }
-        .places-widget > input:nth-child(2) {
+<style>
+    .places {
+        display: none;
+        width: 100%;
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6e707e;
+        background-color: #fff;
+        border: 1px solid #d1d3e2;
+        border-radius: .35rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    
+    /* Overriding input and card fields */
+
+    .form-control, .card, .btn {
+        border-radius: 0 !important;
+    }
+
+    /* Overriding map height */
+
+    #map_location {
+        height: 340px !important;
+    }
+
+
+
+    .places-widget>input:first-child {
+        width: 100% !important;
+    }
+
+    .places-widget>input:nth-child(2) {
         width: 39%;
         position: absolute;
-            margin-bottom: 10px;
-        }
-        .places-widget > input:nth-child(3) {
+        margin-bottom: 10px;
+    }
+
+    .places-widget>input:nth-child(3) {
         width: 50%;
         position: relative;
-            float: right;
-            margin-bottom: 10px;
-        }
+        float: right;
+        margin-bottom: 10px;
+    }
 
-        .card {
+    .card {
         padding: 10px 10px 10px 10px;
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-        }
-    </style>
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+
+    input[type="checkbox"] {
+        width: 20px !important;
+        height: 20px !important;
+        padding: 10px !important;
+    }
+
+    .form-check-label {
+        margin-left: 10px;
+        margin-top: 3px;
+    }
+</style>
 {% endblock %}
 {% load bootstrap5 %}
 
 {% block page %}
 <div class="col-lg-offset-2 col-lg-12">
-<div class="card">
-<div class="card-body">
-  <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                {% bootstrap_form user_form %}
-                {% bootstrap_field chef_form.date_of_birth %}
-                {% bootstrap_field chef_form.gender %}
-                {% bootstrap_field chef_form.bio %}
-                <div class="mb-3"><label class="form-label" for="id_name">Kitchen name</label><input type="text" name="name" value="{{ chef.name }}" maxlength="500" class="form-control" placeholder="Chef name" title="" id="id_name"></div>
-                {% bootstrap_field chef_form.cuisine %}
-                {% bootstrap_field chef_form.delivery_time %}
-                {% bootstrap_field chef_form.phone %}
-                {% bootstrap_field chef_form.chef_street_address %}
-                {% bootstrap_field chef_form.chef_flat_number %}
-                {% bootstrap_field chef_form.city %}
-                {% bootstrap_field chef_form.postcode %}
-                <div class="mb-3 is-valid">
-                    <label class="form-label" for="id_picture">Picture</label>
-                    <div class="custom-file"><input type="file" name="picture" accept="image/*" class="is-valid custom-file-input" title="" id="id_picture"><label class="custom-file-label" for="id_picture" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    {% if chef.picture.url != '' %}
-                    <div>Current: <a href="{{ chef.picture.url }}" target="_blank">{{ chef.picture }}</a></div>
-                    {% endif %}
-                    </div>
-                </div>
-                <div class="mb-3 is-valid">
-                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene certificate</label>
-                    <div class="custom-file">
-                        <input type="file" name="level_2_food_hygiene_certificate" class="is-valid custom-file-input" title="" id="id_level_2_food_hygiene_certificate">
-                        <label class="custom-file-label" for="id_level_2_food_hygiene_certificate" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    {% if chef.level_2_food_hygiene_certificate.url != '' %}
-                        <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}" target="_blank">{{ chef.level_2_food_hygiene_certificate }}</a></div>
-                    {% endif %}
-                    </div>
-                </div>
-                {% bootstrap_field chef_form.authorized_to_work_in_the_UK %}
-                    <button type="submit" class="btn btn-primary mt-2 me-2">Update Account</button>
-                    {{ chef_form.media }}
-                    {% if request.user.is_authenticated %}
-                    <a href="{% url 'authorize' %}" class="btn btn-primary mt-2">Payment & Payouts</a>
-                    {% endif %}
+    <div class="card">
+        <div class="card-body">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
 
-                </form>
+                <div class="profile-pic">
+                    <div class="mb-3 is-valid">
+                        <label class="form-label" for="id_picture">Picture</label>
+                        <div class="custom-file"><input type="file" name="picture" accept="image/*"
+                                class="is-valid custom-file-input" title="" id="id_picture"><label
+                                class="custom-file-label" for="id_picture"
+                                aria-describedby="inputGroupFileAddon02">Choose file</label>
+                            {% if chef.picture.url != '' %}
+                            <div>Current: <a href="{{ chef.picture.url }}" target="_blank">{{ chef.picture }}</a></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-3">
+                    <div class="personal-info col-lg-6 d-flex align-items-stretch">
+                        <div class="card shadow-sm">
+                            <h3 class="py-3 px-md-3 px-1">Personal Information</h3>
+                            <div class="row px-md-3 px-1">
+                                {% for field in user_form %}
+                                <div class="col-lg-6">
+                                    {% bootstrap_field field %}
+                                </div>
+                                {% endfor %}
+
+                                <div class="col-lg-6">{% bootstrap_field chef_form.date_of_birth %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.gender %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.bio %}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info col-lg-6">
+                        <div class="card shadow-sm">
+                            <h3 class="py-3 px-md-3 px-1">Contact Information</h3>
+                            <div class="row px-md-3 px-1">
+                                <div class="col-lg-6">{% bootstrap_field chef_form.phone %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.chef_flat_number %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.city %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.postcode %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.chef_street_address %}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kitchen-info px-2 mx-1">
+                        <div class="row card shadow-sm">
+                            <h3 class="py-3 px-md-3 px-1">Kitchen Information</h3>
+                            <div class="row px-md-3 px-1">
+                                <div class="col-lg-6">
+                                    <div class="mb-3"><label class="form-label" for="id_name">Kitchen name</label><input type="text"
+                                            name="name" value="{{ chef.name }}" maxlength="500" class="form-control"
+                                            placeholder="Chef name" title="" id="id_name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.cuisine %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.delivery_time %}</div>
+
+                                <div class="col-lg-6">
+                                    <div class="mb-3 is-valid">
+                                        <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene
+                                            certificate</label>
+                                        <div class="custom-file">
+                                            <input type="file" name="level_2_food_hygiene_certificate"
+                                                class="is-valid custom-file-input" title="" id="id_level_2_food_hygiene_certificate">
+                                            <label class="custom-file-label" for="id_level_2_food_hygiene_certificate"
+                                                aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                            {% if chef.level_2_food_hygiene_certificate.url != '' %}
+                                            <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}" target="_blank">{{
+                                                    chef.level_2_food_hygiene_certificate }}</a></div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.authorized_to_work_in_the_UK %}</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="py-3">
+                        <button type="submit" class="px-md-3 px-1 py-2 btn btn-primary mt-2 me-2">Update Account</button>
+                        {{ chef_form.media }}
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'authorize' %}" class="px-md-3 px-1 py-2 btn btn-primary mt-2">Payment & Payouts</a>
+                        {% endif %}
+                    </div>
+                                    
+            </form>
         </div>
     </div>
 </div>
