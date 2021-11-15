@@ -1,5 +1,6 @@
 {% extends 'chef/base.html' %}
 {% load crispy_forms_filters %}
+{% load static %}
 {% block title %} Profile Settings - Slobite {% endblock %}
 {% block script %}
 <style>
@@ -18,10 +19,12 @@
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
 
-    
+
     /* Overriding input and card fields */
 
-    .form-control, .card, .btn {
+    .form-control,
+    .card,
+    .btn {
         border-radius: 0 !important;
     }
 
@@ -66,6 +69,18 @@
         margin-left: 10px;
         margin-top: 3px;
     }
+
+    .profile-image {
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        margin-bottom: 25px;
+    }
 </style>
 {% endblock %}
 {% load bootstrap5 %}
@@ -79,16 +94,49 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <div class="profile-pic">
-                    <div class="mb-3 is-valid">
-                        <label class="form-label" for="id_picture">Picture</label>
-                        <div class="custom-file"><input type="file" name="picture" accept="image/*"
-                                class="is-valid custom-file-input" title="" id="id_picture"><label
-                                class="custom-file-label" for="id_picture"
-                                aria-describedby="inputGroupFileAddon02">Choose file</label>
-                            {% if chef.picture.url != '' %}
-                            <div>Current: <a href="{{ chef.picture.url }}" target="_blank">{{ chef.picture }}</a></div>
-                            {% endif %}
+                <div class="profile-pic mt-3">
+                    <div class="mb-3 row">
+                        <div class="col-md-6 px-4">
+                            <div class="card shadow-sm row">
+                            <h3 class="py-3 px-md-3 px-1">Profile Photo</h3>
+
+                            <div class="col-md-12">
+                                {% if chef.picture.url != '' %}
+                                <img id="profile-image" src="{{ chef.picture.url  }}" alt="profile-picture"
+                                    class="profile-image">
+
+                                {% else %}
+                                {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
+                                <img id="profile-image" src="{% static 'media/chef_logo/Sidharth.jpeg' %}}"
+                                    alt="profile-picture" class="profile-image">
+
+                                {% endif %}
+                                <br />
+                            </div>
+                            <div class="col-md-12 px-4">
+                                <label class="form-label" for="id_picture">Picture</label>
+                                <div class="custom-file">
+                                    <input type="file" name="picture" accept="image/*"
+                                        class="is-valid custom-file-input" title="" id="id_picture">
+                                    <label class="custom-file-label" for="id_picture"
+                                        aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-4">
+                        <div class="card shadow-sm row py-5">
+                            <h3 class="px-5 pt-2"> Instructions </h3>
+                            <div class="px-5">
+                                1. Ask someone to take the photo of you. Do not take a selfie. <br>
+                                2. Take the photo during daylight using the sun as the only light source. Photos taken
+                                outside are the best! <br>
+                                3. Wear colorful clothing that represents the cuisine you are serving and hold a bowl of
+                                food right below your smiling face. <br>
+                                4. Look at the camera and smile! Smiling makes the new users feel welcome. <br>
+                                5. Don’t use a filter and don’t edit the photo.
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,56 +168,82 @@
                                 <div class="col-lg-6">{% bootstrap_field chef_form.city %}</div>
                                 <div class="col-lg-6">{% bootstrap_field chef_form.postcode %}</div>
                                 <div class="col-lg-12">{% bootstrap_field chef_form.chef_street_address %}</div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="kitchen-info px-2 mx-1">
-                        <div class="row card shadow-sm">
-                            <h3 class="py-3 px-md-3 px-1">Kitchen Information</h3>
-                            <div class="row px-md-3 px-1">
-                                <div class="col-lg-6">
-                                    <div class="mb-3"><label class="form-label" for="id_name">Kitchen name</label><input type="text"
-                                            name="name" value="{{ chef.name }}" maxlength="500" class="form-control"
-                                            placeholder="Chef name" title="" id="id_name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">{% bootstrap_field chef_form.cuisine %}</div>
-                                <div class="col-lg-6">{% bootstrap_field chef_form.delivery_time %}</div>
+                </div>
 
-                                <div class="col-lg-6">
-                                    <div class="mb-3 is-valid">
-                                        <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene
-                                            certificate</label>
-                                        <div class="custom-file">
-                                            <input type="file" name="level_2_food_hygiene_certificate"
-                                                class="is-valid custom-file-input" title="" id="id_level_2_food_hygiene_certificate">
-                                            <label class="custom-file-label" for="id_level_2_food_hygiene_certificate"
-                                                aria-describedby="inputGroupFileAddon02">Choose file</label>
-                                            {% if chef.level_2_food_hygiene_certificate.url != '' %}
-                                            <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}" target="_blank">{{
-                                                    chef.level_2_food_hygiene_certificate }}</a></div>
-                                            {% endif %}
-                                        </div>
+                <div class="kitchen-info px-2 mx-1">
+                    <div class="row card shadow-sm">
+                        <h3 class="py-3 px-md-3 px-1">Kitchen Information</h3>
+                        <div class="row px-md-3 px-1">
+                            <div class="col-lg-6">
+                                <div class="mb-3"><label class="form-label" for="id_name">Kitchen name</label><input
+                                        type="text" name="name" value="{{ chef.name }}" maxlength="500"
+                                        class="form-control" placeholder="Chef name" title="" id="id_name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">{% bootstrap_field chef_form.cuisine %}</div>
+                            <div class="col-lg-6">{% bootstrap_field chef_form.delivery_time %}</div>
+
+                            <div class="col-lg-6">
+                                <div class="mb-3 is-valid">
+                                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food
+                                        hygiene
+                                        certificate</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="level_2_food_hygiene_certificate"
+                                            class="is-valid custom-file-input" title=""
+                                            id="id_level_2_food_hygiene_certificate">
+                                        <label class="custom-file-label" for="id_level_2_food_hygiene_certificate"
+                                            aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                        {% if chef.level_2_food_hygiene_certificate.url != '' %}
+                                        <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}"
+                                                target="_blank">{{
+                                                chef.level_2_food_hygiene_certificate }}</a></div>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <div class="col-lg-12">{% bootstrap_field chef_form.authorized_to_work_in_the_UK %}</div>
                             </div>
+                            <div class="col-lg-12">{% bootstrap_field chef_form.authorized_to_work_in_the_UK %}</div>
                         </div>
-                        
                     </div>
-                    <div class="py-3">
-                        <button type="submit" class="px-md-3 px-1 py-2 btn btn-primary mt-2 me-2">Update Account</button>
-                        {{ chef_form.media }}
-                        {% if request.user.is_authenticated %}
-                        <a href="{% url 'authorize' %}" class="px-md-3 px-1 py-2 btn btn-primary mt-2">Payment & Payouts</a>
-                        {% endif %}
-                    </div>
-                                    
+
+                </div>
+                <div class="py-3">
+                    <button type="submit" class="px-md-3 px-1 py-2 btn btn-primary mt-2 me-2">Update Account</button>
+                    {{ chef_form.media }}
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'authorize' %}" class="px-md-3 px-1 py-2 btn btn-primary mt-2">Payment & Payouts</a>
+                    {% endif %}
+                </div>
+
             </form>
         </div>
     </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+
+    $("#id_picture").change(function (e) {
+
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+            var file = e.originalEvent.srcElement.files[i];
+
+            var img = document.getElementById("profile-image");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+</script>
 
 {% endblock %}
