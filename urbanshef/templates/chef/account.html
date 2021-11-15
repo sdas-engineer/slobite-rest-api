@@ -96,7 +96,7 @@
 
                 <div class="profile-pic mt-3">
                     <div class="mb-3 row">
-                        <div class="col-md-6 px-4">
+                        <div class="col-lg-6 col-md-12 px-1 px-md-4">
                             <div class="card shadow-sm row">
                             <h3 class="py-3 px-md-3 px-1">Profile Photo</h3>
 
@@ -107,14 +107,14 @@
 
                                 {% else %}
                                 {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
-                                <img id="profile-image" src="{% static 'media/chef_logo/Sidharth.jpeg' %}}"
+                                <img id="profile-image" src="{% static 'media/chef_logo/Sidharth.jpeg' %}"
                                     alt="profile-picture" class="profile-image">
 
                                 {% endif %}
                                 <br />
                             </div>
-                            <div class="col-md-12 px-4">
-                                <label class="form-label" for="id_picture">Picture</label>
+                            <div class="col-md-12 px-1 py-3 px-md-4 pb-lg-5 pb-xl-0">
+                                <label class="form-label pb-2" for="id_picture">Picture</label>
                                 <div class="custom-file">
                                     <input type="file" name="picture" accept="image/*"
                                         class="is-valid custom-file-input" title="" id="id_picture">
@@ -124,10 +124,10 @@
                             </div>
                             </div>
                         </div>
-                        <div class="col-md-6 px-4">
+                        <div class="col-lg-6 col-md-12 px-1 px-lg-4">
                         <div class="card shadow-sm row py-5">
-                            <h3 class="px-5 pt-2"> Instructions </h3>
-                            <div class="px-5">
+                            <h3 class="px-1 px-md-5 pt-xl-2"> Instructions </h3>
+                            <div class="px-1 px-md-2 px-xl-5 pb-xl-4">
                                 1. Ask someone to take the photo of you. Do not take a selfie. <br>
                                 2. Take the photo during daylight using the sun as the only light source. Photos taken
                                 outside are the best! <br>
@@ -144,8 +144,8 @@
                 <div class="row py-3">
                     <div class="personal-info col-lg-6 d-flex align-items-stretch">
                         <div class="card shadow-sm">
-                            <h3 class="py-3 px-md-3 px-1">Personal Information</h3>
-                            <div class="row px-md-3 px-1">
+                            <h3 class="py-3 px-1 md:px-3 px-1">Personal Information</h3>
+                            <div class="row px-1 md:px-3 px-1">
                                 {% for field in user_form %}
                                 <div class="col-lg-6">
                                     {% bootstrap_field field %}
