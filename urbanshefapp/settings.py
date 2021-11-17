@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', '.env')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', True)
@@ -109,7 +109,7 @@ DATABASES = {
         'HOST': env.str('DB_HOST', 'localhost'),
         'NAME': env.str('DB_NAME', 'urbanshef'),
         'USER': env.str('DB_USER', 'postgres'),
-        'PASSWORD': env.str('DB_PASS', '2121'),
+        'PASSWORD': env.str('DB_PASS', '12345'),
     }
 }
 
@@ -160,10 +160,8 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = '/vol/web/media'
 # STATIC_ROOT = '/vol/web/static'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# MEDIA_ROOT = 'mediafiles'
-# STATIC_ROOT = 'staticfiles'
+MEDIA_ROOT = 'mediafiles'
+STATIC_ROOT = 'staticfiles'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'urbanshef/static')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'urbanshef/static/media')
