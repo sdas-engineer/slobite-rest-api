@@ -42,7 +42,7 @@ class ChefForm(forms.ModelForm):
     class Meta:
         model = Chef
         fields = ("name", "phone", "chef_street_address", "chef_flat_number", "city", "postcode", "picture", "authorized_to_work_in_the_UK", 'date_of_birth', 'gender', 'bio',
-                  'cuisine', 'delivery_time')
+                  'cuisine', 'level_2_food_hygiene_certificate', 'delivery_time')
 
 
 class MealForm(forms.ModelForm):

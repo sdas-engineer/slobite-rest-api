@@ -88,9 +88,16 @@
         overflow: scroll;
     }
 
-    #hygiene-certificate {
+    #previewFile {
         width: 100%;
-        height: auto;
+        height: 400px;
+        object-fit: contain;
+    }
+
+     @media only screen and (max-width: 600px) {
+        .card-body {
+            padding: 5px !important;
+        }
     }
 </style>
 {% endblock %}
@@ -105,27 +112,25 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <div class="profile-pic mt-3">
-                    <div class="mb-3 row">
-                        <div class="col-lg-6 col-md-12 px-1 px-md-4">
-                            <div class="card shadow-sm row">
-                            <h3 class="py-3 px-md-3 px-1">Profile Photo</h3>
+                <div class="profile-pic mt-3 mx-2">
+                    <div class="mb-3 mx-1">
+                        <div class="card shadow-sm row p-4 d-flex flex-row justify-content-between align-items-center">
+                            <div>
+                                <h3 class="pb-4">Profile Photo</h3> 
+                                <div>
+                                    {% if chef.picture.url != '' %}
+                                    <img id="profile-image" src="{{ chef.picture.url  }}" alt="profile-picture"
+                                        class="profile-image">
 
-                            <div class="col-md-12">
-                                {% if chef.picture.url != '' %}
-                                <img id="profile-image" src="{{ chef.picture.url  }}" alt="profile-picture"
-                                    class="profile-image">
+                                    {% else %}
+                                    {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
+                                    <img id="profile-image" src="{% static 'media/chef_logo/Sidharth.jpeg' %}"
+                                        alt="profile-picture" class="profile-image">
 
-                                {% else %}
-                                {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
-                                <img id="profile-image" src="{% static 'media/chef_logo/Sidharth.jpeg' %}"
-                                    alt="profile-picture" class="profile-image">
-
-                                {% endif %}
-                                <br />
-                            </div>
-                            <div class="col-md-12 px-1 py-3 px-md-4 pb-lg-5 pb-xl-0">
-                                <label class="form-label pb-2" for="id_picture">Picture</label>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                <label class="form-label" for="id_picture"></label>
                                 <div class="custom-file">
                                     <input type="file" name="picture" accept="image/*"
                                         class="is-valid custom-file-input" title="" id="id_picture">
@@ -134,16 +139,14 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12 px-1 px-lg-4">
-                        <div class="card shadow-sm row py-5">
-                            <h3 class="px-1 px-md-5 pt-xl-2">Photo Instructions </h3>
-                            <div class="px-1 px-md-2 px-xl-5 pb-xl-4">
+                            
+                            
+                            <div class="card shadow-sm p-4 mt-3 mt-md-0">
+                                <h3>Photo Instructions </h3>
                                 1. Ask someone to take a potrait photo of you.<br>
                                 2. Take the photo during daylight or use studio lights.<br>
                                 3. Look at the camera and smile!<br>
                                 4. Don’t use a filter and don’t over edit the photo.
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -195,22 +198,6 @@
                             <div class="col-lg-4">{% bootstrap_field chef_form.delivery_time %}</div>
 
 
-                            {% if chef.level_2_food_hygiene_certificate.url != '' %}
-                            <div class="col-lg-4 hygiene-certificate-parent">
-                                <h6>Level 2 food
-                                        hygiene
-                                        certificate</h6>
-                                <img src="" alt="hygiene-certificate" id="hygiene-certificate">
-                            </div>
-                            {% else %}
-                            
-                            <div class="col-lg-4 hygiene-certificate-parent">
-                            <h6>Level 2 food
-                                        hygiene
-                                        certificate</h6>
-                                <img src="" alt="hygiene-certificate" id="hygiene-certificate">
-                            </div>
-                            {% endif %}
 
                             <div class="col-lg-4">
                                 <div class="mb-3 is-valid">
@@ -224,10 +211,15 @@
                                         <label class="custom-file-label" for="id_level_2_food_hygiene_certificate"
                                             aria-describedby="inputGroupFileAddon02">Choose file</label>
                                         {% if chef.level_2_food_hygiene_certificate.url != '' %}
-                                        <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}"
+                                        <div id="hygiene-certificate">Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}"
                                                 target="_blank">{{chef.level_2_food_hygiene_certificate }}</a></div>
                                         {% endif %}
-                                    </div>
+
+                                        <!-- Button trigger modal -->
+                                        <button id="see-preview" type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#exampleModal">
+                                        Show Preview
+                                        </button>
+                                    </div>  
                                 </div>
                             </div>
                             <div class="col-lg-4 pt-4">
@@ -253,10 +245,33 @@
 </div>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Preview Window</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <img src="" alt="Preview Image" id="previewFile">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+</div>
+</div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 <script>
+    document.getElementById('see-preview').style.display = "none";
 
     $("#id_picture").change(function (e) {
 
@@ -272,15 +287,16 @@
             reader.readAsDataURL(file);
         }
     });
-    
+
     $("#id_level_2_food_hygiene_certificate").change(function (e) {
-        console.log("asdfksjadhf")
+
+        document.getElementById('see-preview').style.display = "block";
 
         for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
             var file = e.originalEvent.srcElement.files[i];
 
-            var img = document.getElementById("hygiene-certificate");
+            var img = document.getElementById("previewFile");
             var reader = new FileReader();
             reader.onloadend = function () {
                 img.src = reader.result;
@@ -288,6 +304,7 @@
             reader.readAsDataURL(file);
         }
     });
+    
 
 </script>
 
