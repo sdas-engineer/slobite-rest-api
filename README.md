@@ -1,6 +1,4 @@
-# Urbanshef REST API
-
-Source code for Urbanshef web application.
+# Slobite REST API
 
 The application contains source code for:
 
@@ -27,4 +25,3 @@ To start project, run:
 docker-compose up
 ```
 
-The API will then be available at https://www.urbanshef.com/doc
