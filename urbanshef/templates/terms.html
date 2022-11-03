@@ -1,4 +1,3 @@
-{% load tawkto_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,10 +5,10 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Terms & Conditions - Urbanshef</title>
+    <title>Terms and Conditions - Slobite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
-    <meta name="keywords" content="Vegan Food in Glasgow" />
+    <meta name="description" content="By creating an Account on our Terms and conditions, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send." />
+    <meta name="keywords" content="Terms and conditions" />
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
@@ -43,7 +42,7 @@
 
                 {% else %}
 
-                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Apply</a>
 
                 {% endif %}
               </div><!--end login button-->
@@ -66,11 +65,11 @@
                   <div class="buy-menu-btn d-none">
                     {% if request.user.is_authenticated %}
 
-                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                     {% else %}
 
-                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                    <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Become a Chef</a>
 
                     {% endif %}
                   </div><!--end login button-->
@@ -126,10 +125,10 @@
                               <li><strong><u>Introduction</u></strong></li>
                             </ol>
                             <p>Welcome to&nbsp;<strong>URBANSHEF LTD</strong>&nbsp;(&ldquo;<strong>Company</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>our</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;)! As you have just clicked our Terms of Service, please pause, grab a cup of coffee and carefully read the following pages. It will take you approximately 20&nbsp;minutes.</p>
-                            <p>These Terms of Service (&ldquo;<strong>Terms</strong>&rdquo;, &ldquo;<strong>Terms of Service</strong>&rdquo;) govern your use of&nbsp;our web pages located at https://www.urbanshef.com and our mobile application&nbsp;Urbanshef (together or individually &ldquo;<strong>Service</strong>&rdquo;)&nbsp;operated by&nbsp;URBANSHEF LTD.</p>
-                            <p>Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. Please read it here https://www.urbanshef.com/privacy.</p>
+                            <p>These Terms of Service (&ldquo;<strong>Terms</strong>&rdquo;, &ldquo;<strong>Terms of Service</strong>&rdquo;) govern your use of&nbsp;our web pages located at https://www.slobite.com and our mobile application&nbsp;Slobite (together or individually &ldquo;<strong>Service</strong>&rdquo;)&nbsp;operated by&nbsp;URBANSHEF LTD.</p>
+                            <p>Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. Please read it here https://www.slobite.com/privacy.</p>
                             <p>Your agreement with us includes these Terms&nbsp;and our Privacy Policy&nbsp;(&ldquo;<strong>Agreements</strong>&rdquo;). You acknowledge that you have read and understood Agreements, and agree to be bound of them.</p>
-                            <p>If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at info@urbanshef.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.</p>
+                            <p>If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at info@slobite.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.</p>
                             <p>Thank you for being responsible.</p>
                             <p>&nbsp;</p>
                             <ol start="2">
@@ -255,13 +254,13 @@
                               <li><strong><u>Copyright Policy</u></strong></li>
                             </ol>
                             <p>We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (&ldquo;<strong>Infringement</strong>&rdquo;) of any person or entity.</p>
-                            <p>If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to&nbsp;copyright@urbanshef.com, with the subject line: &ldquo;Copyright Infringement&rdquo; and include in your claim a detailed description of the alleged Infringement as detailed below, under &ldquo;Notice and Procedure for Copyright Infringement Claims&rdquo;</p>
-                            <p>You may be held accountable for damages (including costs and attorneys' fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright. You can contact our Copyright Agent via email at&nbsp;<a href="mailto:copyright@urbanshef.com">copyright@urbanshef.com</a></p>
+                            <p>If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to&nbsp;copyright@slobite.com, with the subject line: &ldquo;Copyright Infringement&rdquo; and include in your claim a detailed description of the alleged Infringement as detailed below, under &ldquo;Notice and Procedure for Copyright Infringement Claims&rdquo;</p>
+                            <p>You may be held accountable for damages (including costs and attorneys' fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright. You can contact our Copyright Agent via email at&nbsp;<a href="mailto:copyright@slobite.com">copyright@slobite.com</a></p>
                             <p>&nbsp;</p>
                             <ol start="14">
                               <li><strong><u>Error Reporting and Feedback</u></strong></li>
                             </ol>
-                            <p>You may provide us&nbsp;either directly at info@urbanshef.com or via third party sites and tools&nbsp;with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (&ldquo;<strong>Feedback</strong>&rdquo;). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.</p>
+                            <p>You may provide us&nbsp;either directly at info@slobite.com or via third party sites and tools&nbsp;with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (&ldquo;<strong>Feedback</strong>&rdquo;). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.</p>
                             <p>The third-party sites and tools mentioned above include the following:</p>
                             <p>&nbsp;</p>
                             <p><strong>Rollbar<br /> <br /></strong>Rollbar is error tracking service provided by Rollbar Inc. Find out more here: <a href="https://docs.rollbar.com/docs/privacy-policy">https://docs.rollbar.com/docs/privacy-policy</a></p>
@@ -327,7 +326,7 @@
                               <li><strong><u>Contact Us</u></strong></li>
                             </ol>
                             <p>Please send your feedback, comments, requests for technical support:</p>
-                            <p>By email: info@urbanshef.com.</p>
+                            <p>By email: info@slobite.com.</p>
                             <p>Report your bugs on our bug report form</p>
 
                               <a href="javascript:window.print()" class="btn btn-soft-primary d-print-none">Print</a>
@@ -348,11 +347,11 @@
                             <a href="/" class="logo-footer">
                                 <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
                             </a>
-                            <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                            <p class="mt-4">Wholesome and delicious homemade food <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
                             <ul class="list-unstyled social-icon social mb-0 mt-4">
-                                <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.facebook.com/slobite" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.instagram.com/slobitedotcom/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://twitter.com/slobitedotcom" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div><!--end col-->
 
@@ -360,8 +359,8 @@
                             <h5 class="text-light footer-head">Company</h5>
                             <ul class="list-unstyled footer-list mt-4">
                                 <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
-                                <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
-                                <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Resources</a></li>
+                                <li><a href="https://slobite.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Help Centre</a></li>
 
                             </ul>
                         </div><!--end col-->
@@ -376,9 +375,9 @@
                         </div><!--end col-->
 
                         <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                            <h5 class="text-light footer-head">Download Apps</h5>
-                            <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Coming soon</a>
-                            <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon</a>
+                            <h5 class="text-light footer-head">Download App</h5>
+                            <a href="https://play.google.com/store/apps/details?id=com.urbanshef.urbanshefapp" target="_blank" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                            
                         </div><!--end col-->
                     </div><!--end row-->
                 </div><!--end container-->
@@ -388,7 +387,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="text-sm-start">
-                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Slobite. All Rights Reserved.</p>
                             </div>
                         </div><!--end col-->
 
@@ -412,20 +411,6 @@
             <script src="{% static 'js/app.js' %}"></script>
             <!-- JQuery -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <!-- Sendgrid Subscribe -->
-            <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189136004-1"></script>
-            <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('set', {'user_id': 'USER_ID'});
-            ga('set', 'userId', 'USER_ID');
-            gtag('config', 'UA-189136004-1');
-            </script>
-
-            {% tawkto_script %}
-
+            
         </body>
 </html>

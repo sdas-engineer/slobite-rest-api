@@ -1,4 +1,3 @@
-{% load tawkto_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,10 +5,10 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Report Bugs - Urbanshef</title>
+    <title>Report Bugs - Slobite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
-    <meta name="keywords" content="Vegan Food in Glasgow" />
+    <meta name="description" content="Did you encounter any bugs or technical error while browsing our website or app? Use the bug report form and let us know about the issue. " />
+    <meta name="keywords" content="Report bugs" />
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
@@ -39,11 +38,11 @@
               <div class="buy-button">
                 {% if request.user.is_authenticated %}
 
-                <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                 {% else %}
 
-                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Become a Chef</a>
 
                 {% endif %}
               </div><!--end login button-->
@@ -66,11 +65,11 @@
                   <div class="buy-menu-btn d-none">
                     {% if request.user.is_authenticated %}
 
-                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                     {% else %}
 
-                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                    <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Apply</a>
 
                     {% endif %}
                   </div><!--end login button-->
@@ -89,11 +88,11 @@
                       <a href="/" class="logo-footer">
                           <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
                       </a>
-                      <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                      <p class="mt-4">Wholesome and delicious homemade food <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
                       <ul class="list-unstyled social-icon social mb-0 mt-4">
-                          <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                          <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                          <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://www.facebook.com/slobite" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://www.instagram.com/slobitedotcom/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://twitter.com/slobitedotcom" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
                       </ul><!--end icon-->
                   </div><!--end col-->
 
@@ -101,8 +100,8 @@
                       <h5 class="text-light footer-head">Company</h5>
                       <ul class="list-unstyled footer-list mt-4">
                           <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
-                          <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
-                          <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+                          <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Resources</a></li>
+                          <li><a href="https://slobite.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Help Centre</a></li>
 
                       </ul>
                   </div><!--end col-->
@@ -117,9 +116,9 @@
                   </div><!--end col-->
 
                   <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                      <h5 class="text-light footer-head">Download Apps</h5>
-                      <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Coming soon</a>
-                      <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon</a>
+                      <h5 class="text-light footer-head">Download App</h5>
+                      <a href="https://play.google.com/store/apps/details?id=com.urbanshef.urbanshefapp" target="_blank" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                      
                   </div><!--end col-->
               </div><!--end row-->
           </div><!--end container-->
@@ -129,7 +128,7 @@
               <div class="row align-items-center">
                   <div class="col-sm-6">
                       <div class="text-sm-start">
-                          <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                          <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Slobite. All Rights Reserved.</p>
                       </div>
                   </div><!--end col-->
 
@@ -153,20 +152,6 @@
       <script src="{% static 'js/app.js' %}"></script>
       <!-- JQuery -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <!-- Sendgrid Subscribe -->
-      <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189136004-1"></script>
-      <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('set', {'user_id': 'USER_ID'});
-      ga('set', 'userId', 'USER_ID');
-      gtag('config', 'UA-189136004-1');
-      </script>
-
-      {% tawkto_script %}
-
+      
   </body>
 </html>

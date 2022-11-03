@@ -1,5 +1,67 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:300,400,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Livvic:wght@400;500;600;700&display=swap");
+@font-face {
+    font-family: 'sofia_problack';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_black_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_black_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_probold';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_bold_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_bold_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proextralight';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_extralight_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_extralight_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_prolight';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_light_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_light_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_promedium';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_medium_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_medium_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proregular';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_regular_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_regular_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_prosemibold';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_semi_bold_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_semi_bold_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sofia_proultralight';
+    src: url('https://www.slobite.com/static/fonts/sofia_pro_ultralight_az-webfont.woff2') format('woff2'),
+         url('https://www.slobite.com/static/fonts/sofia_pro_ultralight_az-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 @media (min-width: 1400px) {
   .container {
     max-width: 1140px !important;
@@ -51,17 +113,17 @@ h6, .h6 {
 }
 
 .bg-primary {
-  background-color: #2f55d4 !important;
+  background-color: #FE724C !important;
 }
 
 .bg-soft-primary {
   background-color: rgba(47, 85, 212, 0.1) !important;
   border: 1px solid rgba(47, 85, 212, 0.1) !important;
-  color: #2f55d4 !important;
+  color: #FE724C !important;
 }
 
 .text-primary {
-  color: #2f55d4 !important;
+  color: #FE724C !important;
 }
 
 a {
@@ -70,21 +132,21 @@ a {
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #284bc1 !important;
+  color: #FE724C !important;
 }
 
 .bg-secondary {
-  background-color: #5a6d90 !important;
+  background-color: #FFC529 !important;
 }
 
 .bg-soft-secondary {
   background-color: rgba(90, 109, 144, 0.1) !important;
   border: 1px solid rgba(90, 109, 144, 0.1) !important;
-  color: #5a6d90 !important;
+  color: #FFC529 !important;
 }
 
 .text-secondary {
-  color: #5a6d90 !important;
+  color: #FFC529 !important;
 }
 
 a {
@@ -93,7 +155,7 @@ a {
 }
 
 a.text-secondary:hover, a.text-secondary:focus {
-  color: #506180 !important;
+  color: #FFC529 !important;
 }
 
 .bg-success {
@@ -166,17 +228,17 @@ a.text-info:hover, a.text-info:focus {
 }
 
 .bg-danger {
-  background-color: #e43f52 !important;
+  background-color: #FE724C !important;
 }
 
 .bg-soft-danger {
   background-color: rgba(228, 63, 82, 0.1) !important;
   border: 1px solid rgba(228, 63, 82, 0.1) !important;
-  color: #e43f52 !important;
+  color: #FE724C !important;
 }
 
 .text-danger {
-  color: #e43f52 !important;
+  color: #FE724C !important;
 }
 
 a {
@@ -185,7 +247,7 @@ a {
 }
 
 a.text-danger:hover, a.text-danger:focus {
-  color: #e1293e !important;
+  color: #FE724C !important;
 }
 
 .bg-dark {
@@ -281,17 +343,17 @@ a.text-blue:hover, a.text-blue:focus {
 }
 
 .bg-footer {
-  background-color: #202942 !important;
+  background-color: #2D2D3A !important;
 }
 
 .bg-soft-footer {
   background-color: rgba(32, 41, 66, 0.1) !important;
   border: 1px solid rgba(32, 41, 66, 0.1) !important;
-  color: #202942 !important;
+  color: #2D2D3A !important;
 }
 
 .text-footer {
-  color: #202942 !important;
+  color: #2D2D3A !important;
 }
 
 a {
@@ -310,7 +372,7 @@ a.text-footer:hover, a.text-footer:focus {
 }
 
 .bg-black {
-  background: #161c2d !important;
+  background: #000000  !important;
 }
 
 video:focus {
@@ -404,84 +466,84 @@ video:focus {
 }
 
 .btn-primary {
-  background-color: #2f55d4 !important;
-  border: 1px solid #2f55d4 !important;
+  background-color: #FE724C !important;
+  border: 1px solid #FE724C !important;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
           box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.focus {
-  background-color: #2443ac !important;
-  border-color: #2443ac !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
 .btn-soft-primary {
   background-color: rgba(47, 85, 212, 0.1) !important;
   border: 1px solid rgba(47, 85, 212, 0.1) !important;
-  color: #2f55d4 !important;
+  color: #FE724C !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
           box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
 }
 
 .btn-soft-primary:hover, .btn-soft-primary:focus, .btn-soft-primary:active, .btn-soft-primary.active, .btn-soft-primary.focus {
-  background-color: #2f55d4 !important;
-  border-color: #2f55d4 !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
 .btn-outline-primary {
-  border: 1px solid #2f55d4;
-  color: #2f55d4;
+  border: 1px solid #FE724C;
+  color: #FE724C;
   background-color: transparent;
 }
 
 .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active, .btn-outline-primary.active, .btn-outline-primary.focus, .btn-outline-primary:not(:disabled):not(.disabled):active {
-  background-color: #2f55d4;
-  border-color: #2f55d4;
+  background-color: #FE724C;
+  border-color: #FE724C;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
           box-shadow: 0 3px 5px 0 rgba(47, 85, 212, 0.3);
 }
 
 .btn-secondary {
-  background-color: #5a6d90 !important;
-  border: 1px solid #5a6d90 !important;
+  background-color: #FFC529 !important;
+  border: 1px solid #FFC529 !important;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
           box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
 }
 
 .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .btn-secondary.focus {
-  background-color: #465571 !important;
-  border-color: #465571 !important;
+  background-color: #FFC529 !important;
+  border-color: #FFC529 !important;
   color: #ffffff !important;
 }
 
 .btn-soft-secondary {
   background-color: rgba(90, 109, 144, 0.1) !important;
   border: 1px solid rgba(90, 109, 144, 0.1) !important;
-  color: #5a6d90 !important;
+  color: #FFC529 !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
           box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
 }
 
 .btn-soft-secondary:hover, .btn-soft-secondary:focus, .btn-soft-secondary:active, .btn-soft-secondary.active, .btn-soft-secondary.focus {
-  background-color: #5a6d90 !important;
-  border-color: #5a6d90 !important;
+  background-color: #FFC529 !important;
+  border-color: #FFC529 !important;
   color: #ffffff !important;
 }
 
 .btn-outline-secondary {
-  border: 1px solid #5a6d90;
-  color: #5a6d90;
+  border: 1px solid #FFC529;
+  color: #FFC529;
   background-color: transparent;
 }
 
 .btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active, .btn-outline-secondary.active, .btn-outline-secondary.focus, .btn-outline-secondary:not(:disabled):not(.disabled):active {
-  background-color: #5a6d90;
-  border-color: #5a6d90;
+  background-color: #FFC529;
+  border-color: #FFC529;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
           box-shadow: 0 3px 5px 0 rgba(90, 109, 144, 0.3);
@@ -530,42 +592,42 @@ video:focus {
 }
 
 .btn-warning {
-  background-color: #f17425 !important;
-  border: 1px solid #f17425 !important;
+  background-color: #FE724C !important;
+  border: 1px solid #FE724C !important;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
           box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
 }
 
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .btn-warning.focus {
-  background-color: #d55b0e !important;
-  border-color: #d55b0e !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
 .btn-soft-warning {
   background-color: rgba(241, 116, 37, 0.1) !important;
   border: 1px solid rgba(241, 116, 37, 0.1) !important;
-  color: #f17425 !important;
+  color: #FE724C !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
           box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
 }
 
 .btn-soft-warning:hover, .btn-soft-warning:focus, .btn-soft-warning:active, .btn-soft-warning.active, .btn-soft-warning.focus {
-  background-color: #f17425 !important;
-  border-color: #f17425 !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
 .btn-outline-warning {
-  border: 1px solid #f17425;
-  color: #f17425;
+  border: 1px solid #FE724C;
+  color: #FE724C;
   background-color: transparent;
 }
 
 .btn-outline-warning:hover, .btn-outline-warning:focus, .btn-outline-warning:active, .btn-outline-warning.active, .btn-outline-warning.focus, .btn-outline-warning:not(:disabled):not(.disabled):active {
-  background-color: #f17425;
-  border-color: #f17425;
+  background-color: #FE724C;
+  border-color: #FE724C;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
           box-shadow: 0 3px 5px 0 rgba(241, 116, 37, 0.3);
@@ -614,30 +676,30 @@ video:focus {
 }
 
 .btn-danger {
-  background-color: #e43f52 !important;
-  border: 1px solid #e43f52 !important;
+  background-color: #FE724C !important;
+  border: 1px solid #FE724C !important;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
           box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
 }
 
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .btn-danger.focus {
-  background-color: #d21e32 !important;
-  border-color: #d21e32 !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
 .btn-soft-danger {
   background-color: rgba(228, 63, 82, 0.1) !important;
   border: 1px solid rgba(228, 63, 82, 0.1) !important;
-  color: #e43f52 !important;
+  color: #FE724C !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
           box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
 }
 
 .btn-soft-danger:hover, .btn-soft-danger:focus, .btn-soft-danger:active, .btn-soft-danger.active, .btn-soft-danger.focus {
-  background-color: #e43f52 !important;
-  border-color: #e43f52 !important;
+  background-color: #FE724C !important;
+  border-color: #FE724C !important;
   color: #ffffff !important;
 }
 
@@ -648,8 +710,8 @@ video:focus {
 }
 
 .btn-outline-danger:hover, .btn-outline-danger:focus, .btn-outline-danger:active, .btn-outline-danger.active, .btn-outline-danger.focus, .btn-outline-danger:not(:disabled):not(.disabled):active {
-  background-color: #e43f52;
-  border-color: #e43f52;
+  background-color: #FE724C;
+  border-color: #FE724C;
   color: #ffffff !important;
   -webkit-box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
           box-shadow: 0 3px 5px 0 rgba(228, 63, 82, 0.3);
@@ -748,8 +810,8 @@ video:focus {
 }
 
 .btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.active, .btn-light.focus {
-  background-color: #d4daed !important;
-  border-color: #d4daed !important;
+  background-color: #e1e1e1 !important;
+  border-color: #e1e1e1 !important;
   color: #ffffff !important;
 }
 
@@ -1831,14 +1893,14 @@ button:not(:disabled) {
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   overflow-x: hidden !important;
   font-size: 16px;
   color: #161c2d;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Nunito", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   line-height: 1.5;
   font-weight: 600;
 }
@@ -1878,7 +1940,7 @@ p {
 }
 
 .bg-overlay {
-  background-color: rgba(60, 72, 88, 0.7);
+  background-color: rgba(0, 0, 0);
   position: absolute;
   top: 0;
   right: 0;
@@ -2206,7 +2268,7 @@ p {
 
 #topnav .navbar-toggle .lines {
   width: 25px;
-  display: block;
+  display: none;
   position: relative;
   margin: 28px 20px;
   height: 18px;
@@ -2309,7 +2371,7 @@ p {
   text-transform: uppercase;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
-  font-family: "Nunito", sans-serif;
+  font-family: "sofia_proregular", sans-serif;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -5100,7 +5162,7 @@ p {
 }
 
 .footer {
-  background: #202942;
+  background: #000000;
   padding: 60px 0;
   position: relative;
   color: #adb5bd;
@@ -5176,7 +5238,7 @@ p {
 }
 
 .footer.footer-border, .footer.footer-bar {
-  border-top: 1px solid #283353;
+  border-top: 1px solid #ADADB8;
 }
 
 .footer.footer-bar {

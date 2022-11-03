@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -24,18 +25,20 @@ from django.contrib.auth import views as auth_views
 
 from django.conf.urls.static import static
 from django.conf import settings
+from urbanshef.views import CustomPasswordResetView
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Urbanshef API",
+        title="Slobite API",
         default_version='1.0',
-        description="Urbanshef API Documentation",
-        terms_of_service="https://www.urbanshef.com/privacy/",
-        contact=openapi.Contact(email="developers@urbanshef.com"),
+        description="Slobite API Documentation",
+        terms_of_service="https://www.slobite.com/privacy/",
+        contact=openapi.Contact(email="developers@slobite.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
+    url='https://slobite.com'
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,18 +51,18 @@ urlpatterns = [
     path('', include('urbanshef.urls')),
 
     # Chef
-    path('chef/login/', auth_views.LoginView.as_view(template_name='chef/login.html'), name='chef-login'),
+    path('chef/login/', views.LoginView.as_view(), name='chef-login'),
     path('chef/logout/', auth_views.LogoutView.as_view(next_page='/'), name='chef-logout'),
     path('chef/sign-up/', views.chef_sign_up, name='chef-sign-up'),
-    path('chef/reset_password/', auth_views.PasswordResetView.as_view(template_name="chef/password_reset.html"),
-         name="reset_password"),
+    path('become-a-chef/', views.BecomeAShef.as_view(), name='become-a-shef'),
+    path('chef/reset_password/', CustomPasswordResetView.as_view(template_name='chef/password_reset.html'), name="reset_password"),
 
     path('chef/reset_password_sent/',
          auth_views.PasswordResetDoneView.as_view(template_name="chef/password_reset_sent.html"),
          name="password_reset_done"),
 
     path('chef/reset/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(template_name="chef/password_reset_form.html"),
+         auth_views.PasswordResetConfirmView.as_view(template_name='chef/password_reset_form.html'),
          name="password_reset_confirm"),
 
     path('chef/reset_password_complete/',
@@ -80,10 +83,7 @@ urlpatterns = [
     path('chef/report/', views.chef_report, name='chef-report'),
     path('chef/review/', views.review, name='chef-review'),
     path('chef/review/reply/<int:review_id>', views.reply_to_review, name='chef-reply-review'),
-
-    # # Stripe Connect
-    # path('authorize/', StripeAuthorizeView.as_view(), name='authorize'),
-    # path('oauth/callback/', StripeAuthorizeCallbackView.as_view(), name='authorize_callback'),
+    path('chef/onboarding-call/', login_required(login_url='/chef/login/')(views.CheckListView.as_view()), name='chef-onboarding-call'),
 
     # Sign In/ Sign Up/ Sign Out
     path('api/social/', include('drf_social_oauth2.urls', namespace='drf')),
@@ -95,13 +95,22 @@ urlpatterns = [
     # # APIs for CUSTOMERS
     path('api/customer/chefs/', apis.CustomerGetChefs.as_view()),
     path('api/customer/meals/<int:chef_id>/', apis.CustomerGetMeals.as_view()),
-    path('api/customer/order/add/', apis.customer_add_order),
-    path('api/customer/order/latest/', apis.customer_get_latest_order),
-    path('api/customer/driver/location/', apis.customer_driver_location),
+    path('api/customer/allergens/<int:meal_id>/', apis.MealAllergens.as_view()),
+    path('api/customer/order/add/', apis.CustomerAddAPIView.as_view()),
+    path('api/customer/order/coupon/', apis.ApplyCoupon.as_view()),
+    path('api/customer/order/latest/', apis.customer_get_latest_order.as_view()),
+    path('api/customer/driver/location/', apis.customer_driver_location.as_view()),
     #
-    #
+    # Payment securing
+    path('api/customer/payment/sheet/', apis.PaymentSheet.as_view()),
+    path('api/customer/payment/method/', apis.PaymentMethodCreate.as_view()),
+    path('api/customer/payment/intent/create', apis.PaymentIntentCreate.as_view()),
+    path('api/customer/payment/intent/check/', apis.PaymentIntentCheck.as_view()),
+    path('api/customer/payment/intent/modify/', apis.PaymentIntentModify.as_view()),
+    path('api/customer/payment/intent/confirm/', apis.PaymentIntentConfirm.as_view()),
+    path('api/customer/payment/intent/cancel/', apis.PaymentIntentCancel.as_view()),
     # # APIs for DRIVERS
-    path('api/driver/orders/ready/', apis.driver_get_ready_orders),
+    path('api/driver/orders/ready/', apis.driver_get_ready_orders.as_view()),
     path('api/driver/order/pick/', apis.driver_pick_order),
     path('api/driver/order/latest/', apis.driver_get_latest_order),
     path('api/driver/order/complete/', apis.driver_complete_order),
@@ -120,8 +129,13 @@ urlpatterns = [
     # Chef average review
     path('api/chef/review/<pk>/', apis.ChefAvgRatingAPIView.as_view()),
 
+    path('api/chef/uk_food_rating/<chef_id>/', apis.ShefUKFoodRating.as_view()),
+
     path('doc/', schema_view.with_ui('swagger', cache_timeout=-25), name='schema-swagger-ui')
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'urbanshef.views.error_404_view'
+admin.site.site_header = 'Slobite CRM'
+admin.site.site_title = 'Slobite CRM'
+admin.site.index_title = 'Slobite CRM'

@@ -1,4 +1,3 @@
-{% load tawkto_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +7,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
-    <meta name="keywords" content="Vegan Food in Glasgow" />
+    <meta name="description" content="Homemade food in London. Delivered to your home or office. Order now." />
+    <meta name="keywords" content="Homemade Food in London" />
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
@@ -39,7 +38,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #FF0000;
+            background-color: #ADADB8;
             -webkit-transition: .4s;
             transition: .4s;
         }
@@ -57,11 +56,11 @@
         }
 
         input:checked + .slider {
-            background-color: #2196F3;
+            background-color: #FE724C;
         }
 
         input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
+            box-shadow: 0 0 1px #FE724C;
         }
 
         input:checked + .slider:before {
@@ -76,6 +75,9 @@
 
         .slider.round:before {
             border-radius: 50%;
+        }
+        .active{
+            background-color: #4c83ff;;
         }
     </style>
     {% block script %}{% endblock %}
@@ -115,13 +117,7 @@
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hi! {{ request.user.get_full_name }}</span>
                        <div class="topbar-divider d-none d-sm-block"></div>
-                       {% if request.user.chef.picture %}
-                       <img class="img-profile rounded-circle"
-                          src="{{ MEDIA_URL }}{{ request.user.chef.picture }}">
-                       {% else %}
-                       <img class="img-profile rounded-circle"
-                          src="{% static 'img/default.png' %}">
-                       {% endif %}
+                       <i class="fas fa-chevron-down fa-sm fa-fw mr-2 text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
                        <a class="dropdown-item" href="{% url 'chef-logout' %}?next={{ request.path }}">
@@ -132,7 +128,7 @@
                  </li>
               </ul>
            </nav>
-           <div class="container-fluid">
+           <div class="container-md-fluid">
               <!-- Content Row -->
               {% block page %}{% endblock %}
            </div>
@@ -142,7 +138,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Slobite. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>
@@ -198,18 +194,7 @@
           });
         }
     </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189136004-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('set', {'user_id': 'USER_ID'});
-    ga('set', 'userId', 'USER_ID');
-    gtag('config', 'UA-189136004-1');
-    </script>
 
-    {% tawkto_script %}
 
 </body>
 </html>

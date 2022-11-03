@@ -1,4 +1,3 @@
-{% load tawkto_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +32,7 @@
               </a>
           </div>
           <div class="buy-button">
-              <a href="https://urbanshef.tawk.help/" target="_blank" class="btn btn-primary">Help Centre</a>
+              <a href="https://slobite.tawk.help/" target="_blank" class="btn btn-primary">Help</a>
           </div><!--end login button-->
           <!-- End Logo container-->
           <div class="menu-extras">
@@ -52,7 +51,7 @@
 
           <div id="navigation">
               <div class="buy-menu-btn d-none">
-                    <a href="https://urbanshef.tawk.help/" target="_blank" class="btn btn-primary">Help Centre</a>
+                    <a href="https://slobite.tawk.help/" target="_blank" class="btn btn-primary">Help</a>
               </div><!--end login button-->
           </div><!--end navigation-->
       </div><!--end container-->
@@ -66,7 +65,7 @@
     <div class="row align-items-center">
     <div class="col-lg-7 col-md-6">
     <div class="me-lg-5">
-    <img src="{% static 'img/signup.svg' %}" class="img-fluid d-block mx-auto" alt="">
+    <img src="{% static 'img/che.png' %}" class="img-fluid d-block mx-auto" alt="">
     </div>
     </div>
     <div class="col-lg-5 col-md-6">
@@ -91,18 +90,6 @@
   <script src="{% static 'js/app.js' %}"></script>
   <!-- JQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189136004-1"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('set', {'user_id': 'USER_ID'});
-  ga('set', 'userId', 'USER_ID');
-  gtag('config', 'UA-189136004-1');
-  </script>
-
-  {% tawkto_script %}
 
 </body>
 </html>

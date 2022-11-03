@@ -1,0 +1,509 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Cook with Slobite - Become a Chef</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Slobite" />
+        <meta name="email" content="chef@slobite.com/" />
+        <meta name="website" content="https://www.slobite.com/become-a-chef/" />
+        <meta name="Version" content="v3.5.0" />
+        <meta name="description" content="Start a food delivery business in London from your home kitchen. Earn a meaningful income. Flexible hours and competitive fees." />
+    <meta name="keywords" content="start a food delivery business in London, cost to start a food delivery business in London, homemade food business in London, how to start a food delivery business in London" />
+    <meta name="google-site-verification" content="jEmB5JHeP0-2NPx8E2hkysoPcj1-MzjfAEErpgneQdU" /
+
+
+        <!-- open graph -->
+        <meta property="og:title" content="Cook with Slobite - Become a Chef">
+        <meta property="og:site_name" content="Slobite">
+        <meta property="og:url" content="https://www.slobite.com/become-a-chef">
+        <meta property="og:description" content="Start a food delivery business from your home kitchen. Flexible hours and competitive fees.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="https://slobite.com/static/img/og-chef.png">  
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
+        <!-- Bootstrap -->
+        <link href="{% static 'landriks_asset/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- tobii css -->
+        <link href="{% static 'landriks_asset/css/tobii.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- Icons -->
+        <link href="{% static 'landriks_asset/css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+        <!-- Slider -->               
+        <link rel="stylesheet" href="{% static 'landriks_asset/css/tiny-slider.css' %}"/>
+        <!-- Main Css -->
+        <link href="{% static 'landriks_asset/css/style.css' %}" rel="stylesheet" type="text/css" id="theme-opt" />
+        <link href="{% static 'landriks_asset/css/colors/default.css' %}" rel="stylesheet" id="color-opt">
+    </head>
+
+    <body>
+        
+        <!-- Navbar STart -->
+        <header id="topnav" class="defaultscroll sticky">
+            <div class="container">
+                <!-- Logo container-->
+                <a class="logo" href="{% url 'home' %}">
+                    <span class="logo-light-mode">
+                        <img src="{% static 'img/logo-dark.png' %}" class="l-dark" height="24" alt="">
+                        <img src="{% static 'img/logo-light.png' %}" class="l-light" height="24" alt="">
+                    </span>
+                    <img src="{% static 'landriks_asset' %}/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
+                </a>
+
+                <!-- End Logo container-->
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </div>
+                </div>
+
+                <!--Login button Start-->
+                <div class="buy-button">
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'chef-home' %}">
+
+                    <div class="btn btn-primary login-btn-primary">Chef Dashboard</div>
+                    <div class="btn btn-light login-btn-light">Chef Dashboard</div>
+
+                  </a>
+
+                {% else %}
+
+                <a href="{% url 'chef-login' %}">
+
+                      <div class="btn btn-primary login-btn-primary">Log In</div>
+                      <div class="btn btn-light login-btn-light">Log In</div>
+                  </a>
+                {% endif %}
+
+              </div><!--end login button-->
+                <!--Login button End-->
+
+                <div id="navigation">
+                    <!-- Navigation Menu-->   
+                </div><!--end navigation-->
+            </div><!--end container-->
+        </header><!--end header-->
+        <!-- Navbar End -->
+
+        <!-- Hero Start -->
+        <section class="bg-half-260 bg-primary d-table w-100">
+            <div class="bg-overlay bg-black"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 text-center">
+                        <div class="title-heading">
+                            <h1 class="heading text-white title-dark mb-4">Start cooking<br>on your schedule</h1>
+                            <p class="para-desc mx-auto text-white">Launch a risk-free food delivery business from your home kitchen. </p>
+                            <div class="mt-4 pt-2">
+                                <a href="{% url 'chef-sign-up' %}" class="btn btn-light">Get Started</a>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div> <!--end container-->
+        </section><!--end section-->
+        <div class="position-relative">
+            <div class="shape overflow-hidden text-white">
+                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+        <!-- FEATURES START -->
+        <section class="section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="features-absolute">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex features feature-clean p-4 bg-white shadow rounded">
+                                        <div class="icons text-primary d-block text-center rounded">
+                                            <i class="uil uil-file-heart d-block rounded h3 mb-0"></i>
+                                        </div>
+                                        <div class="flex-1 content ms-4">
+                                            <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark">Create Menu</a></h5>
+                                            <p class="text-muted mb-0">Make a list of meals you want to sell. Our team will help you with pricing and uploading nice photos.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <div class="col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                                    <div class="d-flex features feature-clean p-4 bg-white shadow rounded">
+                                        <div class="icons text-primary d-block text-center rounded">
+                                            <i class="uil uil-utensils d-block rounded h3 mb-0"></i>
+                                        </div>
+                                        <div class="flex-1 content ms-4">
+                                            <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark">Zero Hassle</a></h5>
+                                            <p class="text-muted mb-0">Follow your passion for cooking while we take care of the technology, delivery, customer support and marketing.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <div class="col-md-6 mt-4 pt-2">
+                                    <div class="d-flex features feature-clean p-4 bg-white shadow rounded">
+                                        <div class="icons text-primary d-block text-center rounded">
+                                            <i class="uil uil-comment-heart d-block rounded h3 mb-0"></i>
+                                        </div>
+                                        <div class="flex-1 content ms-4">
+                                            <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark">Customer Support</a></h5>
+                                            <p class="text-muted mb-0">Something went wrong? Get support via chat, email or telephone. We are looking forward to answer your questions.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <div class="col-md-6 mt-4 pt-2">
+                                    <div class="d-flex features feature-clean p-4 bg-white shadow rounded">
+                                        <div class="icons text-primary d-block text-center rounded">
+                                            <i class="uil uil-pound d-block rounded h3 mb-0"></i>
+                                        </div>
+                                        <div class="flex-1 content ms-4">
+                                            <h5 class="mb-1"><a href="javascript:void(0)" class="text-dark">Earn Money</a></h5>
+                                            <p class="text-muted mb-0">Track your revenue and best-selling meals. Grow your food business by selling wholesome and tasty food in your area.</p>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+            </div><!--end container-->
+            
+            <!-- About Start -->
+            <div class="container mt-100 mt-60">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
+                                <div class="card work-container work-modern overflow-hidden rounded border-0 shadow-md">
+                                    <div class="card-body p-0">
+                                        <img src="{% static 'landriks_asset' %}/images/chef/start/ab01.jpg" class="img-fluid" alt="chef-slobite">
+                                        <div class="overlay-work bg-dark"></div>
+                                        <div class="content">
+                                            <a href="javascript:void(0)" class="title text-white d-block fw-bold"></a>
+                                            <small class="text-light"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-lg-6 col-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 mt-4 mt-lg-0 pt-2 pt-lg-0">
+                                        <div class="card work-container work-modern overflow-hidden rounded border-0 shadow-md">
+                                            <div class="card-body p-0">
+                                                <img src="{% static 'landriks_asset' %}/images/chef/start/ab02.jpg" class="img-fluid" alt="chef-slobite">
+                                                <div class="overlay-work bg-dark"></div>
+                                                <div class="content">
+                                                    <a href="javascript:void(0)" class="title text-white d-block fw-bold"></a>
+                                                    <small class="text-light"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+    
+                                    <div class="col-lg-12 col-md-12 mt-4 pt-2">
+                                        <div class="card work-container work-modern overflow-hidden rounded border-0 shadow-md">
+                                            <div class="card-body p-0">
+                                                <img src="{% static 'landriks_asset' %}/images/chef/start/ab03.jpg" class="img-fluid" alt="chef-slobite">
+                                                <div class="overlay-work bg-dark"></div>
+                                                <div class="content">
+                                                    <a href="javascript:void(0)" class="title text-white d-block fw-bold"></a>
+                                                    <small class="text-light"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end col-->
+
+                    <div class="col-lg-6 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
+                        <div class="ms-lg-4">
+                            <div class="section-title mb-4 pb-2">
+                                <h4 class="title mb-4">What is Slobite?</h4>
+                                <p class="text-muted para-desc">Slobite brings together a community of passionate local chefs and bakers who create wholesome homemade food. </p>
+                                <p class="text-muted para-desc mb-0">Starting a traditional food business requires a lot of investment, manpower and technical requirements. We're about to change that. With Slobite, chefs and bakers can start a risk-free food delivery business from their home kitchen with no technical skills and zero administrative hassle.</p>
+                            </div>
+
+                            <ul class="list-unstyled text-muted">
+                                <li class="mb-0"><span class="text-primary h4 me-2"><i class="uil uil-check-circle align-middle"></i></span>Earn great incentives</li>
+                                <li class="mb-0"><span class="text-primary h4 me-2"><i class="uil uil-check-circle align-middle"></i></span>Enjoy flexible work from home</li>
+                                <li class="mb-0"><span class="text-primary h4 me-2"><i class="uil uil-check-circle align-middle"></i></span>Turn passion into profession.</li>
+                            </ul>
+
+                            <div class="mt-4 pt-2">
+                                <a href="https://slobite.com/chef/sign-up/" target="_blank" class="btn btn-primary m-1">Become a Chef <i class="uil uil-angle-right-b align-middle"></i></a>
+                                <a href="https://youtu.be/xDySeqVuV18" data-type="youtube" data-id="xDySeqVuV18" class="btn btn-icon btn-pills btn-primary m-1 lightbox"><i data-feather="video" class="icons"></i></a><span class="fw-bold text-uppercase small align-middle ms-1">Watch Now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="container mt-100 mt-60">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6 order-1 order-md-2">
+                        <img src="{% static 'landriks_asset' %}/images/landing/3.jpg" class="img-fluid rounded-md shadow-lg" alt="">
+                    </div><!--end col-->
+
+                    <div class="col-lg-7 col-md-6 order-2 order-md-1 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                        <div class="section-title text-md-start text-center">
+                            <h4 class="title mb-4">Requirements to sell food on Slobite</h4>
+                            <p class="text-muted mb-0 para-desc">As a responsible chef, it is your duty to serve good quality food to your customers while maintaining hygiene standards. What you will need:</p>
+                            
+                            <div class="d-flex align-items-center text-start mt-4 pt-2">
+                                <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                    <i class="uil uil-utensils-alt"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <a href="javascript:void(0)" class="text-dark h6">Right to work in the UK</a>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center text-start mt-4">
+                                <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                    <i class="uil uil-estate"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <a href="javascript:void(0)" class="text-dark h6">Register kitchen with the local council</a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center text-start mt-4">
+                                <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                    <i class="uil uil-file-shield-alt"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <a href="javascript:void(0)" class="text-dark h6">Level 2 Food Hygiene Training</a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center text-start mt-4">
+                                <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                    <i class="uil uil-crockery"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <a href="javascript:void(0)" class="text-dark h6">4, 5 or Pass food hygiene rating</a>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center text-start mt-4">
+                                <div class="text-primary h4 mb-0 me-3 p-3 rounded-md shadow">
+                                    <i class="uil uil-temperature-quarter"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <a href="javascript:void(0)" class="text-dark h6">A UK bank account to get paid</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        
+        <section class="section bg-light">
+
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="section-title text-md-start text-center">
+                            <h4 class="title mb-4">You have any questions ?</h4>
+                            <p class="text-muted mb-0 para-desc">We have few essential tips and frequently asked questions for you to use when starting your food business from home.</p>
+                            
+                        </div>
+                    </div><!--end col-->
+
+                    <div class="col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item rounded shadow">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button border-0 bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        Who can cook on Slobite ?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse border-0 collapse show" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body text-muted bg-white">
+                                        Slobite is designed for professional chefs and bakers who want to start a food delivery business from their home kitchen.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item rounded shadow mt-2">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button border-0 bg-light collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                        aria-expanded="false" aria-controls="collapseTwo">
+                                        How do I get paid ?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse border-0 collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body text-muted bg-white">
+                                        We work with Stripe as our payment processing partner. You will connect your bank account using Stripe. Your earnings will be paid weekly, i.e. on  Monday.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item rounded shadow mt-2">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button border-0 bg-light collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Is there any fee to use the platform?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse border-0 collapse" aria-labelledby="headingThree"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body text-muted bg-white">
+                                        The platform is completly free to use. We charge a 20% commission for every successful order. 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item rounded shadow mt-2">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button border-0 bg-light collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Can I take a day off?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse border-0 collapse" aria-labelledby="headingThree"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body text-muted bg-white">
+                                        Absolutely! If you are on holiday and not be able to take orders, simply make yourself unavailable via the dashboard using the on & off button on the top left corner.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item rounded shadow mt-2">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button border-0 bg-light collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        How does the delivery work ?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse border-0 collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body text-muted bg-white">
+                                        Customers will pre-order the meals from you atleast 12 hours prior to the delivery. Our delivery partner(s) will collect all the orders from you on delivery days. If you are unable to fulfill an order, please notify us immediately via the dashboard.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+
+                <div class="row mt-5 pt-md-4 justify-content-center">
+                    <div class="col-12 text-center">
+                        <div class="section-title">
+                            <h4 class="title mb-4">Have Questions? Get in touch!</h4>
+                            <p class="text-muted para-desc mx-auto">Did we miss anything? Feel free to get in touch and we will happy to answer all your questions.</p>
+                            <a href="https://slobite.tawk.help/" target="_blank" class="btn btn-primary mt-4">Contact us</a>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <div class="position-relative">
+            <div class="shape overflow-hidden text-footer">
+                <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+                </svg>
+            </div>
+        </div>
+
+<!-- Footer Start -->
+        <footer class="footer">    
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-py-60">
+                            <div class="row">
+                                <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+                      <a href="/" class="logo-footer">
+                          <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
+                      </a>
+                      <p class="mt-4">Wholesome and delicious homemade food <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                      <ul class="list-unstyled social-icon social mb-0 mt-4">
+                          <li class="list-inline-item"><a href="https://www.facebook.com/slobite" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://www.instagram.com/slobitedotcom/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                          <li class="list-inline-item"><a href="https://twitter.com/slobitedotcom" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                      </ul><!--end icon-->
+                  </div><!--end col-->
+
+                  <div class="col-lg-2 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Company</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Food Safety</a></li>
+                          <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Resources</a></li>
+                          <li><a href="https://slobite.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Help Centre</a></li>
+
+                      </ul>
+                  </div><!--end col-->
+
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Legal</h5>
+                      <ul class="list-unstyled footer-list mt-4">
+                          <li><a href="{% url 'terms' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Terms of Services</a></li>
+                          <li><a href="{% url 'privacy' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Privacy Policy</a></li>
+                          <li><a href="{% url 'report-bugs' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Report Bugs </a></li>
+                      </ul>
+                  </div><!--end col-->
+                  <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <h5 class="text-light footer-head">Get £10 off</h5>
+                        <a href="https://cdn.forms-content.sg-form.com/d73eb1af-8513-11eb-bca8-066fa1079df3" target="_blank" class="btn btn-primary mt-2">Join the waitlist</a>
+                        
+                  </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+            <div class="footer-py-30 footer-bar">
+                <div class="container text-center">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="text-sm-start">
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Slobite. All Rights Reserved</p>
+                            </div>
+                        </div><!--end col-->
+
+                  <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                      <ul class="list-unstyled text-sm-end mb-0">
+                          <li class="list-inline-item"><img src="{% static 'img/visa.png' %}"  class="avatar avatar-ex-sm" title="American Express" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/mastercard.png' %}"  class="avatar avatar-ex-sm" title="Master Card" alt=""></li>
+                          <li class="list-inline-item"><img src="{% static 'img/amex.png' %}"  class="avatar avatar-ex-sm" title="Visa" alt=""></li>
+                      </ul>
+                  </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </div>
+        </footer><!--end footer-->
+        <!-- Footer End -->
+
+        <!-- javascript -->
+        <script src="{% static 'landriks_asset' %}/js/bootstrap.bundle.min.js"></script>
+        <!-- SLIDER -->
+        <script src="{% static 'landriks_asset' %}/js/tiny-slider.js "></script>
+        <!-- tobii js -->
+        <script src="{% static 'landriks_asset' %}/js/tobii.min.js "></script>
+        <!-- Icons -->
+        <script src="{% static 'landriks_asset' %}/js/feather.min.js"></script>
+        <!-- Main Js -->
+        <script src="{% static 'landriks_asset' %}/js/plugins.init.js"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+        <script src="{% static 'landriks_asset' %}/js/app.js"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+    </body>
+</html>

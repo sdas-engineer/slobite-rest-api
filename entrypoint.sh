@@ -9,4 +9,4 @@ while [[ $(nc -z $db_host 5432 &> /dev/null; echo $?) -ne 0 ]]; do echo pod is n
 python manage.py migrate
 python manage.py collectstatic --noinput
 
-gunicorn urbanshefapp.wsgi:application --bind :8000
+gunicorn urbanshefapp.wsgi:application --bind :80

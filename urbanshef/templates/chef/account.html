@@ -1,92 +1,312 @@
 {% extends 'chef/base.html' %}
 {% load crispy_forms_filters %}
-{% block title %} Profile Settings - Urbanshef {% endblock %}
+{% load static %}
+{% block title %} Profile Settings - Slobite {% endblock %}
 {% block script %}
-    <style>
+<style>
     .places {
-    display: none;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6e707e;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #d1d3e2;
-    border-radius: .35rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-    .places-widget > input:first-child{
-        width: 100%!important;
+        display: none;
+        width: 100%;
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6e707e;
+        background-color: #fff;
+        border: 1px solid #d1d3e2;
+        border-radius: .35rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
-    .places-widget > input:nth-child(2) {
-    width: 39%;
-    position: absolute;
+
+
+    /* Overriding input and card fields */
+
+    .form-control,
+    .card,
+    .btn {
+        border-radius: 0 !important;
+    }
+
+    /* Overriding map height */
+
+    #map_location {
+        height: 340px !important;
+    }
+
+
+
+    .places-widget>input:first-child {
+        width: 100% !important;
+    }
+
+    .places-widget>input:nth-child(2) {
+        width: 39%;
+        position: absolute;
         margin-bottom: 10px;
-}
-    .places-widget > input:nth-child(3) {
-    width: 50%;
-    position: relative;
+    }
+
+    .places-widget>input:nth-child(3) {
+        width: 50%;
+        position: relative;
         float: right;
         margin-bottom: 10px;
-}
+    }
 
     .card {
-    padding: 10px 10px 10px 10px;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
-    </style>
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+
+    input[type="checkbox"] {
+        width: 20px !important;
+        height: 20px !important;
+        padding: 10px !important;
+    }
+
+    .form-check-label {
+        margin-left: 10px;
+        margin-top: 3px;
+    }
+
+    .profile-image {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        margin-bottom: 25px;
+    }
+
+    .hygiene-certificate-parent {
+        width: 100%;
+        max-height: 300px;
+        overflow: scroll;
+    }
+
+    #previewFile {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+        overflow: scroll;
+    }
+
+     @media only screen and (max-width: 600px) {
+        .card-body {
+            padding: 5px !important;
+        }
+    }
+</style>
 {% endblock %}
 {% load bootstrap5 %}
 
 {% block page %}
 <div class="col-lg-offset-2 col-lg-12">
-<div class="card">
-<div class="card-body">
-  <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_form user_form %}
-                {% bootstrap_field chef_form.date_of_birth %}
-                {% bootstrap_field chef_form.gender %}
-                {% bootstrap_field chef_form.bio %}
-                {% bootstrap_field chef_form.name %}
-                {% bootstrap_field chef_form.phone %}
-                {% bootstrap_field chef_form.chef_street_address %}
-                {% bootstrap_field chef_form.chef_flat_number %}
-                {% bootstrap_field chef_form.city %}
-                {% bootstrap_field chef_form.postcode %}
-                <div class="mb-3 is-valid">
-                    <label class="form-label" for="id_picture">Picture</label>
-                    <div class="custom-file"><input type="file" name="picture" accept="image/*" class="is-valid custom-file-input" title="" id="id_picture"><label class="custom-file-label" for="id_picture" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    {% if chef.picture.url != '' %}
-                    <div>Current: <a href="{{ chef.picture.url }}" target="_blank">{{ chef.picture }}</a></div>
-                    {% endif %}
+    <div class="card">
+        <div class="card-body">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="profile-pic mt-3 mx-2">
+                    <div class="mb-3 mx-1">
+                        <div class="card shadow-sm row p-4 d-flex flex-row justify-content-between align-items-center">
+                            <div>
+                                <h3 class="pb-4">Profile Photo</h3> 
+                                <div>
+                                    {% if chef.picture.url != '' %}
+                                    <img id="profile-image" src="{{ chef.picture.url  }}" alt="profile-picture"
+                                        class="profile-image">
+
+                                    {% else %}
+                                    {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
+                                    <img id="profile-image" src="{% static 'img/empty-profile-pic.png' %}"
+                                        alt="profile-picture" class="profile-image">
+
+                                    {% endif %}
+                                </div>
+                                <div>
+                                <label class="form-label" for="id_picture"></label>
+                                <div class="custom-file">
+                                    <input type="file" name="picture" accept="image/*"
+                                        class="is-valid custom-file-input" title="" id="id_picture">
+                                    <label class="custom-file-label" for="id_picture"
+                                        aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            
+                            <div class="card shadow-sm p-4 mt-3 mt-md-0">
+                                <h3>Photo Instructions </h3>
+                                1. Ask someone to take a potrait photo of you.<br>
+                                2. Take the photo during daylight or use studio lights.<br>
+                                3. Look at the camera and smile!<br>
+                                4. Don’t use a filter and don’t over edit the photo.
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3 is-valid">
-                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food hygiene certificated</label>
-                    <div class="custom-file">
-                        <input type="file" name="level_2_food_hygiene_certificate" class="is-valid custom-file-input" title="" id="id_level_2_food_hygiene_certificate">
-                        <label class="custom-file-label" for="id_level_2_food_hygiene_certificate" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    {% if chef.level_2_food_hygiene_certificate.url != '' %}
-                        <div>Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}" target="_blank">{{ chef.level_2_food_hygiene_certificate }}</a></div>
-                    {% endif %}
+
+                <div class="row py-3">
+                    <div class="personal-info col-lg-6 d-flex align-items-stretch">
+                        <div class="card shadow-sm">
+                            <h3 class="py-3 px-1 md:px-3 px-1">Personal Information</h3>
+                            <div class="row px-1 md:px-3 px-1">
+                                {% for field in user_form %}
+                                <div class="col-lg-6">
+                                    {% bootstrap_field field %}
+                                </div>
+                                {% endfor %}
+
+                                <div class="col-lg-6">{% bootstrap_field chef_form.date_of_birth %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.gender %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.bio %}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info col-lg-6">
+                        <div class="card shadow-sm">
+                            <h3 class="py-3 px-md-3 px-1">Contact Information</h3>
+                            <div class="row px-md-3 px-1">
+                                <div class="col-lg-6">{% bootstrap_field chef_form.phone %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.chef_flat_number %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.city %}</div>
+                                <div class="col-lg-6">{% bootstrap_field chef_form.postcode %}</div>
+                                <div class="col-lg-12">{% bootstrap_field chef_form.chef_street_address %}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {% bootstrap_field chef_form.authorized_to_work_in_the_UK %}
-                    <button type="submit" class="btn btn-primary mt-2 me-2">Update Account</button>
+
+                <div class="kitchen-info px-2 mx-1">
+                    <div class="row card shadow-sm">
+                        <h3 class="py-3 px-md-3 px-1">Chef Information</h3>
+                        <div class="row px-md-3 px-1">
+                            <div class="col-lg-4">
+                                <div class="mb-3"><label class="form-label" for="id_name">Chef name</label><input
+                                        type="text" name="name" value="{{ chef.name }}" maxlength="500"
+                                        class="form-control" placeholder="Chef Elon" title="" id="id_name">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">{% bootstrap_field chef_form.cuisine %}</div>
+                            <div class="col-lg-4">{% bootstrap_field chef_form.delivery_time %}</div>
+
+
+
+                            <div class="col-lg-4">
+                                <div class="mb-3 is-valid">
+                                    <label class="form-label" for="id_level_2_food_hygiene_certificate">Level 2 food
+                                        hygiene
+                                        certificate</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="level_2_food_hygiene_certificate"
+                                            class="is-valid custom-file-input" title=""
+                                            id="id_level_2_food_hygiene_certificate">
+                                        <label class="custom-file-label" for="id_level_2_food_hygiene_certificate"
+                                            aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                        {% if chef.level_2_food_hygiene_certificate.url != '' %}
+                                        <div id="hygiene-certificate">Current: <a href="{{ chef.level_2_food_hygiene_certificate.url }}"
+                                                target="_blank">{{chef.level_2_food_hygiene_certificate }}</a></div>
+                                        {% endif %}
+
+                                        <!-- Button trigger modal -->
+                                        <button id="see-preview" type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#exampleModal">
+                                        Show Preview
+                                        </button>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pt-4">
+                            <div class="pt-3">
+                                {% bootstrap_field chef_form.authorized_to_work_in_the_UK %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="py-3">
+                    <button type="submit" class="px-md-3 px-1 py-2 btn btn-primary mt-2 me-2">Update Account</button>
                     {{ chef_form.media }}
                     {% if request.user.is_authenticated %}
-                    <a href="{% url 'authorize' %}" class="btn btn-primary mt-2">Payment & Payouts</a>
+                    <a href="{% url 'authorize' %}" class="px-md-3 px-1 py-2 btn btn-primary mt-2">Payment & Payouts</a>
                     {% endif %}
+                </div>
 
-                </form>
+            </form>
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Preview Window</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <embed src="" id="previewFile" /> 
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+</div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+    document.getElementById('see-preview').style.display = "none";
+
+    $("#id_picture").change(function (e) {
+
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+            var file = e.originalEvent.srcElement.files[i];
+
+            var img = document.getElementById("profile-image");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $("#id_level_2_food_hygiene_certificate").change(function (e) {
+
+        document.getElementById('see-preview').style.display = "block";
+
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+            var file = e.originalEvent.srcElement.files[i];
+
+            var img = document.getElementById("previewFile");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    
+
+</script>
 
 {% endblock %}

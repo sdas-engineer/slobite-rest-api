@@ -1,4 +1,3 @@
-{% load tawkto_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,10 +5,10 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Privacy Policy - Urbanshef</title>
+    <title>Privacy Policy - Slobite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Homemade vegan food in Glasgow. Delivered to your home. Order now." />
-    <meta name="keywords" content="Vegan Food in Glasgow" />
+    <meta name="description" content="Our Privacy Policy governs your visit to both Slobite web and mobile application, and explains how we collect, safeguard and disclose information." />
+    <meta name="keywords" content="Privacy policy" />
 
     <!-- favicon -->
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
@@ -39,11 +38,11 @@
               <div class="buy-button">
                 {% if request.user.is_authenticated %}
 
-                <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                 {% else %}
 
-                <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Become a Chef</a>
 
                 {% endif %}
               </div><!--end login button-->
@@ -66,11 +65,11 @@
                   <div class="buy-menu-btn d-none">
                     {% if request.user.is_authenticated %}
 
-                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Chef Dashboard</a>
+                    <a href="{% url 'chef-home' %}" class="btn btn-primary">Profile</a>
 
                     {% else %}
 
-                    <a href="{% url 'chef-login' %}" class="btn btn-primary">Become a chef</a>
+                    <a href="{% url 'become-a-shef' %}" class="btn btn-primary">Apply</a>
 
                     {% endif %}
                   </div><!--end login button-->
@@ -126,14 +125,14 @@
                               <li><strong><u>Introduction</u></strong></li>
                             </ol>
                             <p><u></u>Welcome to&nbsp;<strong>URBANSHEF LTD</strong>.</p>
-                            <p>URBANSHEF LTD&nbsp;(&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates&nbsp;https://www.urbanshef.com and Urbanshef mobile application&nbsp;(hereinafter referred to as &ldquo;<strong>Service</strong>&rdquo;).</p>
-                            <p>Our Privacy Policy governs your visit to&nbsp;https://www.urbanshef.com and Urbanshef mobile application, and explains how we collect, safeguard and disclose information that results from your use of our Service.&nbsp;We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
+                            <p>URBANSHEF LTD&nbsp;(&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates&nbsp;https://www.slobite.com and Slobite mobile application&nbsp;(hereinafter referred to as &ldquo;<strong>Service</strong>&rdquo;).</p>
+                            <p>Our Privacy Policy governs your visit to&nbsp;https://www.slobite.com and Slobite mobile application, and explains how we collect, safeguard and disclose information that results from your use of our Service.&nbsp;We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
                             <p>Our Terms and Conditions (&ldquo;<strong>Terms</strong>&rdquo;) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (&ldquo;<strong>agreement</strong>&rdquo;).</p>
                             <p>&nbsp;</p>
                             <ol start="2">
                               <li><strong><u>Definitions</u></strong></li>
                             </ol>
-                            <p><u></u><strong>SERVICE&nbsp;</strong>means the&nbsp;https://www.urbanshef.com website and Urbanshef mobile application&nbsp;operated by&nbsp;URBANSHEF LTD.</p>
+                            <p><u></u><strong>SERVICE&nbsp;</strong>means the&nbsp;https://www.Slobite.com website and Slobite mobile application&nbsp;operated by&nbsp;URBANSHEF LTD.</p>
                             <p><strong>PERSONAL DATA</strong>&nbsp;means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</p>
                             <p><strong>USAGE DATA</strong>&nbsp;is data collected automatically either generated by the use of Service or from Service infrastructure itself (for example, the duration of a page visit).</p>
                             <p><strong>COOKIES</strong>&nbsp;are small files stored on your device (computer or mobile device).</p>
@@ -299,7 +298,7 @@
                             </ol>
                             <p><u></u>If you are a resident of the European Union (EU) and European Economic Area (EEA), you have certain data protection rights, covered by GDPR. &ndash; See more at https://eur-lex.europa.eu/eli/reg/2016/679/oj</p>
                             <p>We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.</p>
-                            <p>If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please email us at info@urbanshef.com.</p>
+                            <p>If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please email us at info@slobite.com.</p>
                             <p>In certain circumstances, you have the following data protection rights:</p>
                             <p>&nbsp;</p>
                             <ul>
@@ -406,7 +405,7 @@
                               <li><strong><u>Contact Us</u></strong></li>
                             </ol>
                             <p><u></u>If you have any questions about this Privacy Policy, please contact us:</p>
-                            <p>By email: info@urbanshef.com.</p>
+                            <p>By email: info@slobite.com.</p>
                             <p>&nbsp;</p>
 
                               <a href="javascript:window.print()" class="btn btn-soft-primary d-print-none">Print</a>
@@ -427,11 +426,11 @@
                             <a href="/" class="logo-footer">
                                 <img src="{% static 'img/logo-light.png' %}" height="24" alt="">
                             </a>
-                            <p class="mt-4">Wholesome and delicious vegan meals <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
+                            <p class="mt-4">Wholesome and delicious homemade food <br>prepared by certified local chefs, delivered <br>at your doorsteps.</p>
                             <ul class="list-unstyled social-icon social mb-0 mt-4">
-                                <li class="list-inline-item"><a href="https://www.facebook.com/Urbanshef-104455021679195" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="https://www.instagram.com/urbanshef/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
-                                <li class="list-inline-item"><a href="https://twitter.com/urbanshef" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.facebook.com/slobite" target="_blank"  class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://www.instagram.com/slobitedotcom/" target="_blank" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social"></i></a></li>
+                                <li class="list-inline-item"><a href="https://twitter.com/slobitedotcom" target="_blank" class="rounded"><i data-feather="twitter" class="fea icon-sm fea-social"></i></a></li>
                             </ul><!--end icon-->
                         </div><!--end col-->
 
@@ -439,8 +438,8 @@
                             <h5 class="text-light footer-head">Company</h5>
                             <ul class="list-unstyled footer-list mt-4">
                                 <li><a href="{% url 'food-safety' %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Food Safety</a></li>
-                                <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Resources</a></li>
-                                <li><a href="https://urbanshef.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i>Help Centre</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/1PlI-0gcLeKzdhSbLe9eduEbgkNqBPtX9" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Resources</a></li>
+                                <li><a href="https://slobite.tawk.help/" target="_blank" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Help Centre</a></li>
 
                             </ul>
                         </div><!--end col-->
@@ -455,9 +454,9 @@
                         </div><!--end col-->
 
                         <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                            <h5 class="text-light footer-head">Download Apps</h5>
-                            <a href="javascript:void(0)" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Coming soon</a>
-                            <a href="javascript:void(0)" class="btn btn-primary mt-2 me-2"><i class="uil uil-apple"></i> Coming soon</a>
+                            <h5 class="text-light footer-head">Download App</h5>
+                            <a href="https://play.google.com/store/apps/details?id=com.urbanshef.urbanshefapp" target="_blank" class="btn btn-primary mt-2"><i class="uil uil-google-play"></i> Play Store</a>
+                            
                         </div><!--end col-->
                     </div><!--end row-->
                 </div><!--end container-->
@@ -467,7 +466,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="text-sm-start">
-                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Urbanshef LTD. All Rights Reserved.</p>
+                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Slobite. All Rights Reserved.</p>
                             </div>
                         </div><!--end col-->
 
@@ -491,20 +490,6 @@
             <script src="{% static 'js/app.js' %}"></script>
             <!-- JQuery -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <!-- Sendgrid Subscribe -->
-            <script type="text/javascript" src="//sgwidget.leaderapps.co/js/sendgrid-widget.js"></script>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-189136004-1"></script>
-            <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('set', {'user_id': 'USER_ID'});
-            ga('set', 'userId', 'USER_ID');
-            gtag('config', 'UA-189136004-1');
-            </script>
-
-            {% tawkto_script %}
-
+            
         </body>
 </html>

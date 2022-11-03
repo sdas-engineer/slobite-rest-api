@@ -1,16 +1,21 @@
 {% extends 'base_signup.html' %}
 {% load bootstrap5 %}
 
-{% block title %} Become a chef - Urbanshef {% endblock %}
+{% block title %} Become a chef - Slobite {% endblock %}
 {% block heading %}Become a chef{% endblock %}
 
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">{{ message }}</div>
+            {% endfor %}
+    {% endif %}
     <form method="POST" class="login-form mt-4">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">First name <span class="text-danger">*</span></label>
+                    <label class="form-label">First Name <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="user" class="fea icon-sm icons"></i>
                         <input type="text" name="first_name" maxlength="150" class="form-control ps-5"
@@ -20,7 +25,7 @@
             </div><!--end col-->
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Last name <span class="text-danger">*</span></label>
+                    <label class="form-label">Last Name <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <i data-feather="user-check" class="fea icon-sm icons"></i>
                         <input type="text" name="last_name" maxlength="150" class="form-control ps-5"
@@ -61,15 +66,26 @@
             </div><!--end col-->
             <div class="col-md-12">
                 <div class="mb-3">
-                    <label class="form-label" for="kithen_name">Kitchen Name <span class="text-danger">*</span></label>
+                    <label class="form-label" for="phone_number">Mobile Number <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
-                        <i data-feather="home" class="fea icon-sm icons"></i>
-                        <input type="text" name="kitchen_name" class="form-control ps-5" placeholder="Elon's Burritos" title=""
-                               required="" id="kithen_name">
+                        <i data-feather="phone" class="fea icon-sm icons"></i>
+                        <input type="tel" name="phone_number" class="form-control ps-5" placeholder="Enter mobile number"
+                               title=""
+                               required="" id="phone_number">
                     </div>
                 </div>
             </div><!--end col-->
-
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" name="agree_terms_and_condition" class="form-check-input"
+                               id="id_agree_terms_and_condition" required>
+                        <label class="form-check-label" for="id_agree_terms_and_condition">I agree to the Slobite <a
+                                href="{% url 'terms' %}" target="_blank">Terms and
+                            Conditions</a></label>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-12">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Register</button>

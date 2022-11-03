@@ -1,38 +1,121 @@
 {% extends 'chef/base.html' %}
-{% block title %} Edit Meal - Urbanshef {% endblock %}
+{% load static %}
+{% block title %} Edit Meal - Slobite {% endblock %}
 {% load bootstrap5 %}
 
 {% block page %}
+<style>
+    #image-preview {
+        width: 310px;
+        height: 171px;
+        object-fit: cover;
+    }
+
+    .card {
+        flex-direction: row !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .card-body {
+            padding: 5px !important;
+        }
+
+        #image-preview {
+            width: 310px;
+            height: 171px;
+            object-fit: cover;
+        }
+    }
+
+    /* Overriding input and card fields */
+
+    .form-control,
+    .card,
+    .btn {
+        border-radius: 0 !important;
+    }
+</style>
 <div class="col-lg-offset-3 col-lg-12">
-<div class="card">
-<div class="card-body">
-  <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Edit Meal</h1>
+    <div class="card">
+        <div class="card-body">
 
+            <!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800 mx-2 mt-2">Edit Meal</h1>
+            <form method="POST" enctype="multipart/form-data" class="row mx-2">
+                {% csrf_token %}
+                <div class="col-lg-9 d-flex align-items-stretch">
+                    <div class="row card shadow-sm p-3 px-md-4">
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.name %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.short_description %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.price %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.portion_size %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.food_type %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.spicy %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.diet %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.cuisine %}</div>
+                        <div class="col-xl-4 col-md-6">{% bootstrap_field form.availability %}</div>
+                    </div>
+                </div>
 
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_field form.name %}
-        {% bootstrap_field form.short_description %}
-        <div class="mb-3 is-valid">
-            <label class="form-label" for="id_image">Image</label>
-            <div class="custom-file">
-                <input type="file" name="image" class="is-valid custom-file-input" title="" id="id_image">
-                <label class="custom-file-label" for="id_image" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                {% if meal.image.url != '' %}
-                        <div>Current: <a href="{{ meal.image.url }}" target="_blank">{{ meal.image.url }}</a></div>
-                    {% endif %}
-            </div>
+                <div class="col-lg-3 d-flex align-items-stretch px-md-4">
+                    <div class="row mt-3 mt-md-0 card shadow-sm p-3">
+                        <div class="col-md-12">{% bootstrap_field form.allergen %}</div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row card shadow-sm px-2 my-3 py-4">
+                        <div class="col-md-12 mb-3 is-valid">
+                            <label class="form-label" for="id_image">Image</label>
+                            <div class="custom-file">
+                                <input type="file" name="image" class="is-valid custom-file-input" title=""
+                                    id="id_image">
+                                <label class="custom-file-label" for="id_image"
+                                    aria-describedby="inputGroupFileAddon02">Choose
+                                    file</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 image-preview">
+                            <label class="form-label pt-1">Image Preview</label>
+                            <div>
+                                {% if meal.image.url != '' %}
+                                <img id="image-preview" src="{{ meal.image.url }}" alt="Image Preview"
+                                    class="image-preview">
+
+                                {% else %}
+                                {% comment %} If there is no image, this is gonna be the default image {% endcomment %}
+                                <img id="image-preview" src="{% static 'media/chef_logo/Sidharth.jpeg' %}"
+                                    alt="Image Preview" class="Image Preview">
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <button type="submit" class="btn btn-primary mb-4">Update Meal</button>
+                </div>
+            </form>
         </div>
-        {% bootstrap_field form.price %}
-        {% bootstrap_field form.portion_size %}
-        {% bootstrap_field form.food_type %}
-        {% bootstrap_field form.allergen %}
-        {% bootstrap_field form.cuisine %}
-        {% bootstrap_field form.availability %}
-                    <button type="submit" class="btn btn-primary">Update Meal</button>
-                </form>
+    </div>
 </div>
-</div>
-</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $("#id_image").change(function (e) {
+
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+            var file = e.originalEvent.srcElement.files[i];
+
+            var img = document.getElementById("image-preview");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 {% endblock %}
